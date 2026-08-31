@@ -20,7 +20,7 @@
 
         header { background-color: #1a1a2e; color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
-        nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; opacity: 0.8; transition: opacity 0.2s; }
+        nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; opacity: 0.8; transition: opacity 0.2s; cursor: pointer; }
         nav a:hover { opacity: 1; }
 
         /* Mountain Hero Section */
@@ -49,6 +49,12 @@
         
         .success-msg { display: none; background-color: #d4edda; color: #155724; padding: 20px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 1.2rem; margin-top: 20px; border: 1px solid #c3e6cb; }
 
+        /* Archive View Styling */
+        #archive-view { display: none; }
+        .archive-card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 4px solid #4A90E2; }
+        .archive-meta { font-size: 0.85rem; color: #888; margin-bottom: 5px; display: flex; justify-content: space-between; }
+        .archive-text { font-size: 1.05rem; color: #333; }
+
         footer { text-align: center; padding: 30px; background-color: #1a1a2e; color: white; margin-top: 40px; font-size: 0.9rem; opacity: 0.9; }
     </style>
 </head>
@@ -69,36 +75,49 @@
         <header>
             <div class="logo">DailyConnection</div>
             <nav>
-                <a href="#">Home</a>
-                <a href="#">Past Answers</a>
+                <a onclick="switchView('home')">Home</a>
+                <a onclick="switchView('archive')">Past Answers</a>
             </nav>
         </header>
 
-        <section class="hero">
-            <div class="timer" id="timer">Next prompt in: 00:00:00</div>
-            <div class="question" id="question-display">Loading today's prompt...</div>
-        </section>
+        <!-- VIEW 1: HOME (QUESTION + FORM) -->
+        <div id="home-view">
+            <section class="hero">
+                <div class="timer" id="timer">Next prompt in: 00:00:00</div>
+                <div class="question" id="question-display">Loading today's prompt...</div>
+            </section>
 
-        <main>
-            <p class="intro-text">Take a few minutes to reflect and drop your thoughts below. Answers are logged securely to the shared archive.</p>
-            
-            <div class="form-group">
-                <label for="user-select">Who is answering?</label>
-                <select id="user-select">
-                    <option value="" disabled selected>Select your profile...</option>
-                    <option value="Person A">Person A</option>
-                    <option value="Person B">Person B</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="answer-text">Your thoughts</label>
-                <textarea id="answer-text" placeholder="Write as much or as little as you want..."></textarea>
-            </div>
-            
-            <button onclick="submitAnswer()" id="submit-btn">Submit Answer</button>
-            <div class="success-msg" id="success-msg">Your answer has been securely logged!</div>
-        </main>
+            <main>
+                <p class="intro-text">Take a few minutes to reflect and drop your thoughts below. Answers are logged securely to the shared archive.</p>
+                
+                <div class="form-group">
+                    <label for="user-select">Who is answering?</label>
+                    <select id="user-select">
+                        <option value="" disabled selected>Select your profile...</option>
+                        <option value="Person A">Person A</option>
+                        <option value="Person B">Person B</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="answer-text">Your thoughts</label>
+                    <textarea id="answer-text" placeholder="Write as much or as little as you want..."></textarea>
+                </div>
+                
+                <button onclick="submitAnswer()" id="submit-btn">Submit Answer</button>
+                <div class="success-msg" id="success-msg">Your answer has been securely logged!</div>
+            </main>
+        </div>
+
+        <!-- VIEW 2: PAST ANSWERS ARCHIVE -->
+        <div id="archive-view">
+            <main style="padding-top: 40px;">
+                <h2 style="margin-bottom: 25px; color: #1a1a2e; text-align: center;">Shared Answer Archive</h2>
+                <div id="archive-container">
+                    <p style="text-align: center; color: #666;">Loading past answers...</p>
+                </div>
+            </main>
+        </div>
 
         <footer>
             &copy; 2026 DailyConnection. All rights reserved.
@@ -117,7 +136,7 @@
             if (input === SITE_PASSWORD) {
                 document.getElementById("login-overlay").style.display = "none";
                 document.getElementById("app-content").style.display = "block";
-                fetchQuestion();
+                fetchAppData();
                 updateTimer();
                 setInterval(updateTimer, 1000);
             } else {
@@ -131,13 +150,48 @@
             }
         }
 
-        async function fetchQuestion() {
+        function switchView(view) {
+            const home = document.getElementById("home-view");
+            const archive = document.getElementById("archive-view");
+            if (view === 'home') {
+                home.style.display = "block";
+                archive.style.display = "none";
+            } else {
+                home.style.display = "none";
+                archive.style.display = "block";
+                fetchAppData(); // Refresh archive data when clicked
+            }
+        }
+
+        async function fetchAppData() {
             try {
                 const response = await fetch(API_URL);
                 const data = await response.json();
+                
+                // Set Question
                 document.getElementById("question-display").innerText = data.question || "No active question.";
+                
+                // Build Archive List
+                const container = document.getElementById("archive-container");
+                if (data.history && data.history.length > 0) {
+                    container.innerHTML = "";
+                    // Reverse to show newest answers at the top
+                    data.history.reverse().forEach(item => {
+                        container.innerHTML += `
+                            <div class="archive-card">
+                                <div class="archive-meta">
+                                    <span><strong>${item.user}</strong></span>
+                                    <span>${item.date}</span>
+                                </div>
+                                <div class="archive-text">${item.answer}</div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    container.innerHTML = `<p style="text-align: center; color: #666;">No past answers logged yet.</p>`;
+                }
             } catch (error) {
-                document.getElementById("question-display").innerText = "Failed to load question.";
+                document.getElementById("question-display").innerText = "Failed to load data.";
             }
         }
 

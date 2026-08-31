@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Prompt</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding: 40px 20px; margin: 0; }
+        .card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); max-width: 500px; width: 100%; text-align: center; }
+        .timer { font-size: 0.9em; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        .question { font-size: 1.6em; font-weight: 600; color: #2c3e50; margin-bottom: 30px; line-height: 1.4; }
+        select, textarea { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; font-size: 1em; box-sizing: border-box; font-family: inherit; }
+        textarea { resize: vertical; min-height: 120px; }
+        button { background-color: #007bff; color: white; border: none; padding: 14px 24px; font-size: 1em; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; transition: background 0.2s; }
+        button:hover { background-color: #0056b3; }
+        .success-msg { display: none; color: #28a745; font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="timer" id="timer">Next prompt in: 00:00:00</div>
+        <div class="question" id="question-display">Loading today's prompt...</div>
+        
+        <select id="user-select">
+            <option value="" disabled selected>Who is answering?</option>
+            <option value="Robert">Robert</option>
+            <option value="Sierra">Sierra</option>
+        </select>
+        
+        <textarea id="answer-text" placeholder="Type your answer here..."></textarea>
+        
+        <button onclick="submitAnswer()" id="submit-btn">Submit Answer</button>
+        <div class="success-msg" id="success-msg">Answer locked in!</div>
+    </div>
+
+    <script>
+        // PASTE YOUR GOOGLE APPS SCRIPT URL HERE
+        const API_URL = "https://script.google.com/macros/s/AKfycbysuuhMbUCSrEysYKacoUhMBI2tL2CwTz5X5USj7EBR7Em_OjDwgcYV8hJV5GmRqFcOCQ/exec"; 
+
+        async function fetchQuestion() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                document.getElementById("question-display").innerText = data.question || "No active question.";
+            } catch (error) {
+                document.getElementById("question-display").innerText = "Failed to load question.";
+            }
+        }
+
+        async function submitAnswer() {
+            const user = document.getElementById("user-select").value;
+            const answer = document.getElementById("answer-text").value;
+            const btn = document.getElementById("submit-btn");
+
+            if (!user || !answer) {
+                alert("Please select your name and write an answer.");
+                return;
+            }
+
+            btn.innerText = "Submitting...";
+            btn.disabled = true;
+
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ user: user, answer: answer })
+                });
+                
+                document.getElementById("user-select").value = "";
+                document.getElementById("answer-text").value = "";
+                btn.style.display = "none";
+                document.getElementById("success-msg").style.display = "block";
+            } catch (error) {
+                alert("Error saving answer. Try again.");
+                btn.innerText = "Submit Answer";
+                btn.disabled = false;
+            }
+        }
+
+        function updateTimer() {
+            const now = new Date();
+            const midnight = new Date(now);
+            midnight.setHours(24, 0, 0, 0);
+            const diff = midnight - now;
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
+            const m = Math.floor((diff / 1000 / 60) % 60).toString().padStart(2, '0');
+            const s = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+            document.getElementById("timer").innerText = `Next prompt in: ${h}:${m}:${s}`;
+        }
+
+        fetchQuestion();
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>

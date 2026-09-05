@@ -94,8 +94,8 @@
                     <label for="user-select">Who is answering?</label>
                     <select id="user-select">
                         <option value="" disabled selected>Select your profile...</option>
-                        <option value="Sierra">Sierra</option>
-                        <option value="Bobby">Bobby</option>
+                        <option value="Person A">Person A</option>
+                        <option value="Person B">Person B</option>
                     </select>
                 </div>
                 
@@ -125,9 +125,9 @@
     </div>
 
     <script>
-        // PASTE YOUR GOOGLE APPS SCRIPT URL HERE
-        const API_URL = "https://script.google.com/macros/s/AKfycbysuuhMbUCSrEysYKacoUhMBI2tL2CwTz5X5USj7EBR7Em_OjDwgcYV8hJV5GmRqFcOCQ/exec"; 
-        const SITE_PASSWORD = "bobbylikessierra"; // <-- CHANGE THIS TO YOUR PASSWORD
+        // CONFIGURATION
+        const API_URL = "YOUR_WEB_APP_URL"; 
+        const SITE_PASSWORD = "secret123"; 
 
         function checkPassword() {
             const input = document.getElementById("password-input").value;
@@ -159,23 +159,23 @@
             } else {
                 home.style.display = "none";
                 archive.style.display = "block";
-                fetchAppData(); // Refresh archive data when clicked
+                fetchAppData(); 
             }
         }
 
         async function fetchAppData() {
             try {
-                const response = await fetch(API_URL);
+                // Timestamp bypasses browser caching
+                const response = await fetch(API_URL + "?t=" + new Date().getTime());
                 const data = await response.json();
                 
                 // Set Question
                 document.getElementById("question-display").innerText = data.question || "No active question.";
                 
-                // Build Archive List
+                // Build Archive List with Questions
                 const container = document.getElementById("archive-container");
                 if (data.history && data.history.length > 0) {
                     container.innerHTML = "";
-                    // Reverse to show newest answers at the top
                     data.history.reverse().forEach(item => {
                         container.innerHTML += `
                             <div class="archive-card">
@@ -183,6 +183,7 @@
                                     <span><strong>${item.user}</strong></span>
                                     <span>${item.date}</span>
                                 </div>
+                                <div style="font-weight: 600; color: #4A90E2; margin-bottom: 8px; font-size: 0.95rem;">"${item.question}"</div>
                                 <div class="archive-text">${item.answer}</div>
                             </div>
                         `;

@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Between Us</title>
 
+
 <style>
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+
 :root {
+
     --bg: #f8f5f1;
     --card: #fffdfb;
     --card-soft: #f6efeb;
@@ -30,176 +40,277 @@
     --muted: #7c858a;
     --border: #e8dfda;
 
-    --shadow: 0 8px 28px rgba(50, 42, 38, 0.07);
+    --shadow:
+        0 8px 28px rgba(50,42,38,.07);
 }
 
+
 body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+
     background: var(--bg);
+
     color: var(--text);
+
     min-height: 100vh;
 }
+
 
 button,
 select,
 textarea,
 input {
+
     font: inherit;
 }
+
 
 button {
     cursor: pointer;
 }
 
 
-/* LOGIN */
+/* =========================================
+   LOGIN
+   ========================================= */
 
 #login-overlay {
+
     position: fixed;
     inset: 0;
+
     z-index: 9999;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     padding: 24px;
 
     background:
+
         linear-gradient(
-            rgba(30, 47, 51, 0.42),
-            rgba(30, 47, 51, 0.58)
+            rgba(30,47,51,.42),
+            rgba(30,47,51,.58)
         ),
-        url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2000&q=85");
+
+        url(
+            "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2000&q=85"
+        );
 
     background-size: cover;
+
     background-position: center;
 }
 
+
 .login-card {
+
     width: 100%;
+
     max-width: 430px;
 
-    background: rgba(255, 253, 251, 0.96);
+    background:
+        rgba(255,253,251,.96);
 
     padding: 42px 38px;
 
     border-radius: 24px;
 
-    box-shadow: 0 24px 80px rgba(0,0,0,.22);
+    box-shadow:
+        0 24px 80px rgba(0,0,0,.22);
 
     text-align: center;
 }
 
+
 .login-heart {
+
     font-size: 42px;
+
     color: var(--rose);
+
     margin-bottom: 10px;
 }
 
+
 .login-card h1 {
-    font-family: Georgia, "Times New Roman", serif;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
     font-size: 34px;
+
     margin-bottom: 8px;
 }
 
+
 .login-card p {
+
     color: var(--muted);
+
     margin-bottom: 28px;
 }
 
+
 .login-card input {
+
     width: 100%;
+
     padding: 15px 16px;
-    border: 1px solid var(--border);
+
+    border:
+        1px solid var(--border);
+
     border-radius: 12px;
+
     background: white;
+
     outline: none;
+
     margin-bottom: 14px;
 }
 
+
 .login-card input:focus {
+
     border-color: var(--rose);
-    box-shadow: 0 0 0 3px rgba(185,111,101,.12);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(185,111,101,.12);
 }
 
+
 .login-card button {
+
     width: 100%;
+
     border: none;
+
     border-radius: 12px;
+
     padding: 15px 20px;
+
     background: var(--teal);
+
     color: white;
+
     font-weight: 700;
 }
 
+
 .login-card button:hover {
+
     background: var(--teal-dark);
 }
 
+
 .login-error {
+
     display: none;
+
     margin-top: 14px;
+
     color: #a54242;
+
     font-size: 14px;
 }
 
 
-/* APP */
+/* =========================================
+   APP
+   ========================================= */
 
 #app-content {
     display: none;
 }
 
+
 header {
+
     height: 76px;
 
-    background: rgba(255,253,251,.95);
+    background:
+        rgba(255,253,251,.95);
 
-    border-bottom: 1px solid var(--border);
+    border-bottom:
+        1px solid var(--border);
 
     display: flex;
+
     align-items: center;
 
     padding: 0 5%;
 }
 
+
 .header-inner {
+
     width: 100%;
+
     max-width: 1500px;
 
     margin: auto;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     gap: 30px;
 }
 
+
 .logo {
+
     display: flex;
+
     align-items: center;
+
     gap: 11px;
 
-    font-family: Georgia, "Times New Roman", serif;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
     font-size: 25px;
+
     font-weight: 700;
 
     white-space: nowrap;
 }
 
+
 .logo-heart {
+
     color: var(--rose);
+
     font-size: 28px;
 }
 
+
 nav {
+
     display: flex;
+
     gap: 28px;
 }
 
+
 nav a {
+
     text-decoration: none;
 
     color: var(--muted);
@@ -208,36 +319,55 @@ nav a {
 
     cursor: pointer;
 
-    padding: 27px 4px 23px;
+    padding:
+        27px 4px 23px;
 
-    border-bottom: 3px solid transparent;
+    border-bottom:
+        3px solid transparent;
 }
+
 
 nav a:hover,
 nav a.active {
+
     color: var(--text);
+
     border-color: var(--rose);
 }
 
+
 .header-note {
-    font-family: Georgia, "Times New Roman", serif;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
     font-style: italic;
+
     color: var(--muted);
 }
 
 
-/* PAGE */
+/* =========================================
+   PAGE
+   ========================================= */
 
 .page {
+
     width: 100%;
+
     max-width: 1500px;
 
     margin: auto;
 
-    padding: 22px 5% 60px;
+    padding:
+        22px 5% 60px;
 }
 
+
 .home-grid {
+
     display: grid;
 
     grid-template-columns:
@@ -247,30 +377,43 @@ nav a.active {
     gap: 20px;
 }
 
+
 .main-column {
+
     min-width: 0;
 }
 
 
-/* QUESTION */
+/* =========================================
+   QUESTION HERO
+   ========================================= */
 
 .question-hero {
+
     position: relative;
+
     overflow: hidden;
 
     min-height: 300px;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
+
     border-radius: 24px;
 
     background:
+
         linear-gradient(
             rgba(255,246,241,.82),
             rgba(255,246,241,.91)
         ),
-        url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1800&q=80");
+
+        url(
+            "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1800&q=80"
+        );
 
     background-size: cover;
+
     background-position: center 52%;
 
     box-shadow: var(--shadow);
@@ -278,45 +421,66 @@ nav a.active {
     padding: 42px 52px;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     justify-content: center;
 
     text-align: center;
 }
 
+
 .question-topline {
+
     width: 100%;
 
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
     position: absolute;
+
     left: 0;
     top: 0;
 
     padding: 28px 36px;
 }
 
+
 .today-label {
+
     color: var(--rose-dark);
+
     font-weight: 700;
 }
 
+
 .question-number {
+
     color: var(--muted);
+
     font-size: 14px;
 }
 
+
 .question {
+
     max-width: 900px;
 
-    font-family: Georgia, "Times New Roman", serif;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-    font-size: clamp(31px,4vw,52px);
+    font-size:
+        clamp(31px,4vw,52px);
 
     font-weight: 500;
+
     line-height: 1.16;
 
     color: #1f292d;
@@ -324,7 +488,9 @@ nav a.active {
     margin-top: 26px;
 }
 
+
 .question-subtitle {
+
     margin-top: 20px;
 
     color: var(--muted);
@@ -333,21 +499,30 @@ nav a.active {
 }
 
 
-/* ANSWERS */
+/* =========================================
+   ANSWERS
+   ========================================= */
 
 .answer-grid {
+
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
 
     gap: 18px;
 
     margin-top: 18px;
 }
 
+
 .answer-card {
+
     background: var(--card);
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
+
     border-radius: 22px;
 
     padding: 25px;
@@ -357,73 +532,119 @@ nav a.active {
     min-height: 355px;
 }
 
+
 .answer-card-header {
+
     display: flex;
+
     align-items: center;
 
     margin-bottom: 20px;
 }
 
+
 .answer-title {
+
     display: flex;
+
     align-items: center;
 
     gap: 12px;
 }
 
+
 .avatar {
+
     width: 48px;
+
     height: 48px;
 
     border-radius: 50%;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
-    background: var(--rose-light);
-    color: var(--rose-dark);
+    background:
+        var(--rose-light);
+
+    color:
+        var(--rose-dark);
 
     font-weight: 800;
 }
 
+
 .avatar.partner {
-    background: var(--teal-light);
-    color: var(--teal-dark);
+
+    background:
+        var(--teal-light);
+
+    color:
+        var(--teal-dark);
 }
 
+
 .answer-title h3 {
-    font-family: Georgia, "Times New Roman", serif;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
     font-size: 21px;
+
     margin-bottom: 2px;
 }
 
+
 .answer-title span {
+
     color: var(--muted);
+
     font-size: 13px;
 }
 
-.person-select {
+
+.person-select,
+.note-select,
+.mailbox-select {
+
     width: 100%;
 
     padding: 13px 14px;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
+
     border-radius: 12px;
 
-    margin-bottom: 14px;
-
     background: white;
+
+    color: var(--text);
 
     outline: none;
 }
 
+
+.person-select {
+
+    margin-bottom: 14px;
+}
+
+
 .person-select:disabled {
+
     background: #f7f3ef;
+
     opacity: 1;
 }
 
+
 textarea {
+
     width: 100%;
 
     min-height: 145px;
@@ -432,7 +653,9 @@ textarea {
 
     padding: 16px;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
+
     border-radius: 14px;
 
     background: white;
@@ -444,47 +667,64 @@ textarea {
     outline: none;
 }
 
+
 textarea:disabled {
+
     background: #fbf9f7;
+
     color: var(--text);
+
     opacity: 1;
 }
 
+
 textarea:focus,
-.person-select:focus,
-.jar-input:focus {
+select:focus {
+
     border-color: var(--rose);
 
     box-shadow:
-        0 0 0 3px rgba(185,111,101,.1);
+        0 0 0 3px
+        rgba(185,111,101,.1);
 }
 
+
 .submit-btn {
+
     width: 100%;
 
     margin-top: 14px;
 
     border: none;
+
     border-radius: 13px;
 
     padding: 14px 18px;
 
     background: var(--teal);
+
     color: white;
 
     font-weight: 700;
 }
 
+
 .submit-btn:hover {
+
     background: var(--teal-dark);
 }
 
+
 .submit-btn:disabled {
+
     opacity: .6;
+
     cursor: not-allowed;
 }
 
+
 .success-box {
+
     display: none;
 
     margin-top: 15px;
@@ -494,19 +734,26 @@ textarea:focus,
     border-radius: 12px;
 
     background: #e8f2ed;
+
     color: #35644e;
 
     text-align: center;
+
     font-weight: 600;
 }
 
 
-/* PARTNER ANSWER */
+/* =========================================
+   PARTNER ANSWER
+   ========================================= */
 
 .partner-answer-box {
+
     min-height: 210px;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
+
     border-radius: 15px;
 
     background: white;
@@ -514,7 +761,9 @@ textarea:focus,
     padding: 20px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     text-align: center;
@@ -522,18 +771,23 @@ textarea:focus,
     color: var(--muted);
 }
 
+
 .partner-answer-text {
+
     width: 100%;
 
     color: var(--text);
 
     font-size: 17px;
+
     line-height: 1.7;
 
     text-align: left;
 }
 
+
 .hidden-heart {
+
     display: block;
 
     color: var(--rose);
@@ -543,36 +797,48 @@ textarea:focus,
     margin-bottom: 12px;
 }
 
+
 .small-note {
+
     margin-top: 14px;
 
     padding: 12px 14px;
 
     border-radius: 12px;
 
-    background: var(--teal-light);
-    color: var(--teal-dark);
+    background:
+        var(--teal-light);
+
+    color:
+        var(--teal-dark);
 
     font-size: 14px;
+
     font-style: italic;
 }
 
 
-/* WANT ANOTHER */
+/* =========================================
+   WANT ANOTHER QUESTION
+   ========================================= */
 
 .next-question-card {
+
     display: none;
 
     margin-top: 18px;
 
     background:
+
         linear-gradient(
             135deg,
             #fff9f5,
             #f5eeea
         );
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
+
     border-radius: 22px;
 
     padding: 26px 28px;
@@ -580,46 +846,62 @@ textarea:focus,
     box-shadow: var(--shadow);
 
     align-items: center;
+
     justify-content: space-between;
 
     gap: 24px;
 }
 
+
 .next-question-eyebrow {
+
     color: var(--rose-dark);
 
     font-size: 12px;
+
     font-weight: 800;
 
     text-transform: uppercase;
+
     letter-spacing: 1px;
 
     margin-bottom: 6px;
 }
 
+
 .next-question-card h3 {
-    font-family: Georgia, "Times New Roman", serif;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
     font-size: 26px;
 
     margin-bottom: 5px;
 }
 
+
 .next-question-card p {
+
     color: var(--muted);
 
     line-height: 1.5;
 }
 
+
 .next-question-button {
+
     min-width: 205px;
 
     border: none;
+
     border-radius: 14px;
 
     padding: 15px 20px;
 
     background: var(--rose);
+
     color: white;
 
     font-weight: 700;
@@ -627,29 +909,42 @@ textarea:focus,
     white-space: nowrap;
 }
 
+
 .next-question-button:hover {
+
     background: var(--rose-dark);
 }
 
+
 .next-question-button:disabled {
+
     opacity: .6;
+
     cursor: not-allowed;
 }
 
 
-/* SIDEBAR */
+/* =========================================
+   SIDEBAR
+   ========================================= */
 
 .sidebar {
+
     display: flex;
+
     flex-direction: column;
 
     gap: 18px;
 }
 
+
 .sidebar-card {
+
     background: var(--card);
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
+
     border-radius: 22px;
 
     padding: 24px;
@@ -657,43 +952,63 @@ textarea:focus,
     box-shadow: var(--shadow);
 }
 
+
 .sidebar-card h3 {
-    font-family: Georgia, "Times New Roman", serif;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
     font-size: 20px;
 
     margin-bottom: 19px;
 }
 
+
 .journey-stat {
+
     display: flex;
 
     justify-content: space-between;
+
     align-items: center;
 
     padding: 13px 0;
 
-    border-bottom: 1px solid #eee7e2;
+    border-bottom:
+        1px solid #eee7e2;
 }
 
+
 .journey-stat:last-child {
+
     border-bottom: none;
 }
 
+
 .journey-stat span:first-child {
+
     color: var(--muted);
 }
 
+
 .journey-stat strong {
+
     color: var(--teal);
+
     font-size: 19px;
 }
 
 
-/* JAR */
+/* =========================================
+   QUESTION JAR
+   ========================================= */
 
 .jar-card {
+
     background:
+
         linear-gradient(
             145deg,
             #fffdfb,
@@ -701,8 +1016,11 @@ textarea:focus,
         );
 }
 
-.jar-heading {
+
+.section-heading {
+
     display: flex;
+
     align-items: center;
 
     gap: 10px;
@@ -710,27 +1028,39 @@ textarea:focus,
     margin-bottom: 8px;
 }
 
-.jar-icon {
+
+.section-icon {
+
     width: 38px;
+
     height: 38px;
 
     border-radius: 50%;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
-    background: var(--rose-light);
-    color: var(--rose-dark);
+    background:
+        var(--rose-light);
+
+    color:
+        var(--rose-dark);
 
     font-size: 20px;
 }
 
-.jar-heading h3 {
+
+.section-heading h3 {
+
     margin-bottom: 0;
 }
 
-.jar-description {
+
+.sidebar-description {
+
     color: var(--muted);
 
     line-height: 1.6;
@@ -740,49 +1070,56 @@ textarea:focus,
     margin-bottom: 16px;
 }
 
+
 .jar-input {
-    width: 100%;
 
     min-height: 100px;
-
-    resize: vertical;
-
-    padding: 13px 14px;
-
-    border: 1px solid var(--border);
-    border-radius: 12px;
-
-    background: white;
-
-    outline: none;
 }
 
-.jar-button {
+
+.jar-button,
+.note-send-button,
+.open-note-button {
+
     width: 100%;
 
     margin-top: 11px;
 
     border: none;
+
     border-radius: 12px;
 
     padding: 13px 15px;
 
     background: var(--rose);
+
     color: white;
 
     font-weight: 700;
 }
 
-.jar-button:hover {
+
+.jar-button:hover,
+.note-send-button:hover,
+.open-note-button:hover {
+
     background: var(--rose-dark);
 }
 
-.jar-button:disabled {
+
+.jar-button:disabled,
+.note-send-button:disabled,
+.open-note-button:disabled {
+
     opacity: .6;
+
     cursor: not-allowed;
 }
 
-.jar-message {
+
+.jar-message,
+.note-message {
+
     display: none;
 
     margin-top: 12px;
@@ -792,6 +1129,7 @@ textarea:focus,
     border-radius: 10px;
 
     background: #e8f2ed;
+
     color: #35644e;
 
     font-size: 13px;
@@ -799,7 +1137,9 @@ textarea:focus,
     text-align: center;
 }
 
+
 .jar-count {
+
     margin-top: 13px;
 
     text-align: center;
@@ -809,21 +1149,197 @@ textarea:focus,
     font-size: 12px;
 }
 
+
+/* =========================================
+   NOTES
+   ========================================= */
+
+.note-card {
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #fffdfb,
+            #f8f2ef
+        );
+}
+
+
+.note-select {
+
+    margin-bottom: 10px;
+}
+
+
+.note-recipient {
+
+    font-size: 13px;
+
+    color: var(--teal);
+
+    font-weight: 700;
+
+    margin-bottom: 11px;
+}
+
+
+.note-input {
+
+    min-height: 105px;
+}
+
+
+.mailbox-card {
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #fffdfb,
+            #eef5f4
+        );
+}
+
+
+.mailbox-select {
+
+    margin-bottom: 14px;
+}
+
+
+.mailbox-status {
+
+    min-height: 130px;
+
+    border:
+        1px dashed #d5c8c0;
+
+    border-radius: 14px;
+
+    padding: 18px;
+
+    background:
+        rgba(255,255,255,.72);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    line-height: 1.6;
+}
+
+
+.mail-heart {
+
+    display: block;
+
+    font-size: 32px;
+
+    color: var(--rose);
+
+    margin-bottom: 8px;
+}
+
+
+.unread-count {
+
+    color: var(--rose-dark);
+
+    font-weight: 800;
+}
+
+
+.note-reveal {
+
+    width: 100%;
+
+    text-align: left;
+}
+
+
+.note-paper {
+
+    padding: 17px;
+
+    margin-bottom: 12px;
+
+    border-radius: 14px;
+
+    background: #fffaf4;
+
+    border:
+        1px solid #eaded4;
+
+    box-shadow:
+        0 3px 12px rgba(50,42,38,.05);
+}
+
+
+.note-paper:last-child {
+
+    margin-bottom: 0;
+}
+
+
+.note-text {
+
+    color: var(--text);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 17px;
+
+    line-height: 1.65;
+
+    margin-bottom: 10px;
+}
+
+
+.note-meta {
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   QUOTE
+   ========================================= */
+
 .quote-card {
+
     min-height: 205px;
 
     background:
+
         linear-gradient(
             rgba(255,255,255,.18),
             rgba(255,255,255,.12)
         ),
-        url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80");
+
+        url(
+            "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80"
+        );
 
     background-size: cover;
+
     background-position: center;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     text-align: center;
@@ -831,49 +1347,76 @@ textarea:focus,
     color: white;
 }
 
+
 .quote-card div {
-    font-family: Georgia, "Times New Roman", serif;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
     font-size: 23px;
+
     font-style: italic;
 
-    text-shadow: 0 2px 8px rgba(0,0,0,.35);
+    text-shadow:
+        0 2px 8px rgba(0,0,0,.35);
 }
 
 
-/* JOURNAL */
+/* =========================================
+   JOURNAL
+   ========================================= */
 
 #archive-view {
+
     display: none;
 }
 
+
 .journal-heading {
+
     text-align: center;
 
-    padding: 30px 0 36px;
+    padding:
+        30px 0 36px;
 }
 
+
 .journal-heading h2 {
-    font-family: Georgia, "Times New Roman", serif;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
     font-size: 38px;
 
     margin-bottom: 8px;
 }
 
+
 .journal-heading p {
+
     color: var(--muted);
 }
 
+
 #archive-container {
+
     max-width: 1050px;
+
     margin: auto;
 }
 
+
 .conversation-card {
+
     background: var(--card);
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
+
     border-radius: 22px;
 
     margin-bottom: 18px;
@@ -883,46 +1426,64 @@ textarea:focus,
     box-shadow: var(--shadow);
 }
 
+
 .conversation-date {
+
     color: var(--rose-dark);
 
     font-size: 13px;
+
     font-weight: 700;
 
     text-transform: uppercase;
+
     letter-spacing: 1px;
 
     margin-bottom: 8px;
 }
 
+
 .conversation-question {
-    font-family: Georgia, "Times New Roman", serif;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
     font-size: 25px;
+
     line-height: 1.35;
 
     margin-bottom: 22px;
 }
 
+
 .conversation-answers {
+
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:
+        1fr 1fr;
 
     gap: 16px;
 }
 
+
 .conversation-answer {
+
     border-radius: 15px;
 
     padding: 18px;
 
-    background: var(--card-soft);
+    background:
+        var(--card-soft);
 
     line-height: 1.65;
 }
 
+
 .conversation-answer strong {
+
     display: block;
 
     color: var(--rose-dark);
@@ -930,16 +1491,23 @@ textarea:focus,
     margin-bottom: 7px;
 }
 
+
 .conversation-answer.sierra strong {
+
     color: var(--teal);
 }
 
+
 .empty-answer {
+
     color: var(--muted);
+
     font-style: italic;
 }
 
+
 .loading {
+
     text-align: center;
 
     color: var(--muted);
@@ -947,45 +1515,66 @@ textarea:focus,
     padding: 40px;
 }
 
+
 footer {
+
     text-align: center;
 
     color: var(--muted);
 
     font-size: 13px;
 
-    padding: 15px 20px 32px;
+    padding:
+        15px 20px 32px;
 }
 
 
-/* MOBILE */
+/* =========================================
+   MOBILE
+   ========================================= */
 
 @media (max-width: 950px) {
+
     .home-grid {
+
         grid-template-columns: 1fr;
     }
 
+
     .sidebar {
+
         display: grid;
-        grid-template-columns: 1fr 1fr;
+
+        grid-template-columns:
+            1fr 1fr;
     }
 
+
     .header-note {
+
         display: none;
     }
 }
 
+
 @media (max-width: 700px) {
+
     header {
+
         height: auto;
+
         padding: 14px 5%;
     }
 
+
     .header-inner {
+
         flex-wrap: wrap;
     }
 
+
     nav {
+
         width: 100%;
 
         justify-content: center;
@@ -993,126 +1582,171 @@ footer {
         gap: 18px;
     }
 
+
     nav a {
-        padding: 7px 3px 10px;
+
+        padding:
+            7px 3px 10px;
     }
+
 
     .question-hero {
+
         min-height: 330px;
 
-        padding: 65px 24px 34px;
+        padding:
+            65px 24px 34px;
     }
 
+
     .question-topline {
+
         padding: 20px;
     }
 
+
     .question {
+
         font-size: 32px;
     }
+
 
     .answer-grid,
     .conversation-answers,
     .sidebar {
+
         grid-template-columns: 1fr;
     }
 
+
     .next-question-card {
+
         flex-direction: column;
+
         align-items: stretch;
     }
 
+
     .next-question-button {
+
         width: 100%;
     }
 }
+
 </style>
+
 </head>
 
 
 <body>
 
+
+<!-- LOGIN -->
+
 <div id="login-overlay">
 
-    <div class="login-card">
+<div class="login-card">
 
-        <div class="login-heart">♡</div>
+    <div class="login-heart">
+        ♡
+    </div>
 
-        <h1>Between Us</h1>
+    <h1>
+        Between Us
+    </h1>
 
-        <p>A little space for better conversations.</p>
+    <p>
+        A little space for better conversations.
+    </p>
 
-        <input
-            type="password"
-            id="password-input"
-            placeholder="Enter access code"
-            onkeypress="checkEnter(event)"
-        >
+    <input
+        type="password"
+        id="password-input"
+        placeholder="Enter access code"
+        onkeypress="checkEnter(event)"
+    >
 
-        <button onclick="checkPassword()">
-            Enter
-        </button>
+    <button onclick="checkPassword()">
+        Enter
+    </button>
 
-        <div
-            class="login-error"
-            id="login-error"
-        >
-            Incorrect password. Try again.
-        </div>
-
+    <div
+        class="login-error"
+        id="login-error"
+    >
+        Incorrect password. Try again.
     </div>
 
 </div>
 
+</div>
+
+
+<!-- MAIN APP -->
 
 <div id="app-content">
 
+
 <header>
 
-    <div class="header-inner">
+<div class="header-inner">
 
-        <div class="logo">
-            <span class="logo-heart">♡</span>
-            Between Us
-        </div>
+    <div class="logo">
 
-        <nav>
+        <span class="logo-heart">
+            ♡
+        </span>
 
-            <a
-                id="home-nav"
-                class="active"
-                onclick="switchView('home')"
-            >
-                Home
-            </a>
-
-            <a
-                id="archive-nav"
-                onclick="switchView('archive')"
-            >
-                Journal
-            </a>
-
-        </nav>
-
-        <div class="header-note">
-            A question at a time. ♡
-        </div>
+        Between Us
 
     </div>
 
+
+    <nav>
+
+        <a
+            id="home-nav"
+            class="active"
+            onclick="switchView('home')"
+        >
+            Home
+        </a>
+
+        <a
+            id="archive-nav"
+            onclick="switchView('archive')"
+        >
+            Journal
+        </a>
+
+    </nav>
+
+
+    <div class="header-note">
+        A question at a time. ♡
+    </div>
+
+</div>
+
 </header>
 
+
+
+<!-- HOME -->
 
 <div
     id="home-view"
     class="page"
 >
 
+
 <div class="home-grid">
+
 
 <div class="main-column">
 
+
+<!-- QUESTION -->
 
 <section
     class="question-hero"
@@ -1125,6 +1759,7 @@ footer {
             ♡ Current Question
         </div>
 
+
         <div
             class="question-number"
             id="question-number"
@@ -1134,12 +1769,14 @@ footer {
 
     </div>
 
+
     <div
         class="question"
         id="question-display"
     >
         Loading your question...
     </div>
+
 
     <div class="question-subtitle">
         Different perspectives. One conversation.
@@ -1148,10 +1785,14 @@ footer {
 </section>
 
 
+
+<!-- ANSWERS -->
+
 <div class="answer-grid">
 
 
 <section class="answer-card">
+
 
     <div class="answer-card-header">
 
@@ -1214,7 +1855,9 @@ footer {
 </section>
 
 
+
 <section class="answer-card">
+
 
     <div class="answer-card-header">
 
@@ -1271,8 +1914,12 @@ footer {
 
 </section>
 
+
 </div>
 
+
+
+<!-- ANOTHER QUESTION -->
 
 <section
     class="next-question-card"
@@ -1311,8 +1958,13 @@ footer {
 </div>
 
 
+
+<!-- SIDEBAR -->
+
 <aside class="sidebar">
 
+
+<!-- JOURNEY -->
 
 <section class="sidebar-card">
 
@@ -1362,11 +2014,14 @@ footer {
 </section>
 
 
+
+<!-- QUESTION JAR -->
+
 <section class="sidebar-card jar-card">
 
-    <div class="jar-heading">
+    <div class="section-heading">
 
-        <div class="jar-icon">
+        <div class="section-icon">
             ♡
         </div>
 
@@ -1377,7 +2032,7 @@ footer {
     </div>
 
 
-    <p class="jar-description">
+    <p class="sidebar-description">
 
         Have something you want to talk about later?
 
@@ -1421,6 +2076,171 @@ footer {
 </section>
 
 
+
+<!-- LEAVE A NOTE -->
+
+<section class="sidebar-card note-card">
+
+    <div class="section-heading">
+
+        <div class="section-icon">
+            ✎
+        </div>
+
+        <h3>
+            Leave Me a Note
+        </h3>
+
+    </div>
+
+
+    <p class="sidebar-description">
+        Not everything needs a question.
+        Leave something here just because. ♡
+    </p>
+
+
+    <select
+        id="note-from"
+        class="note-select"
+        onchange="updateNoteRecipient()"
+    >
+
+        <option
+            value=""
+            disabled
+            selected
+        >
+            Who's leaving the note?
+        </option>
+
+        <option value="Bobby">
+            Bobby
+        </option>
+
+        <option value="Sierra">
+            Sierra
+        </option>
+
+    </select>
+
+
+    <div
+        class="note-recipient"
+        id="note-recipient"
+    >
+        Choose a sender first.
+    </div>
+
+
+    <textarea
+        id="note-text"
+        class="note-input"
+        maxlength="1000"
+        placeholder="Write something for them..."
+    ></textarea>
+
+
+    <button
+        id="note-send-button"
+        class="note-send-button"
+        onclick="sendNote()"
+    >
+        Leave the Note ♡
+    </button>
+
+
+    <div
+        id="note-message"
+        class="note-message"
+    >
+        Note left. ♡
+    </div>
+
+</section>
+
+
+
+<!-- MAILBOX -->
+
+<section class="sidebar-card mailbox-card">
+
+    <div class="section-heading">
+
+        <div class="section-icon">
+            ✉
+        </div>
+
+        <h3>
+            Your Mailbox
+        </h3>
+
+    </div>
+
+
+    <p class="sidebar-description">
+        See if someone left a little something for you.
+    </p>
+
+
+    <select
+        id="mailbox-user"
+        class="mailbox-select"
+        onchange="changeMailboxUser()"
+    >
+
+        <option
+            value=""
+            disabled
+            selected
+        >
+            Who's checking?
+        </option>
+
+        <option value="Bobby">
+            Bobby
+        </option>
+
+        <option value="Sierra">
+            Sierra
+        </option>
+
+    </select>
+
+
+    <div
+        class="mailbox-status"
+        id="mailbox-status"
+    >
+
+        <div>
+
+            <span class="mail-heart">
+                ♡
+            </span>
+
+            Choose your name to check the mailbox.
+
+        </div>
+
+    </div>
+
+
+    <button
+        id="open-note-button"
+        class="open-note-button"
+        onclick="openNotes()"
+        style="display:none;"
+    >
+        Open Note ♡
+    </button>
+
+</section>
+
+
+
+<!-- HOW IT WORKS -->
+
 <section class="sidebar-card">
 
     <h3>
@@ -1429,17 +2249,23 @@ footer {
 
     <p
         style="
-            color: var(--muted);
-            line-height: 1.7;
+            color:var(--muted);
+            line-height:1.7;
         "
     >
-        Answer the question without seeing the other response.
-        Once you both answer, compare perspectives — then keep
-        going whenever you want.
+
+        Answer without seeing the other response.
+
+        Once you both answer, compare perspectives —
+        then keep going whenever you want.
+
     </p>
 
 </section>
 
+
+
+<!-- QUOTE -->
 
 <section class="sidebar-card quote-card">
 
@@ -1454,35 +2280,42 @@ footer {
 
 </aside>
 
-</div>
+
 </div>
 
+</div>
+
+
+
+<!-- JOURNAL -->
 
 <div
     id="archive-view"
     class="page"
 >
 
-    <div class="journal-heading">
 
-        <h2>
-            Your Journal
-        </h2>
+<div class="journal-heading">
 
-        <p>
-            The conversations you've had along the way.
-        </p>
+    <h2>
+        Your Journal
+    </h2>
 
+    <p>
+        The conversations you've had along the way.
+    </p>
+
+</div>
+
+
+<div id="archive-container">
+
+    <div class="loading">
+        Loading conversations...
     </div>
 
+</div>
 
-    <div id="archive-container">
-
-        <div class="loading">
-            Loading conversations...
-        </div>
-
-    </div>
 
 </div>
 
@@ -1491,100 +2324,153 @@ footer {
     © 2026 B+S
 </footer>
 
+
 </div>
+
 
 
 <script>
 
-/* CONFIG */
+
+/* =========================================
+   CONFIGURATION
+   ========================================= */
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbysuuhMbUCSrEysYKacoUhMBI2tL2CwTz5X5USj7EBR7Em_OjDwgcYV8hJV5GmRqFcOCQ/exec";
 
+
 const SITE_PASSWORD =
     "bobbylikessierra";
 
+
 const PEOPLE = {
+
     Bobby: "Sierra",
+
     Sierra: "Bobby"
+
 };
+
 
 const ALL_USERS = [
+
     "Bobby",
+
     "Sierra"
+
 ];
 
+
 let appData = {
+
     question: "",
+
     questionId: "",
+
     history: [],
-    jarCount: 0
+
+    jarCount: 0,
+
+    notes: []
+
 };
+
 
 let activeUser = "";
 
+let mailboxUser = "";
 
-/* LOGIN */
+let openedNotes = [];
+
+
+
+/* =========================================
+   LOGIN
+   ========================================= */
 
 function checkPassword() {
+
 
     const input =
         document.getElementById(
             "password-input"
         ).value;
 
+
     const error =
         document.getElementById(
             "login-error"
         );
 
+
     if (input === SITE_PASSWORD) {
+
 
         document.getElementById(
             "login-overlay"
-        ).style.display = "none";
+        ).style.display =
+            "none";
+
 
         document.getElementById(
             "app-content"
-        ).style.display = "block";
+        ).style.display =
+            "block";
+
 
         fetchAppData();
 
+
     } else {
 
-        error.style.display = "block";
+
+        error.style.display =
+            "block";
 
     }
+
 }
+
 
 
 function checkEnter(event) {
 
+
     if (event.key === "Enter") {
+
         checkPassword();
+
     }
 
 }
 
 
-/* NAVIGATION */
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
 
 function switchView(view) {
+
 
     const home =
         document.getElementById(
             "home-view"
         );
 
+
     const archive =
         document.getElementById(
             "archive-view"
         );
 
+
     const homeNav =
         document.getElementById(
             "home-nav"
         );
+
 
     const archiveNav =
         document.getElementById(
@@ -1594,38 +2480,73 @@ function switchView(view) {
 
     if (view === "home") {
 
-        home.style.display = "block";
-        archive.style.display = "none";
 
-        homeNav.classList.add("active");
-        archiveNav.classList.remove("active");
+        home.style.display =
+            "block";
+
+
+        archive.style.display =
+            "none";
+
+
+        homeNav.classList.add(
+            "active"
+        );
+
+
+        archiveNav.classList.remove(
+            "active"
+        );
+
 
     } else {
 
-        home.style.display = "none";
-        archive.style.display = "block";
 
-        homeNav.classList.remove("active");
-        archiveNav.classList.add("active");
+        home.style.display =
+            "none";
+
+
+        archive.style.display =
+            "block";
+
+
+        homeNav.classList.remove(
+            "active"
+        );
+
+
+        archiveNav.classList.add(
+            "active"
+        );
+
 
         buildJournal();
 
     }
+
 }
 
 
-/* LOAD */
+
+/* =========================================
+   LOAD DATA
+   ========================================= */
 
 async function fetchAppData() {
 
+
     try {
+
 
         const response =
             await fetch(
+
                 API_URL +
                 "?t=" +
                 new Date().getTime()
+
             );
+
 
         appData =
             await response.json();
@@ -1649,22 +2570,33 @@ async function fetchAppData() {
             "question-number"
         ).innerText =
             appData.questionId
+
                 ? "Question #" +
                   appData.questionId
+
                 : "Question";
 
 
         updateJarCount();
 
+
         updateStats();
+
 
         refreshUserSelector();
 
+
         buildJournal();
+
+
+        restoreMailboxUser();
+
 
     } catch (error) {
 
+
         console.error(error);
+
 
         document.getElementById(
             "question-display"
@@ -1672,46 +2604,62 @@ async function fetchAppData() {
             "Failed to load the question.";
 
     }
+
 }
 
 
-/* QUESTION JAR */
+
+/* =========================================
+   QUESTION JAR
+   ========================================= */
 
 function updateJarCount() {
+
 
     const count =
         Number(
             appData.jarCount || 0
         );
 
+
     const display =
         document.getElementById(
             "jar-count"
         );
 
+
     display.innerText =
+
         count === 1
+
             ? "1 question waiting in the jar"
+
             : `${count} questions waiting in the jar`;
+
 }
 
 
+
 async function submitQuestion() {
+
 
     const input =
         document.getElementById(
             "jar-question"
         );
 
+
     const button =
         document.getElementById(
             "jar-button"
         );
 
+
     const message =
         document.getElementById(
             "jar-message"
         );
+
 
     const question =
         input.value.trim();
@@ -1719,33 +2667,55 @@ async function submitQuestion() {
 
     if (!question) {
 
+
         alert(
             "Type a question first."
         );
 
+
         return;
+
     }
 
 
-    button.disabled = true;
-    button.innerText = "Adding...";
+    button.disabled =
+        true;
 
-    message.style.display = "none";
+
+    button.innerText =
+        "Adding...";
+
+
+    message.style.display =
+        "none";
 
 
     try {
 
+
         const response =
             await fetch(
-                API_URL,
-                {
-                    method: "POST",
 
-                    body: JSON.stringify({
-                        action: "add_question",
-                        question: question
-                    })
+                API_URL,
+
+                {
+
+                    method:
+                        "POST",
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "add_question",
+
+                            question:
+                                question
+
+                        })
+
                 }
+
             );
 
 
@@ -1753,21 +2723,33 @@ async function submitQuestion() {
             await response.json();
 
 
-        if (result.status !== "Success") {
+        if (
+            result.status !==
+            "Success"
+        ) {
+
 
             throw new Error(
+
                 result.message ||
                 "Could not add the question."
+
             );
+
         }
 
 
-        input.value = "";
+        input.value =
+            "";
 
-        button.innerText = "Added ✓";
+
+        button.innerText =
+            "Added ✓";
+
 
         message.innerText =
             "Added to the jar. You'll see it again someday. ♡";
+
 
         message.style.display =
             "block";
@@ -1783,44 +2765,736 @@ async function submitQuestion() {
 
 
         setTimeout(
+
             function () {
 
-                button.disabled = false;
+
+                button.disabled =
+                    false;
+
 
                 button.innerText =
                     "Add to the Jar ♡";
 
             },
+
             1300
+
         );
 
 
     } catch (error) {
 
+
         console.error(error);
 
+
         alert(
+
             error.message ||
             "There was a problem adding the question."
+
         );
 
-        button.disabled = false;
+
+        button.disabled =
+            false;
+
 
         button.innerText =
             "Add to the Jar ♡";
 
     }
+
 }
 
 
-/* CURRENT ANSWERS */
+
+/* =========================================
+   NOTES — SEND
+   ========================================= */
+
+function updateNoteRecipient() {
+
+
+    const from =
+        document.getElementById(
+            "note-from"
+        ).value;
+
+
+    const display =
+        document.getElementById(
+            "note-recipient"
+        );
+
+
+    if (!from) {
+
+
+        display.innerText =
+            "Choose a sender first.";
+
+
+        return;
+
+    }
+
+
+    const to =
+        PEOPLE[from];
+
+
+    display.innerText =
+        "For " + to + " ♡";
+
+}
+
+
+
+async function sendNote() {
+
+
+    const from =
+        document.getElementById(
+            "note-from"
+        ).value;
+
+
+    const note =
+        document.getElementById(
+            "note-text"
+        ).value.trim();
+
+
+    const button =
+        document.getElementById(
+            "note-send-button"
+        );
+
+
+    const message =
+        document.getElementById(
+            "note-message"
+        );
+
+
+    if (!from) {
+
+
+        alert(
+            "Choose who's leaving the note."
+        );
+
+
+        return;
+
+    }
+
+
+    if (!note) {
+
+
+        alert(
+            "Write something first."
+        );
+
+
+        return;
+
+    }
+
+
+    const to =
+        PEOPLE[from];
+
+
+    button.disabled =
+        true;
+
+
+    button.innerText =
+        "Leaving Note...";
+
+
+    message.style.display =
+        "none";
+
+
+    try {
+
+
+        const response =
+            await fetch(
+
+                API_URL,
+
+                {
+
+                    method:
+                        "POST",
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "add_note",
+
+                            from:
+                                from,
+
+                            to:
+                                to,
+
+                            note:
+                                note
+
+                        })
+
+                }
+
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            result.status !==
+            "Success"
+        ) {
+
+
+            throw new Error(
+
+                result.message ||
+                "Could not leave the note."
+
+            );
+
+        }
+
+
+        document.getElementById(
+            "note-text"
+        ).value =
+            "";
+
+
+        button.innerText =
+            "Note Left ✓";
+
+
+        message.innerText =
+            "Left something for " +
+            to +
+            ". ♡";
+
+
+        message.style.display =
+            "block";
+
+
+        /*
+          Refresh so the mailbox count
+          knows about the new note.
+        */
+
+        await fetchAppData();
+
+
+        setTimeout(
+
+            function () {
+
+
+                button.disabled =
+                    false;
+
+
+                button.innerText =
+                    "Leave the Note ♡";
+
+            },
+
+            1200
+
+        );
+
+
+    } catch (error) {
+
+
+        console.error(error);
+
+
+        alert(
+
+            error.message ||
+            "There was a problem leaving the note."
+
+        );
+
+
+        button.disabled =
+            false;
+
+
+        button.innerText =
+            "Leave the Note ♡";
+
+    }
+
+}
+
+
+
+/* =========================================
+   NOTES — MAILBOX
+   ========================================= */
+
+function restoreMailboxUser() {
+
+
+    const saved =
+        localStorage.getItem(
+            "betweenUsMailboxUser"
+        );
+
+
+    if (
+        saved === "Bobby" ||
+        saved === "Sierra"
+    ) {
+
+
+        mailboxUser =
+            saved;
+
+
+        document.getElementById(
+            "mailbox-user"
+        ).value =
+            saved;
+
+
+        renderMailbox();
+
+    }
+
+}
+
+
+
+function changeMailboxUser() {
+
+
+    mailboxUser =
+        document.getElementById(
+            "mailbox-user"
+        ).value;
+
+
+    openedNotes =
+        [];
+
+
+    if (mailboxUser) {
+
+
+        localStorage.setItem(
+
+            "betweenUsMailboxUser",
+
+            mailboxUser
+
+        );
+
+    }
+
+
+    renderMailbox();
+
+}
+
+
+
+function getUnreadNotes(user) {
+
+
+    return (
+        appData.notes || []
+    ).filter(
+
+        function (note) {
+
+
+            return (
+
+                note.to === user &&
+
+                !note.read
+
+            );
+
+        }
+
+    );
+
+}
+
+
+
+function renderMailbox() {
+
+
+    const status =
+        document.getElementById(
+            "mailbox-status"
+        );
+
+
+    const button =
+        document.getElementById(
+            "open-note-button"
+        );
+
+
+    if (!mailboxUser) {
+
+
+        status.innerHTML = `
+
+            <div>
+
+                <span class="mail-heart">
+                    ♡
+                </span>
+
+                Choose your name
+                to check the mailbox.
+
+            </div>
+
+        `;
+
+
+        button.style.display =
+            "none";
+
+
+        return;
+
+    }
+
+
+    /*
+      If we just opened notes,
+      leave them visible.
+    */
+
+    if (openedNotes.length > 0) {
+
+
+        status.innerHTML = `
+
+            <div class="note-reveal">
+
+                ${
+                    openedNotes
+                    .map(
+
+                        function (note) {
+
+
+                            return `
+
+                                <div class="note-paper">
+
+                                    <div class="note-text">
+
+                                        ${escapeHtml(
+                                            note.note
+                                        )}
+
+                                    </div>
+
+                                    <div class="note-meta">
+
+                                        — ${escapeHtml(
+                                            note.from
+                                        )}
+
+                                        ${
+                                            note.date
+
+                                                ? " · " +
+                                                  escapeHtml(
+                                                    note.date
+                                                  )
+
+                                                : ""
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        }
+
+                    )
+                    .join("")
+                }
+
+            </div>
+
+        `;
+
+
+        button.style.display =
+            "none";
+
+
+        return;
+
+    }
+
+
+    const unread =
+        getUnreadNotes(
+            mailboxUser
+        );
+
+
+    if (
+        unread.length === 0
+    ) {
+
+
+        status.innerHTML = `
+
+            <div>
+
+                <span class="mail-heart">
+                    ♡
+                </span>
+
+                Nothing waiting right now.
+
+                <br>
+
+                <span
+                    style="
+                        font-size:12px;
+                        color:var(--muted);
+                    "
+                >
+
+                    Apparently someone needs
+                    to step up their note game. 😏
+
+                </span>
+
+            </div>
+
+        `;
+
+
+        button.style.display =
+            "none";
+
+
+        return;
+
+    }
+
+
+    status.innerHTML = `
+
+        <div>
+
+            <span class="mail-heart">
+                ♡
+            </span>
+
+            <span class="unread-count">
+
+                ${
+                    unread.length === 1
+
+                        ? "You have a note waiting."
+
+                        : `You have ${unread.length} notes waiting.`
+
+                }
+
+            </span>
+
+            <br><br>
+
+            Someone thought of you.
+
+        </div>
+
+    `;
+
+
+    button.style.display =
+        "block";
+
+
+    button.innerText =
+
+        unread.length === 1
+
+            ? "Open Note ♡"
+
+            : "Open Notes ♡";
+
+}
+
+
+
+async function openNotes() {
+
+
+    if (!mailboxUser) {
+
+        return;
+
+    }
+
+
+    const unread =
+        getUnreadNotes(
+            mailboxUser
+        );
+
+
+    if (
+        unread.length === 0
+    ) {
+
+
+        renderMailbox();
+
+        return;
+
+    }
+
+
+    /*
+      Save them before marking read
+      so they stay visible on screen.
+    */
+
+    openedNotes =
+        [...unread];
+
+
+    renderMailbox();
+
+
+    try {
+
+
+        const response =
+            await fetch(
+
+                API_URL,
+
+                {
+
+                    method:
+                        "POST",
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "mark_notes_read",
+
+                            user:
+                                mailboxUser
+
+                        })
+
+                }
+
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            result.status ===
+            "Success"
+        ) {
+
+
+            /*
+              Update the local copy.
+
+              We do NOT refresh the page,
+              because we want the revealed
+              notes to remain visible.
+            */
+
+            appData.notes
+            .forEach(
+
+                function (note) {
+
+
+                    if (
+                        note.to ===
+                        mailboxUser
+                    ) {
+
+
+                        note.read =
+                            true;
+
+                    }
+
+                }
+
+            );
+
+        }
+
+
+    } catch (error) {
+
+
+        console.error(
+            "Could not mark notes read:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =========================================
+   CURRENT QUESTION ANSWERS
+   ========================================= */
 
 function getCurrentAnswers() {
+
 
     const currentQuestionId =
         String(
             appData.questionId || ""
         );
+
 
     const currentQuestion =
         String(
@@ -1831,12 +3505,15 @@ function getCurrentAnswers() {
     return (
         appData.history || []
     ).filter(
+
         function (item) {
+
 
             const itemId =
                 String(
                     item.questionId || ""
                 );
+
 
             const itemQuestion =
                 String(
@@ -1849,35 +3526,56 @@ function getCurrentAnswers() {
                 itemId
             ) {
 
+
                 return (
                     itemId ===
                     currentQuestionId
                 );
+
             }
 
 
             return (
+
                 currentQuestion &&
+
                 itemQuestion ===
                 currentQuestion
+
             );
+
         }
+
     );
+
 }
 
 
-/* STATS */
+
+/* =========================================
+   STATS
+   ========================================= */
 
 function updateStats() {
+
 
     const currentAnswers =
         getCurrentAnswers();
 
+
     const uniqueUsers =
         new Set(
+
             currentAnswers.map(
-                item => item.user
+
+                function (item) {
+
+                    return item.user;
+
+                }
+
             )
+
         );
 
 
@@ -1891,43 +3589,82 @@ function updateStats() {
         "question-count"
     ).innerText =
         groupHistory().length;
+
 }
 
 
-/* USER SELECTION */
+
+/* =========================================
+   ANSWER USER SELECTOR
+   ========================================= */
 
 function refreshUserSelector() {
+
 
     const select =
         document.getElementById(
             "user-select"
         );
 
+
     const currentAnswers =
         getCurrentAnswers();
 
+
     const answeredUsers =
         new Set(
+
             currentAnswers.map(
-                item => item.user
+
+                function (item) {
+
+                    return item.user;
+
+                }
+
             )
+
         );
+
 
     const availableUsers =
         ALL_USERS.filter(
-            user =>
-                !answeredUsers.has(user)
+
+            function (user) {
+
+
+                return !answeredUsers.has(
+                    user
+                );
+
+            }
+
         );
 
 
-    if (availableUsers.length === 2) {
+    /*
+      Nobody answered.
+    */
 
-        activeUser = "";
+    if (
+        availableUsers.length === 2
+    ) {
 
-        select.style.display = "block";
-        select.disabled = false;
+
+        activeUser =
+            "";
+
+
+        select.style.display =
+            "block";
+
+
+        select.disabled =
+            false;
+
 
         select.innerHTML = `
+
             <option
                 value=""
                 disabled
@@ -1943,94 +3680,160 @@ function refreshUserSelector() {
             <option value="Sierra">
                 Sierra
             </option>
+
         `;
+
 
         renderAnswerState();
 
+
         return;
+
     }
 
 
-    if (availableUsers.length === 1) {
+    /*
+      One person answered.
+    */
+
+    if (
+        availableUsers.length === 1
+    ) {
+
 
         activeUser =
             availableUsers[0];
 
+
         select.style.display =
             "block";
+
 
         select.disabled =
             true;
 
+
         select.innerHTML = `
+
             <option
                 value="${activeUser}"
                 selected
             >
                 ${activeUser} — your turn
             </option>
+
         `;
+
 
         renderAnswerState();
 
+
         return;
+
     }
 
+
+    /*
+      Both answered.
+    */
 
     if (!activeUser) {
-        activeUser = "Bobby";
+
+
+        activeUser =
+            "Bobby";
+
     }
 
 
-    select.style.display = "none";
-    select.disabled = true;
+    select.style.display =
+        "none";
+
+
+    select.disabled =
+        true;
+
 
     renderAnswerState();
+
 }
 
 
+
 function handleUserChange() {
+
 
     activeUser =
         document.getElementById(
             "user-select"
         ).value;
 
+
     renderAnswerState();
+
 }
 
 
-/* ANSWER DISPLAY */
+
+/* =========================================
+   ANSWER DISPLAY
+   ========================================= */
 
 function showNextQuestionButton(show) {
+
 
     const card =
         document.getElementById(
             "next-question-card"
         );
 
+
     card.style.display =
+
         show
+
             ? "flex"
+
             : "none";
+
 }
+
 
 
 function renderAnswerState() {
 
+
     const currentAnswers =
         getCurrentAnswers();
 
+
     const answeredUsers =
         new Set(
+
             currentAnswers.map(
-                item => item.user
+
+                function (item) {
+
+                    return item.user;
+
+                }
+
             )
+
         );
 
+
     const bothAnswered =
-        answeredUsers.has("Bobby") &&
-        answeredUsers.has("Sierra");
+
+        answeredUsers.has(
+            "Bobby"
+        )
+
+        &&
+
+        answeredUsers.has(
+            "Sierra"
+        );
 
 
     const yourAvatar =
@@ -2038,50 +3841,60 @@ function renderAnswerState() {
             "your-avatar"
         );
 
+
     const yourTitle =
         document.getElementById(
             "your-title"
         );
+
 
     const yourStatus =
         document.getElementById(
             "your-status"
         );
 
+
     const partnerAvatar =
         document.getElementById(
             "partner-avatar"
         );
+
 
     const partnerTitle =
         document.getElementById(
             "partner-title"
         );
 
+
     const partnerStatus =
         document.getElementById(
             "partner-status"
         );
+
 
     const partnerBox =
         document.getElementById(
             "partner-answer-box"
         );
 
+
     const partnerNote =
         document.getElementById(
             "partner-note"
         );
+
 
     const textarea =
         document.getElementById(
             "answer-text"
         );
 
+
     const submitButton =
         document.getElementById(
             "submit-btn"
         );
+
 
     const successBox =
         document.getElementById(
@@ -2094,27 +3907,44 @@ function renderAnswerState() {
     );
 
 
+    /*
+      Nobody selected yet.
+    */
+
     if (!activeUser) {
 
-        yourAvatar.innerText = "?";
+
+        yourAvatar.innerText =
+            "?";
+
 
         yourTitle.innerText =
             "Your Answer";
 
+
         yourStatus.innerText =
             "Take your time.";
 
-        textarea.value = "";
-        textarea.disabled = false;
+
+        textarea.value =
+            "";
+
+
+        textarea.disabled =
+            false;
+
 
         submitButton.style.display =
             "block";
 
+
         submitButton.disabled =
             false;
 
+
         submitButton.innerText =
             "Submit Answer";
+
 
         successBox.style.display =
             "none";
@@ -2123,27 +3953,37 @@ function renderAnswerState() {
         partnerAvatar.innerText =
             "♡";
 
+
         partnerTitle.innerText =
             "Partner's Answer";
+
 
         partnerStatus.innerText =
             "Choose who's answering first.";
 
+
         partnerBox.innerHTML = `
+
             <div>
+
                 <span class="hidden-heart">
                     ♡
                 </span>
 
                 Choose who's answering
                 to begin the conversation.
+
             </div>
+
         `;
+
 
         partnerNote.innerText =
             "One question. Two answers.";
 
+
         return;
+
     }
 
 
@@ -2153,50 +3993,85 @@ function renderAnswerState() {
 
     const yourAnswer =
         currentAnswers.find(
-            item =>
-                item.user === activeUser
+
+            function (item) {
+
+
+                return (
+                    item.user ===
+                    activeUser
+                );
+
+            }
+
         );
 
 
     const theirAnswer =
         currentAnswers.find(
-            item =>
-                item.user === partner
+
+            function (item) {
+
+
+                return (
+                    item.user ===
+                    partner
+                );
+
+            }
+
         );
 
 
     yourAvatar.innerText =
         activeUser.charAt(0);
 
+
     partnerAvatar.innerText =
         partner.charAt(0);
 
-    partnerTitle.innerText =
-        partner + "'s Answer";
 
+    partnerTitle.innerText =
+        partner +
+        "'s Answer";
+
+
+    /*
+      Both answered.
+    */
 
     if (bothAnswered) {
+
 
         yourTitle.innerText =
             activeUser +
             "'s Answer";
 
+
         yourStatus.innerText =
             "Conversation complete.";
 
+
         textarea.value =
+
             yourAnswer
+
                 ? yourAnswer.answer
+
                 : "";
+
 
         textarea.disabled =
             true;
 
+
         submitButton.style.display =
             "none";
 
+
         successBox.style.display =
             "block";
+
 
         successBox.innerText =
             "Both of you answered this question. ♡";
@@ -2205,57 +4080,91 @@ function renderAnswerState() {
         partnerStatus.innerText =
             "Answered this question.";
 
+
         partnerBox.innerHTML = `
+
             <div class="partner-answer-text">
+
                 ${
                     theirAnswer
+
                         ? escapeHtml(
                             theirAnswer.answer
                           )
+
                         : ""
                 }
+
             </div>
+
         `;
+
 
         partnerNote.innerText =
             "Two perspectives, one conversation. ♡";
 
+
         return;
+
     }
 
 
+    /*
+      Current person has not answered.
+    */
+
     yourTitle.innerText =
         "Your Answer";
+
 
     yourStatus.innerText =
         activeUser +
         ", it's your turn.";
 
-    textarea.value = "";
-    textarea.disabled = false;
+
+    textarea.value =
+        "";
+
+
+    textarea.disabled =
+        false;
+
 
     submitButton.style.display =
         "block";
 
+
     submitButton.disabled =
         false;
 
+
     submitButton.innerText =
+
         theirAnswer
+
             ? "Submit & Reveal"
+
             : "Submit Answer";
+
 
     successBox.style.display =
         "none";
 
 
+    /*
+      Partner answered — hide it.
+    */
+
     if (theirAnswer) {
+
 
         partnerStatus.innerText =
             partner +
             " has already answered.";
 
+
         partnerBox.innerHTML = `
+
             <div>
 
                 <span class="hidden-heart">
@@ -2270,19 +4179,25 @@ function renderAnswerState() {
                 Answer first to reveal it.
 
             </div>
+
         `;
+
 
         partnerNote.innerText =
             "No peeking. Your answer comes first. 😏";
 
+
     } else {
+
 
         partnerStatus.innerText =
             "Waiting for " +
             partner +
             ".";
 
+
         partnerBox.innerHTML = `
+
             <div>
 
                 <span class="hidden-heart">
@@ -2293,28 +4208,40 @@ function renderAnswerState() {
                 hasn't answered this question yet.
 
             </div>
+
         `;
+
 
         partnerNote.innerText =
             "Their answer will appear here when it's ready.";
+
     }
+
 }
 
 
-/* SUBMIT ANSWER */
+
+/* =========================================
+   SUBMIT ANSWER
+   ========================================= */
 
 async function submitAnswer() {
 
+
     const user =
+
         activeUser ||
+
         document.getElementById(
             "user-select"
         ).value;
+
 
     const answer =
         document.getElementById(
             "answer-text"
         ).value.trim();
+
 
     const button =
         document.getElementById(
@@ -2324,26 +4251,33 @@ async function submitAnswer() {
 
     if (!user) {
 
+
         alert(
             "Choose who's answering first."
         );
 
+
         return;
+
     }
 
 
     if (!answer) {
 
+
         alert(
             "Write an answer before submitting."
         );
 
+
         return;
+
     }
 
 
     button.innerText =
         "Saving...";
+
 
     button.disabled =
         true;
@@ -2351,20 +4285,36 @@ async function submitAnswer() {
 
     try {
 
+
         const response =
             await fetch(
-                API_URL,
-                {
-                    method: "POST",
 
-                    body: JSON.stringify({
-                        action: "answer",
-                        user: user,
-                        answer: answer,
-                        questionId:
-                            appData.questionId
-                    })
+                API_URL,
+
+                {
+
+                    method:
+                        "POST",
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "answer",
+
+                            user:
+                                user,
+
+                            answer:
+                                answer,
+
+                            questionId:
+                                appData.questionId
+
+                        })
+
                 }
+
             );
 
 
@@ -2372,49 +4322,72 @@ async function submitAnswer() {
             await response.json();
 
 
-        if (result.status !== "Success") {
+        if (
+            result.status !==
+            "Success"
+        ) {
+
 
             throw new Error(
+
                 result.message ||
                 "Could not save the answer."
+
             );
+
         }
 
 
-        activeUser = user;
+        activeUser =
+            user;
+
 
         button.innerText =
             "Saved ✓";
 
 
         setTimeout(
+
             fetchAppData,
+
             600
+
         );
 
 
     } catch (error) {
 
+
         console.error(error);
 
+
         alert(
+
             error.message ||
             "There was a problem saving the answer."
+
         );
+
 
         button.innerText =
             "Submit Answer";
+
 
         button.disabled =
             false;
 
     }
+
 }
 
 
-/* ANOTHER QUESTION */
+
+/* =========================================
+   ANOTHER QUESTION
+   ========================================= */
 
 async function requestNextQuestion() {
+
 
     const button =
         document.getElementById(
@@ -2422,7 +4395,9 @@ async function requestNextQuestion() {
         );
 
 
-    button.disabled = true;
+    button.disabled =
+        true;
+
 
     button.innerText =
         "Finding One...";
@@ -2430,17 +4405,27 @@ async function requestNextQuestion() {
 
     try {
 
+
         const response =
             await fetch(
-                API_URL,
-                {
-                    method: "POST",
 
-                    body: JSON.stringify({
-                        action:
-                            "next_question"
-                    })
+                API_URL,
+
+                {
+
+                    method:
+                        "POST",
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "next_question"
+
+                        })
+
                 }
+
             );
 
 
@@ -2448,16 +4433,24 @@ async function requestNextQuestion() {
             await response.json();
 
 
-        if (result.status !== "Success") {
+        if (
+            result.status !==
+            "Success"
+        ) {
+
 
             throw new Error(
+
                 result.message ||
                 "Could not load another question."
+
             );
+
         }
 
 
-        activeUser = "";
+        activeUser =
+            "";
 
 
         await fetchAppData();
@@ -2466,88 +4459,120 @@ async function requestNextQuestion() {
         document.getElementById(
             "question-hero"
         ).scrollIntoView({
-            behavior: "smooth",
-            block: "start"
+
+            behavior:
+                "smooth",
+
+            block:
+                "start"
+
         });
 
 
     } catch (error) {
 
+
         console.error(error);
 
+
         alert(
+
             error.message ||
             "There was a problem loading another question."
+
         );
+
 
     } finally {
 
+
         button.disabled =
             false;
+
 
         button.innerText =
             "Give Us Another ♡";
 
     }
+
 }
 
 
-/* JOURNAL */
+
+/* =========================================
+   JOURNAL
+   ========================================= */
 
 function groupHistory() {
 
-    const groups = {};
+
+    const groups =
+        {};
 
 
-    (appData.history || [])
-        .forEach(
-            function (item) {
+    (
+        appData.history || []
+    )
+    .forEach(
 
-                const key =
-                    item.questionId
-                        ? "id-" +
-                          item.questionId
-                        : "question-" +
-                          item.question;
+        function (item) {
 
 
-                if (!groups[key]) {
+            const key =
 
-                    groups[key] = {
+                item.questionId
 
-                        question:
-                            item.question ||
-                            "Question",
+                    ? "id-" +
+                      item.questionId
 
-                        questionId:
-                            item.questionId ||
-                            "",
-
-                        date:
-                            item.date ||
-                            "",
-
-                        answers:
-                            {}
-
-                    };
-                }
+                    : "question-" +
+                      item.question;
 
 
-                groups[key]
-                    .answers[item.user] =
-                    item.answer;
+            if (!groups[key]) {
+
+
+                groups[key] = {
+
+                    question:
+                        item.question ||
+                        "Question",
+
+                    questionId:
+                        item.questionId ||
+                        "",
+
+                    date:
+                        item.date ||
+                        "",
+
+                    answers:
+                        {}
+
+                };
+
             }
-        );
+
+
+            groups[key]
+            .answers[item.user] =
+                item.answer;
+
+        }
+
+    );
 
 
     return Object
         .values(groups)
         .reverse();
+
 }
 
 
+
 function buildJournal() {
+
 
     const container =
         document.getElementById(
@@ -2561,23 +4586,33 @@ function buildJournal() {
 
     if (!conversations.length) {
 
+
         container.innerHTML = `
+
             <div class="loading">
                 No conversations yet.
             </div>
+
         `;
 
+
         return;
+
     }
 
 
     container.innerHTML =
+
         conversations
+
         .map(
+
             function (item) {
+
 
                 const bobbyAnswer =
                     item.answers.Bobby;
+
 
                 const sierraAnswer =
                     item.answers.Sierra;
@@ -2585,19 +4620,44 @@ function buildJournal() {
 
                 return `
 
-                    <article class="conversation-card">
+                    <article
+                        class="conversation-card"
+                    >
 
-                        <div class="conversation-date">
-                            ${escapeHtml(item.date)}
+                        <div
+                            class="conversation-date"
+                        >
+
+                            ${
+                                escapeHtml(
+                                    item.date
+                                )
+                            }
+
                         </div>
 
-                        <div class="conversation-question">
-                            ${escapeHtml(item.question)}
+
+                        <div
+                            class="conversation-question"
+                        >
+
+                            ${
+                                escapeHtml(
+                                    item.question
+                                )
+                            }
+
                         </div>
 
-                        <div class="conversation-answers">
 
-                            <div class="conversation-answer">
+                        <div
+                            class="conversation-answers"
+                        >
+
+
+                            <div
+                                class="conversation-answer"
+                            >
 
                                 <strong>
                                     Bobby
@@ -2605,16 +4665,20 @@ function buildJournal() {
 
                                 ${
                                     bobbyAnswer
+
                                         ? escapeHtml(
                                             bobbyAnswer
                                           )
+
                                         : '<span class="empty-answer">No answer yet.</span>'
                                 }
 
                             </div>
 
 
-                            <div class="conversation-answer sierra">
+                            <div
+                                class="conversation-answer sierra"
+                            >
 
                                 <strong>
                                     Sierra
@@ -2622,39 +4686,74 @@ function buildJournal() {
 
                                 ${
                                     sierraAnswer
+
                                         ? escapeHtml(
                                             sierraAnswer
                                           )
+
                                         : '<span class="empty-answer">No answer yet.</span>'
                                 }
 
                             </div>
 
+
                         </div>
 
+
                     </article>
+
                 `;
+
             }
+
         )
         .join("");
+
 }
 
 
-/* SAFE DISPLAY */
+
+/* =========================================
+   SAFE DISPLAY
+   ========================================= */
 
 function escapeHtml(value) {
+
 
     return String(
         value || ""
     )
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
 }
 
 </script>
 
+
 </body>
+
 </html>

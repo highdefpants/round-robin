@@ -1,1327 +1,1046 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>Between Us</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #f8f5f1;
+    --card: #fffdfb;
+    --card-soft: #f6efeb;
+
+    --rose: #b96f65;
+    --rose-dark: #9f5d55;
+    --rose-light: #ead5cf;
+
+    --teal: #245f67;
+    --teal-dark: #194b52;
+    --teal-light: #dcebed;
+
+    --text: #24323b;
+    --muted: #7c858a;
+    --border: #e8dfda;
+
+    --shadow: 0 8px 28px rgba(50, 42, 38, 0.07);
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+button,
+select,
+textarea,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* LOGIN */
+
+#login-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background:
+        linear-gradient(
+            rgba(30, 47, 51, 0.42),
+            rgba(30, 47, 51, 0.58)
+        ),
+        url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2000&q=85");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+
+    background: rgba(255, 253, 251, 0.96);
+
+    padding: 42px 38px;
+
+    border-radius: 24px;
+
+    box-shadow: 0 24px 80px rgba(0,0,0,.22);
+
+    text-align: center;
+}
+
+.login-heart {
+    font-size: 42px;
+    color: var(--rose);
+    margin-bottom: 10px;
+}
+
+.login-card h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 34px;
+    margin-bottom: 8px;
+}
+
+.login-card p {
+    color: var(--muted);
+    margin-bottom: 28px;
+}
 
-    <title>Between Us</title>
+.login-card input {
+    width: 100%;
+    padding: 15px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    outline: none;
+    margin-bottom: 14px;
+}
 
+.login-card input:focus {
+    border-color: var(--rose);
+    box-shadow: 0 0 0 3px rgba(185,111,101,.12);
+}
 
-    <style>
+.login-card button {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 20px;
+    background: var(--teal);
+    color: white;
+    font-weight: 700;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+.login-card button:hover {
+    background: var(--teal-dark);
+}
 
+.login-error {
+    display: none;
+    margin-top: 14px;
+    color: #a54242;
+    font-size: 14px;
+}
 
-        :root {
-            --bg: #f8f5f1;
-            --card: #fffdfb;
-            --card-soft: #f6efeb;
 
-            --rose: #b96f65;
-            --rose-dark: #9f5d55;
-            --rose-light: #ead5cf;
+/* APP */
 
-            --teal: #245f67;
-            --teal-dark: #194b52;
-            --teal-light: #dcebed;
+#app-content {
+    display: none;
+}
 
-            --text: #24323b;
-            --muted: #7c858a;
-            --border: #e8dfda;
-            --white: #ffffff;
+header {
+    height: 76px;
 
-            --shadow:
-                0 8px 28px rgba(50, 42, 38, 0.07);
-        }
+    background: rgba(255,253,251,.95);
 
+    border-bottom: 1px solid var(--border);
 
-        body {
-            font-family:
-                "Segoe UI",
-                Tahoma,
-                Geneva,
-                Verdana,
-                sans-serif;
+    display: flex;
+    align-items: center;
 
-            background: var(--bg);
-            color: var(--text);
+    padding: 0 5%;
+}
 
-            min-height: 100vh;
-        }
+.header-inner {
+    width: 100%;
+    max-width: 1500px;
 
+    margin: auto;
 
-        button,
-        select,
-        textarea,
-        input {
-            font: inherit;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
+    gap: 30px;
+}
 
-        button {
-            cursor: pointer;
-        }
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
 
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 25px;
+    font-weight: 700;
 
-        /* =========================
-           LOGIN
-           ========================= */
+    white-space: nowrap;
+}
 
-        #login-overlay {
+.logo-heart {
+    color: var(--rose);
+    font-size: 28px;
+}
 
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
+nav {
+    display: flex;
+    gap: 28px;
+}
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+nav a {
+    text-decoration: none;
 
-            padding: 24px;
+    color: var(--muted);
 
-            background:
-                linear-gradient(
-                    rgba(30, 47, 51, 0.42),
-                    rgba(30, 47, 51, 0.58)
-                ),
-                url(
-                    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2000&q=85"
-                );
+    font-weight: 600;
 
-            background-size: cover;
-            background-position: center;
-        }
+    cursor: pointer;
 
+    padding: 27px 4px 23px;
 
-        .login-card {
+    border-bottom: 3px solid transparent;
+}
 
-            width: 100%;
-            max-width: 430px;
+nav a:hover,
+nav a.active {
+    color: var(--text);
+    border-color: var(--rose);
+}
 
-            background:
-                rgba(255, 253, 251, 0.96);
+.header-note {
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    color: var(--muted);
+}
 
-            padding: 42px 38px;
 
-            border-radius: 24px;
+/* PAGE */
 
-            box-shadow:
-                0 24px 80px rgba(0, 0, 0, 0.22);
+.page {
+    width: 100%;
+    max-width: 1500px;
 
-            text-align: center;
-        }
+    margin: auto;
 
+    padding: 22px 5% 60px;
+}
 
-        .login-heart {
-            font-size: 42px;
-            color: var(--rose);
-            margin-bottom: 10px;
-        }
+.home-grid {
+    display: grid;
 
+    grid-template-columns:
+        minmax(0,2.25fr)
+        minmax(280px,.8fr);
 
-        .login-card h1 {
+    gap: 20px;
+}
 
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
+.main-column {
+    min-width: 0;
+}
 
-            font-size: 34px;
 
-            margin-bottom: 8px;
-        }
+/* QUESTION */
 
+.question-hero {
+    position: relative;
+    overflow: hidden;
 
-        .login-card p {
-            color: var(--muted);
-            margin-bottom: 28px;
-        }
+    min-height: 300px;
 
+    border: 1px solid var(--border);
+    border-radius: 24px;
 
-        .login-card input {
+    background:
+        linear-gradient(
+            rgba(255,246,241,.82),
+            rgba(255,246,241,.91)
+        ),
+        url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1800&q=80");
 
-            width: 100%;
+    background-size: cover;
+    background-position: center 52%;
 
-            padding: 15px 16px;
+    box-shadow: var(--shadow);
 
-            border:
-                1px solid var(--border);
+    padding: 42px 52px;
 
-            border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-            background: white;
+    text-align: center;
+}
 
-            outline: none;
+.question-topline {
+    width: 100%;
 
-            margin-bottom: 14px;
-        }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
+    position: absolute;
+    left: 0;
+    top: 0;
 
-        .login-card input:focus {
+    padding: 28px 36px;
+}
 
-            border-color: var(--rose);
+.today-label {
+    color: var(--rose-dark);
+    font-weight: 700;
+}
 
-            box-shadow:
-                0 0 0 3px
-                rgba(185, 111, 101, 0.12);
-        }
+.question-number {
+    color: var(--muted);
+    font-size: 14px;
+}
 
+.question {
+    max-width: 900px;
 
-        .login-card button {
+    font-family: Georgia, "Times New Roman", serif;
 
-            width: 100%;
+    font-size: clamp(31px,4vw,52px);
 
-            border: none;
-            border-radius: 12px;
+    font-weight: 500;
+    line-height: 1.16;
 
-            padding: 15px 20px;
+    color: #1f292d;
 
-            background: var(--teal);
-            color: white;
+    margin-top: 26px;
+}
 
-            font-weight: 700;
-        }
+.question-subtitle {
+    margin-top: 20px;
 
+    color: var(--muted);
 
-        .login-card button:hover {
-            background: var(--teal-dark);
-        }
+    font-size: 15px;
+}
 
 
-        .login-error {
+/* ANSWERS */
 
-            display: none;
+.answer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
-            margin-top: 14px;
+    gap: 18px;
 
-            color: #a54242;
+    margin-top: 18px;
+}
 
-            font-size: 14px;
-        }
+.answer-card {
+    background: var(--card);
 
+    border: 1px solid var(--border);
+    border-radius: 22px;
 
-        /* =========================
-           APP
-           ========================= */
+    padding: 25px;
 
-        #app-content {
-            display: none;
-        }
+    box-shadow: var(--shadow);
 
+    min-height: 355px;
+}
 
-        header {
+.answer-card-header {
+    display: flex;
+    align-items: center;
 
-            height: 76px;
+    margin-bottom: 20px;
+}
 
-            background:
-                rgba(255, 253, 251, 0.95);
+.answer-title {
+    display: flex;
+    align-items: center;
 
-            border-bottom:
-                1px solid var(--border);
+    gap: 12px;
+}
 
-            display: flex;
-            align-items: center;
+.avatar {
+    width: 48px;
+    height: 48px;
 
-            padding: 0 5%;
-        }
+    border-radius: 50%;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        .header-inner {
+    background: var(--rose-light);
+    color: var(--rose-dark);
 
-            width: 100%;
-            max-width: 1500px;
+    font-weight: 800;
+}
 
-            margin: auto;
+.avatar.partner {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+}
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+.answer-title h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 21px;
+    margin-bottom: 2px;
+}
 
-            gap: 30px;
-        }
+.answer-title span {
+    color: var(--muted);
+    font-size: 13px;
+}
 
+.person-select {
+    width: 100%;
 
-        .logo {
+    padding: 13px 14px;
 
-            display: flex;
-            align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 12px;
 
-            gap: 11px;
+    margin-bottom: 14px;
 
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
+    background: white;
 
-            font-size: 25px;
-            font-weight: 700;
+    outline: none;
+}
 
-            white-space: nowrap;
-        }
+.person-select:disabled {
+    background: #f7f3ef;
+    opacity: 1;
+}
 
+textarea {
+    width: 100%;
 
-        .logo-heart {
-            color: var(--rose);
-            font-size: 28px;
-        }
+    min-height: 145px;
 
+    resize: vertical;
 
-        nav {
+    padding: 16px;
 
-            display: flex;
-            gap: 28px;
-        }
+    border: 1px solid var(--border);
+    border-radius: 14px;
 
+    background: white;
 
-        nav a {
+    color: var(--text);
 
-            text-decoration: none;
+    line-height: 1.6;
 
-            color: var(--muted);
+    outline: none;
+}
 
-            font-weight: 600;
+textarea:disabled {
+    background: #fbf9f7;
+    color: var(--text);
+    opacity: 1;
+}
 
-            cursor: pointer;
+textarea:focus,
+.person-select:focus,
+.jar-input:focus {
+    border-color: var(--rose);
 
-            padding:
-                27px 4px 23px;
+    box-shadow:
+        0 0 0 3px rgba(185,111,101,.1);
+}
 
-            border-bottom:
-                3px solid transparent;
-        }
+.submit-btn {
+    width: 100%;
 
+    margin-top: 14px;
 
-        nav a:hover,
-        nav a.active {
+    border: none;
+    border-radius: 13px;
 
-            color: var(--text);
-            border-color: var(--rose);
-        }
+    padding: 14px 18px;
 
+    background: var(--teal);
+    color: white;
 
-        .header-note {
+    font-weight: 700;
+}
 
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
+.submit-btn:hover {
+    background: var(--teal-dark);
+}
 
-            font-style: italic;
+.submit-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
 
-            color: var(--muted);
-        }
+.success-box {
+    display: none;
 
+    margin-top: 15px;
 
-        /* =========================
-           PAGE
-           ========================= */
+    padding: 14px;
 
-        .page {
+    border-radius: 12px;
 
-            width: 100%;
-            max-width: 1500px;
+    background: #e8f2ed;
+    color: #35644e;
 
-            margin: auto;
+    text-align: center;
+    font-weight: 600;
+}
 
-            padding:
-                22px 5% 60px;
-        }
 
+/* PARTNER ANSWER */
 
-        .home-grid {
+.partner-answer-box {
+    min-height: 210px;
 
-            display: grid;
+    border: 1px solid var(--border);
+    border-radius: 15px;
 
-            grid-template-columns:
-                minmax(0, 2.25fr)
-                minmax(280px, 0.8fr);
+    background: white;
 
-            gap: 20px;
-        }
+    padding: 20px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        .main-column {
-            min-width: 0;
-        }
+    text-align: center;
 
+    color: var(--muted);
+}
 
-        /* =========================
-           QUESTION HERO
-           ========================= */
+.partner-answer-text {
+    width: 100%;
 
-        .question-hero {
+    color: var(--text);
 
-            position: relative;
-            overflow: hidden;
+    font-size: 17px;
+    line-height: 1.7;
 
-            min-height: 300px;
+    text-align: left;
+}
 
-            border:
-                1px solid var(--border);
+.hidden-heart {
+    display: block;
 
-            border-radius: 24px;
+    color: var(--rose);
 
-            background:
-                linear-gradient(
-                    rgba(255, 246, 241, 0.82),
-                    rgba(255, 246, 241, 0.91)
-                ),
-                url(
-                    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1800&q=80"
-                );
+    font-size: 31px;
 
-            background-size: cover;
-            background-position: center 52%;
+    margin-bottom: 12px;
+}
 
-            box-shadow: var(--shadow);
+.small-note {
+    margin-top: 14px;
 
-            padding: 42px 52px;
+    padding: 12px 14px;
 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+    border-radius: 12px;
 
-            text-align: center;
-        }
+    background: var(--teal-light);
+    color: var(--teal-dark);
 
+    font-size: 14px;
+    font-style: italic;
+}
 
-        .question-topline {
 
-            width: 100%;
+/* WANT ANOTHER */
 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+.next-question-card {
+    display: none;
 
-            position: absolute;
-            left: 0;
-            top: 0;
+    margin-top: 18px;
 
-            padding: 28px 36px;
-        }
+    background:
+        linear-gradient(
+            135deg,
+            #fff9f5,
+            #f5eeea
+        );
 
+    border: 1px solid var(--border);
+    border-radius: 22px;
 
-        .today-label {
+    padding: 26px 28px;
 
-            color: var(--rose-dark);
+    box-shadow: var(--shadow);
 
-            font-weight: 700;
+    align-items: center;
+    justify-content: space-between;
 
-            display: flex;
-            align-items: center;
+    gap: 24px;
+}
 
-            gap: 8px;
-        }
+.next-question-eyebrow {
+    color: var(--rose-dark);
 
+    font-size: 12px;
+    font-weight: 800;
 
-        .timer {
-            color: var(--muted);
-            font-size: 14px;
-        }
+    text-transform: uppercase;
+    letter-spacing: 1px;
 
+    margin-bottom: 6px;
+}
 
-        .question {
+.next-question-card h3 {
+    font-family: Georgia, "Times New Roman", serif;
 
-            max-width: 900px;
+    font-size: 26px;
 
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
+    margin-bottom: 5px;
+}
 
-            font-size:
-                clamp(31px, 4vw, 52px);
+.next-question-card p {
+    color: var(--muted);
 
-            font-weight: 500;
+    line-height: 1.5;
+}
 
-            line-height: 1.16;
+.next-question-button {
+    min-width: 205px;
 
-            color: #1f292d;
+    border: none;
+    border-radius: 14px;
 
-            margin-top: 26px;
-        }
+    padding: 15px 20px;
 
+    background: var(--rose);
+    color: white;
 
-        .question-subtitle {
+    font-weight: 700;
 
-            margin-top: 20px;
+    white-space: nowrap;
+}
 
-            color: var(--muted);
+.next-question-button:hover {
+    background: var(--rose-dark);
+}
 
-            font-size: 15px;
-        }
+.next-question-button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
 
 
-        /* =========================
-           ANSWER CARDS
-           ========================= */
+/* SIDEBAR */
 
-        .answer-grid {
+.sidebar {
+    display: flex;
+    flex-direction: column;
 
-            display: grid;
+    gap: 18px;
+}
 
-            grid-template-columns:
-                1fr 1fr;
+.sidebar-card {
+    background: var(--card);
 
-            gap: 18px;
+    border: 1px solid var(--border);
+    border-radius: 22px;
 
-            margin-top: 18px;
-        }
+    padding: 24px;
 
+    box-shadow: var(--shadow);
+}
 
-        .answer-card {
+.sidebar-card h3 {
+    font-family: Georgia, "Times New Roman", serif;
 
-            background: var(--card);
+    font-size: 20px;
 
-            border:
-                1px solid var(--border);
+    margin-bottom: 19px;
+}
 
-            border-radius: 22px;
+.journey-stat {
+    display: flex;
 
-            padding: 25px;
+    justify-content: space-between;
+    align-items: center;
 
-            box-shadow: var(--shadow);
+    padding: 13px 0;
 
-            min-height: 355px;
-        }
+    border-bottom: 1px solid #eee7e2;
+}
 
+.journey-stat:last-child {
+    border-bottom: none;
+}
 
-        .answer-card-header {
+.journey-stat span:first-child {
+    color: var(--muted);
+}
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+.journey-stat strong {
+    color: var(--teal);
+    font-size: 19px;
+}
 
-            gap: 15px;
 
-            margin-bottom: 20px;
-        }
+/* JAR */
 
+.jar-card {
+    background:
+        linear-gradient(
+            145deg,
+            #fffdfb,
+            #f7efeb
+        );
+}
 
-        .answer-title {
+.jar-heading {
+    display: flex;
+    align-items: center;
 
-            display: flex;
-            align-items: center;
+    gap: 10px;
 
-            gap: 12px;
-        }
+    margin-bottom: 8px;
+}
 
+.jar-icon {
+    width: 38px;
+    height: 38px;
 
-        .avatar {
+    border-radius: 50%;
 
-            width: 48px;
-            height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            border-radius: 50%;
+    background: var(--rose-light);
+    color: var(--rose-dark);
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    font-size: 20px;
+}
 
-            background:
-                var(--rose-light);
+.jar-heading h3 {
+    margin-bottom: 0;
+}
 
-            color:
-                var(--rose-dark);
+.jar-description {
+    color: var(--muted);
 
-            font-weight: 800;
+    line-height: 1.6;
 
-            font-size: 17px;
-        }
+    font-size: 14px;
 
+    margin-bottom: 16px;
+}
 
-        .avatar.partner {
+.jar-input {
+    width: 100%;
 
-            background:
-                var(--teal-light);
+    min-height: 100px;
 
-            color:
-                var(--teal-dark);
-        }
+    resize: vertical;
 
+    padding: 13px 14px;
 
-        .answer-title h3 {
+    border: 1px solid var(--border);
+    border-radius: 12px;
 
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
+    background: white;
 
-            font-size: 21px;
+    outline: none;
+}
 
-            margin-bottom: 2px;
-        }
+.jar-button {
+    width: 100%;
 
+    margin-top: 11px;
 
-        .answer-title span {
+    border: none;
+    border-radius: 12px;
 
-            color: var(--muted);
+    padding: 13px 15px;
 
-            font-size: 13px;
-        }
+    background: var(--rose);
+    color: white;
 
+    font-weight: 700;
+}
 
-        .person-select {
+.jar-button:hover {
+    background: var(--rose-dark);
+}
 
-            width: 100%;
+.jar-button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
 
-            padding: 13px 14px;
+.jar-message {
+    display: none;
 
-            border:
-                1px solid var(--border);
+    margin-top: 12px;
 
-            border-radius: 12px;
+    padding: 11px;
 
-            margin-bottom: 14px;
+    border-radius: 10px;
 
-            background: white;
+    background: #e8f2ed;
+    color: #35644e;
 
-            color: var(--text);
+    font-size: 13px;
 
-            outline: none;
-        }
+    text-align: center;
+}
 
+.jar-count {
+    margin-top: 13px;
 
-        .person-select:disabled {
+    text-align: center;
 
-            background: #f7f3ef;
+    color: var(--muted);
 
-            color: var(--text);
+    font-size: 12px;
+}
 
-            opacity: 1;
-        }
+.quote-card {
+    min-height: 205px;
 
+    background:
+        linear-gradient(
+            rgba(255,255,255,.18),
+            rgba(255,255,255,.12)
+        ),
+        url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80");
 
-        textarea {
+    background-size: cover;
+    background-position: center;
 
-            width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            min-height: 145px;
+    text-align: center;
 
-            resize: vertical;
+    color: white;
+}
 
-            padding: 16px;
+.quote-card div {
+    font-family: Georgia, "Times New Roman", serif;
 
-            border:
-                1px solid var(--border);
+    font-size: 23px;
+    font-style: italic;
 
-            border-radius: 14px;
+    text-shadow: 0 2px 8px rgba(0,0,0,.35);
+}
 
-            background: white;
 
-            color: var(--text);
+/* JOURNAL */
 
-            line-height: 1.6;
+#archive-view {
+    display: none;
+}
 
-            outline: none;
-        }
+.journal-heading {
+    text-align: center;
 
+    padding: 30px 0 36px;
+}
 
-        textarea:disabled {
+.journal-heading h2 {
+    font-family: Georgia, "Times New Roman", serif;
 
-            background: #fbf9f7;
+    font-size: 38px;
 
-            color: var(--text);
+    margin-bottom: 8px;
+}
 
-            opacity: 1;
-        }
+.journal-heading p {
+    color: var(--muted);
+}
 
+#archive-container {
+    max-width: 1050px;
+    margin: auto;
+}
 
-        textarea:focus,
-        .person-select:focus,
-        .jar-input:focus {
+.conversation-card {
+    background: var(--card);
 
-            border-color: var(--rose);
+    border: 1px solid var(--border);
+    border-radius: 22px;
 
-            box-shadow:
-                0 0 0 3px
-                rgba(185, 111, 101, 0.1);
-        }
+    margin-bottom: 18px;
 
+    padding: 26px;
 
-        .submit-btn {
+    box-shadow: var(--shadow);
+}
 
-            width: 100%;
+.conversation-date {
+    color: var(--rose-dark);
 
-            margin-top: 14px;
+    font-size: 13px;
+    font-weight: 700;
 
-            border: none;
-            border-radius: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 
-            padding: 14px 18px;
+    margin-bottom: 8px;
+}
 
-            background: var(--teal);
-            color: white;
+.conversation-question {
+    font-family: Georgia, "Times New Roman", serif;
 
-            font-weight: 700;
-        }
+    font-size: 25px;
+    line-height: 1.35;
 
+    margin-bottom: 22px;
+}
 
-        .submit-btn:hover {
-            background: var(--teal-dark);
-        }
+.conversation-answers {
+    display: grid;
 
+    grid-template-columns: 1fr 1fr;
 
-        .submit-btn:disabled {
+    gap: 16px;
+}
 
-            opacity: 0.6;
+.conversation-answer {
+    border-radius: 15px;
 
-            cursor: not-allowed;
-        }
+    padding: 18px;
 
+    background: var(--card-soft);
 
-        .success-box {
+    line-height: 1.65;
+}
 
-            display: none;
+.conversation-answer strong {
+    display: block;
 
-            margin-top: 15px;
+    color: var(--rose-dark);
 
-            padding: 14px;
+    margin-bottom: 7px;
+}
 
-            border-radius: 12px;
+.conversation-answer.sierra strong {
+    color: var(--teal);
+}
 
-            background: #e8f2ed;
+.empty-answer {
+    color: var(--muted);
+    font-style: italic;
+}
 
-            color: #35644e;
+.loading {
+    text-align: center;
 
-            text-align: center;
+    color: var(--muted);
 
-            font-weight: 600;
-        }
+    padding: 40px;
+}
 
+footer {
+    text-align: center;
 
-        /* =========================
-           PARTNER ANSWER
-           ========================= */
+    color: var(--muted);
 
-        .partner-answer-box {
+    font-size: 13px;
 
-            min-height: 210px;
+    padding: 15px 20px 32px;
+}
 
-            border:
-                1px solid var(--border);
 
-            border-radius: 15px;
+/* MOBILE */
 
-            background: #ffffff;
+@media (max-width: 950px) {
+    .home-grid {
+        grid-template-columns: 1fr;
+    }
 
-            padding: 20px;
+    .sidebar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    .header-note {
+        display: none;
+    }
+}
 
-            text-align: center;
+@media (max-width: 700px) {
+    header {
+        height: auto;
+        padding: 14px 5%;
+    }
 
-            color: var(--muted);
-        }
+    .header-inner {
+        flex-wrap: wrap;
+    }
 
+    nav {
+        width: 100%;
 
-        .partner-answer-text {
+        justify-content: center;
 
-            color: var(--text);
+        gap: 18px;
+    }
 
-            font-size: 17px;
+    nav a {
+        padding: 7px 3px 10px;
+    }
 
-            line-height: 1.7;
+    .question-hero {
+        min-height: 330px;
 
-            text-align: left;
+        padding: 65px 24px 34px;
+    }
 
-            width: 100%;
-        }
+    .question-topline {
+        padding: 20px;
+    }
 
+    .question {
+        font-size: 32px;
+    }
 
-        .hidden-heart {
+    .answer-grid,
+    .conversation-answers,
+    .sidebar {
+        grid-template-columns: 1fr;
+    }
 
-            font-size: 31px;
+    .next-question-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-            display: block;
-
-            color: var(--rose);
-
-            margin-bottom: 12px;
-        }
-
-
-        .small-note {
-
-            margin-top: 14px;
-
-            padding: 12px 14px;
-
-            border-radius: 12px;
-
-            background: var(--teal-light);
-
-            color: var(--teal-dark);
-
-            font-size: 14px;
-
-            font-style: italic;
-        }
-
-
-        /* =========================
-           SIDEBAR
-           ========================= */
-
-        .sidebar {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 18px;
-        }
-
-
-        .sidebar-card {
-
-            background: var(--card);
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 22px;
-
-            padding: 24px;
-
-            box-shadow: var(--shadow);
-        }
-
-
-        .sidebar-card h3 {
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 20px;
-
-            margin-bottom: 19px;
-        }
-
-
-        .journey-stat {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            padding: 13px 0;
-
-            border-bottom:
-                1px solid #eee7e2;
-        }
-
-
-        .journey-stat:last-child {
-            border-bottom: none;
-        }
-
-
-        .journey-stat span:first-child {
-            color: var(--muted);
-        }
-
-
-        .journey-stat strong {
-
-            color: var(--teal);
-
-            font-size: 19px;
-        }
-
-
-        /* =========================
-           QUESTION JAR
-           ========================= */
-
-        .jar-card {
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #fffdfb,
-                    #f7efeb
-                );
-        }
-
-
-        .jar-heading {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .jar-icon {
-
-            width: 38px;
-            height: 38px;
-
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background:
-                var(--rose-light);
-
-            color:
-                var(--rose-dark);
-
-            font-size: 20px;
-        }
-
-
-        .jar-heading h3 {
-            margin-bottom: 0;
-        }
-
-
-        .jar-description {
-
-            color: var(--muted);
-
-            line-height: 1.6;
-
-            font-size: 14px;
-
-            margin-bottom: 16px;
-        }
-
-
-        .jar-input {
-
-            width: 100%;
-
-            min-height: 100px;
-
-            resize: vertical;
-
-            padding: 13px 14px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 12px;
-
-            background: white;
-
-            color: var(--text);
-
-            line-height: 1.5;
-
-            outline: none;
-        }
-
-
-        .jar-button {
-
-            width: 100%;
-
-            margin-top: 11px;
-
-            border: none;
-
-            border-radius: 12px;
-
-            padding: 13px 15px;
-
-            background: var(--rose);
-
-            color: white;
-
-            font-weight: 700;
-        }
-
-
-        .jar-button:hover {
-            background: var(--rose-dark);
-        }
-
-
-        .jar-button:disabled {
-
-            opacity: 0.6;
-
-            cursor: not-allowed;
-        }
-
-
-        .jar-message {
-
-            display: none;
-
-            margin-top: 12px;
-
-            padding: 11px 12px;
-
-            border-radius: 10px;
-
-            font-size: 13px;
-
-            text-align: center;
-
-            background: #e8f2ed;
-
-            color: #35644e;
-        }
-
-
-        .jar-count {
-
-            margin-top: 13px;
-
-            text-align: center;
-
-            color: var(--muted);
-
-            font-size: 12px;
-        }
-
-
-        .quote-card {
-
-            min-height: 205px;
-
-            background:
-                linear-gradient(
-                    rgba(255, 255, 255, 0.18),
-                    rgba(255, 255, 255, 0.12)
-                ),
-                url(
-                    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80"
-                );
-
-            background-size: cover;
-
-            background-position: center;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            text-align: center;
-
-            color: white;
-        }
-
-
-        .quote-card div {
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-style: italic;
-
-            font-size: 23px;
-
-            text-shadow:
-                0 2px 8px rgba(0, 0, 0, .35);
-        }
-
-
-        /* =========================
-           JOURNAL
-           ========================= */
-
-        #archive-view {
-            display: none;
-        }
-
-
-        .journal-heading {
-
-            text-align: center;
-
-            padding: 30px 0 36px;
-        }
-
-
-        .journal-heading h2 {
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 38px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .journal-heading p {
-            color: var(--muted);
-        }
-
-
-        #archive-container {
-
-            max-width: 1050px;
-
-            margin: auto;
-        }
-
-
-        .conversation-card {
-
-            background: var(--card);
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 22px;
-
-            margin-bottom: 18px;
-
-            padding: 26px;
-
-            box-shadow: var(--shadow);
-        }
-
-
-        .conversation-date {
-
-            color: var(--rose-dark);
-
-            font-size: 13px;
-
-            font-weight: 700;
-
-            text-transform: uppercase;
-
-            letter-spacing: 1px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .conversation-question {
-
-            font-family:
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size: 25px;
-
-            line-height: 1.35;
-
-            margin-bottom: 22px;
-        }
-
-
-        .conversation-answers {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap: 16px;
-        }
-
-
-        .conversation-answer {
-
-            border-radius: 15px;
-
-            padding: 18px;
-
-            background:
-                var(--card-soft);
-
-            line-height: 1.65;
-        }
-
-
-        .conversation-answer strong {
-
-            display: block;
-
-            color: var(--rose-dark);
-
-            margin-bottom: 7px;
-        }
-
-
-        .conversation-answer.sierra strong {
-            color: var(--teal);
-        }
-
-
-        .empty-answer {
-
-            color: var(--muted);
-
-            font-style: italic;
-        }
-
-
-        .loading {
-
-            text-align: center;
-
-            color: var(--muted);
-
-            padding: 40px;
-        }
-
-
-        footer {
-
-            text-align: center;
-
-            color: var(--muted);
-
-            font-size: 13px;
-
-            padding:
-                15px 20px 32px;
-        }
-
-
-        /* =========================
-           MOBILE
-           ========================= */
-
-        @media (max-width: 950px) {
-
-            .home-grid {
-                grid-template-columns: 1fr;
-            }
-
-
-            .sidebar {
-
-                display: grid;
-
-                grid-template-columns:
-                    1fr 1fr;
-            }
-
-
-            .header-note {
-                display: none;
-            }
-        }
-
-
-        @media (max-width: 700px) {
-
-            header {
-
-                height: auto;
-
-                padding: 14px 5%;
-            }
-
-
-            .header-inner {
-                flex-wrap: wrap;
-            }
-
-
-            nav {
-
-                width: 100%;
-
-                justify-content: center;
-
-                gap: 18px;
-            }
-
-
-            nav a {
-                padding: 7px 3px 10px;
-            }
-
-
-            .page {
-                padding-top: 14px;
-            }
-
-
-            .question-hero {
-
-                min-height: 330px;
-
-                padding:
-                    65px 24px 34px;
-            }
-
-
-            .question-topline {
-                padding: 20px;
-            }
-
-
-            .question {
-                font-size: 32px;
-            }
-
-
-            .answer-grid,
-            .conversation-answers,
-            .sidebar {
-                grid-template-columns: 1fr;
-            }
-        }
-
-    </style>
-
+    .next-question-button {
+        width: 100%;
+    }
+}
+</style>
 </head>
 
 
 <body>
 
-
-<!-- =========================
-     LOGIN
-     ========================= -->
-
 <div id="login-overlay">
 
     <div class="login-card">
 
-        <div class="login-heart">
-            ♡
-        </div>
+        <div class="login-heart">♡</div>
 
-        <h1>
-            Between Us
-        </h1>
+        <h1>Between Us</h1>
 
-        <p>
-            A little space for better conversations.
-        </p>
+        <p>A little space for better conversations.</p>
 
         <input
             type="password"
@@ -1346,1846 +1065,1453 @@
 </div>
 
 
-<!-- =========================
-     MAIN APP
-     ========================= -->
-
 <div id="app-content">
 
+<header>
 
-    <header>
+    <div class="header-inner">
 
-        <div class="header-inner">
+        <div class="logo">
+            <span class="logo-heart">♡</span>
+            Between Us
+        </div>
 
-            <div class="logo">
+        <nav>
 
-                <span class="logo-heart">
-                    ♡
+            <a
+                id="home-nav"
+                class="active"
+                onclick="switchView('home')"
+            >
+                Home
+            </a>
+
+            <a
+                id="archive-nav"
+                onclick="switchView('archive')"
+            >
+                Journal
+            </a>
+
+        </nav>
+
+        <div class="header-note">
+            A question at a time. ♡
+        </div>
+
+    </div>
+
+</header>
+
+
+<div
+    id="home-view"
+    class="page"
+>
+
+<div class="home-grid">
+
+<div class="main-column">
+
+
+<section
+    class="question-hero"
+    id="question-hero"
+>
+
+    <div class="question-topline">
+
+        <div class="today-label">
+            ♡ Current Question
+        </div>
+
+        <div
+            class="question-number"
+            id="question-number"
+        >
+            Question —
+        </div>
+
+    </div>
+
+    <div
+        class="question"
+        id="question-display"
+    >
+        Loading your question...
+    </div>
+
+    <div class="question-subtitle">
+        Different perspectives. One conversation.
+    </div>
+
+</section>
+
+
+<div class="answer-grid">
+
+
+<section class="answer-card">
+
+    <div class="answer-card-header">
+
+        <div class="answer-title">
+
+            <div
+                class="avatar"
+                id="your-avatar"
+            >
+                ?
+            </div>
+
+            <div>
+
+                <h3 id="your-title">
+                    Your Answer
+                </h3>
+
+                <span id="your-status">
+                    Take your time.
                 </span>
 
-                Between Us
-
-            </div>
-
-
-            <nav>
-
-                <a
-                    id="home-nav"
-                    class="active"
-                    onclick="switchView('home')"
-                >
-                    Home
-                </a>
-
-
-                <a
-                    id="archive-nav"
-                    onclick="switchView('archive')"
-                >
-                    Journal
-                </a>
-
-            </nav>
-
-
-            <div class="header-note">
-                A question at a time. ♡
             </div>
 
         </div>
-
-    </header>
-
-
-    <!-- =========================
-         HOME
-         ========================= -->
-
-    <div
-        id="home-view"
-        class="page"
-    >
-
-
-        <div class="home-grid">
-
-
-            <div class="main-column">
-
-
-                <!-- QUESTION -->
-
-                <section class="question-hero">
-
-
-                    <div class="question-topline">
-
-
-                        <div class="today-label">
-                            ♡ Today's Question
-                        </div>
-
-
-                        <div
-                            class="timer"
-                            id="timer"
-                        >
-                            New question in --
-                        </div>
-
-
-                    </div>
-
-
-                    <div
-                        class="question"
-                        id="question-display"
-                    >
-                        Loading today's question...
-                    </div>
-
-
-                    <div class="question-subtitle">
-                        Different perspectives. One conversation.
-                    </div>
-
-
-                </section>
-
-
-                <!-- ANSWERS -->
-
-                <div class="answer-grid">
-
-
-                    <!-- YOUR ANSWER -->
-
-                    <section class="answer-card">
-
-
-                        <div class="answer-card-header">
-
-
-                            <div class="answer-title">
-
-
-                                <div
-                                    class="avatar"
-                                    id="your-avatar"
-                                >
-                                    ?
-                                </div>
-
-
-                                <div>
-
-                                    <h3 id="your-title">
-                                        Your Answer
-                                    </h3>
-
-                                    <span id="your-status">
-                                        Take your time.
-                                    </span>
-
-                                </div>
-
-
-                            </div>
-
-
-                        </div>
-
-
-                        <select
-                            id="user-select"
-                            class="person-select"
-                            onchange="handleUserChange()"
-                        >
-                        </select>
-
-
-                        <textarea
-                            id="answer-text"
-                            placeholder="Write as much or as little as you want..."
-                        ></textarea>
-
-
-                        <button
-                            class="submit-btn"
-                            onclick="submitAnswer()"
-                            id="submit-btn"
-                        >
-                            Submit Answer
-                        </button>
-
-
-                        <div
-                            class="success-box"
-                            id="success-msg"
-                        >
-                            Your answer has been saved. ♡
-                        </div>
-
-
-                    </section>
-
-
-                    <!-- PARTNER ANSWER -->
-
-                    <section class="answer-card">
-
-
-                        <div class="answer-card-header">
-
-
-                            <div class="answer-title">
-
-
-                                <div
-                                    class="avatar partner"
-                                    id="partner-avatar"
-                                >
-                                    ♡
-                                </div>
-
-
-                                <div>
-
-                                    <h3 id="partner-title">
-                                        Partner's Answer
-                                    </h3>
-
-                                    <span id="partner-status">
-                                        Choose who's answering first.
-                                    </span>
-
-                                </div>
-
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div
-                            class="partner-answer-box"
-                            id="partner-answer-box"
-                        >
-
-
-                            <div>
-
-                                <span class="hidden-heart">
-                                    ♡
-                                </span>
-
-                                Choose who's answering to see where today's conversation stands.
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div
-                            class="small-note"
-                            id="partner-note"
-                        >
-                            One question. Two answers.
-                        </div>
-
-
-                    </section>
-
-
-                </div>
-
-
-            </div>
-
-
-            <!-- =========================
-                 SIDEBAR
-                 ========================= -->
-
-            <aside class="sidebar">
-
-
-                <!-- JOURNEY -->
-
-                <section class="sidebar-card">
-
-
-                    <h3>
-                        Our Journey
-                    </h3>
-
-
-                    <div class="journey-stat">
-
-
-                        <span>
-                            Questions answered
-                        </span>
-
-
-                        <strong id="question-count">
-                            0
-                        </strong>
-
-
-                    </div>
-
-
-                    <div class="journey-stat">
-
-
-                        <span>
-                            Today's responses
-                        </span>
-
-
-                        <strong id="today-count">
-                            0 / 2
-                        </strong>
-
-
-                    </div>
-
-
-                    <div class="journey-stat">
-
-
-                        <span>
-                            Today's question
-                        </span>
-
-
-                        <strong id="question-id-display">
-                            —
-                        </strong>
-
-
-                    </div>
-
-
-                </section>
-
-
-                <!-- QUESTION JAR -->
-
-                <section class="sidebar-card jar-card">
-
-
-                    <div class="jar-heading">
-
-
-                        <div class="jar-icon">
-                            ♡
-                        </div>
-
-
-                        <h3>
-                            Question Jar
-                        </h3>
-
-
-                    </div>
-
-
-                    <p class="jar-description">
-
-                        Have something you want to talk about later?
-
-                        Add it here and let it show up on its own someday.
-
-                    </p>
-
-
-                    <textarea
-                        id="jar-question"
-                        class="jar-input"
-                        placeholder="What do you want to ask?"
-                        maxlength="500"
-                    ></textarea>
-
-
-                    <button
-                        id="jar-button"
-                        class="jar-button"
-                        onclick="submitQuestion()"
-                    >
-                        Add to the Jar ♡
-                    </button>
-
-
-                    <div
-                        id="jar-message"
-                        class="jar-message"
-                    >
-                        Added to the jar. ♡
-                    </div>
-
-
-                    <div
-                        id="jar-count"
-                        class="jar-count"
-                    >
-                        Loading question jar...
-                    </div>
-
-
-                </section>
-
-
-                <!-- HOW IT WORKS -->
-
-                <section class="sidebar-card">
-
-
-                    <h3>
-                        How it works
-                    </h3>
-
-
-                    <p
-                        style="
-                            color: var(--muted);
-                            line-height: 1.7;
-                        "
-                    >
-
-                        Answer today's question,
-                        come back to see the other perspective,
-                        and keep the conversation
-                        in your shared journal.
-
-                    </p>
-
-
-                </section>
-
-
-                <!-- QUOTE -->
-
-                <section
-                    class="sidebar-card quote-card"
-                >
-
-
-                    <div>
-
-                        A deeper you.
-                        <br>
-
-                        A brighter us. ♡
-
-                    </div>
-
-
-                </section>
-
-
-            </aside>
-
-
-        </div>
-
 
     </div>
 
 
-    <!-- =========================
-         JOURNAL
-         ========================= -->
+    <select
+        id="user-select"
+        class="person-select"
+        onchange="handleUserChange()"
+    >
+    </select>
+
+
+    <textarea
+        id="answer-text"
+        placeholder="Write as much or as little as you want..."
+    ></textarea>
+
+
+    <button
+        class="submit-btn"
+        onclick="submitAnswer()"
+        id="submit-btn"
+    >
+        Submit Answer
+    </button>
+
 
     <div
-        id="archive-view"
-        class="page"
+        class="success-box"
+        id="success-msg"
     >
+        Your answer has been saved. ♡
+    </div>
+
+</section>
 
 
-        <div class="journal-heading">
+<section class="answer-card">
 
+    <div class="answer-card-header">
 
-            <h2>
-                Your Journal
-            </h2>
+        <div class="answer-title">
 
-
-            <p>
-                The questions you've answered along the way.
-            </p>
-
-
-        </div>
-
-
-        <div id="archive-container">
-
-
-            <div class="loading">
-                Loading conversations...
+            <div
+                class="avatar partner"
+                id="partner-avatar"
+            >
+                ♡
             </div>
 
+            <div>
+
+                <h3 id="partner-title">
+                    Partner's Answer
+                </h3>
+
+                <span id="partner-status">
+                    Choose who's answering first.
+                </span>
+
+            </div>
 
         </div>
-
 
     </div>
 
 
-    <footer>
-        © 2026 B+S
-    </footer>
+    <div
+        class="partner-answer-box"
+        id="partner-answer-box"
+    >
 
+        <div>
+
+            <span class="hidden-heart">
+                ♡
+            </span>
+
+            Choose who's answering to begin.
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="small-note"
+        id="partner-note"
+    >
+        One question. Two answers.
+    </div>
+
+</section>
+
+</div>
+
+
+<section
+    class="next-question-card"
+    id="next-question-card"
+>
+
+    <div>
+
+        <div class="next-question-eyebrow">
+            Conversation complete
+        </div>
+
+        <h3>
+            Want another question?
+        </h3>
+
+        <p>
+            Keep going if you're in the mood.
+            The next one will be picked randomly from the jar.
+        </p>
+
+    </div>
+
+
+    <button
+        class="next-question-button"
+        id="next-question-button"
+        onclick="requestNextQuestion()"
+    >
+        Give Us Another ♡
+    </button>
+
+</section>
+
+
+</div>
+
+
+<aside class="sidebar">
+
+
+<section class="sidebar-card">
+
+    <h3>
+        Our Journey
+    </h3>
+
+
+    <div class="journey-stat">
+
+        <span>
+            Questions answered
+        </span>
+
+        <strong id="question-count">
+            0
+        </strong>
+
+    </div>
+
+
+    <div class="journey-stat">
+
+        <span>
+            Current responses
+        </span>
+
+        <strong id="today-count">
+            0 / 2
+        </strong>
+
+    </div>
+
+
+    <div class="journey-stat">
+
+        <span>
+            Current question
+        </span>
+
+        <strong id="question-id-display">
+            —
+        </strong>
+
+    </div>
+
+</section>
+
+
+<section class="sidebar-card jar-card">
+
+    <div class="jar-heading">
+
+        <div class="jar-icon">
+            ♡
+        </div>
+
+        <h3>
+            Question Jar
+        </h3>
+
+    </div>
+
+
+    <p class="jar-description">
+
+        Have something you want to talk about later?
+
+        Add it here and let it show up on its own someday.
+
+    </p>
+
+
+    <textarea
+        id="jar-question"
+        class="jar-input"
+        placeholder="What do you want to ask?"
+        maxlength="500"
+    ></textarea>
+
+
+    <button
+        id="jar-button"
+        class="jar-button"
+        onclick="submitQuestion()"
+    >
+        Add to the Jar ♡
+    </button>
+
+
+    <div
+        id="jar-message"
+        class="jar-message"
+    >
+        Added to the jar. ♡
+    </div>
+
+
+    <div
+        id="jar-count"
+        class="jar-count"
+    >
+        Loading question jar...
+    </div>
+
+</section>
+
+
+<section class="sidebar-card">
+
+    <h3>
+        How it works
+    </h3>
+
+    <p
+        style="
+            color: var(--muted);
+            line-height: 1.7;
+        "
+    >
+        Answer the question without seeing the other response.
+        Once you both answer, compare perspectives — then keep
+        going whenever you want.
+    </p>
+
+</section>
+
+
+<section class="sidebar-card quote-card">
+
+    <div>
+        A deeper you.
+        <br>
+        A brighter us. ♡
+    </div>
+
+</section>
+
+
+</aside>
+
+</div>
+</div>
+
+
+<div
+    id="archive-view"
+    class="page"
+>
+
+    <div class="journal-heading">
+
+        <h2>
+            Your Journal
+        </h2>
+
+        <p>
+            The conversations you've had along the way.
+        </p>
+
+    </div>
+
+
+    <div id="archive-container">
+
+        <div class="loading">
+            Loading conversations...
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+    © 2026 B+S
+</footer>
 
 </div>
 
 
 <script>
 
+/* CONFIG */
 
-    /* ==========================
-       CONFIGURATION
-       ========================== */
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbysuuhMbUCSrEysYKacoUhMBI2tL2CwTz5X5USj7EBR7Em_OjDwgcYV8hJV5GmRqFcOCQ/exec";
 
-    const API_URL =
-        "https://script.google.com/macros/s/AKfycbysuuhMbUCSrEysYKacoUhMBI2tL2CwTz5X5USj7EBR7Em_OjDwgcYV8hJV5GmRqFcOCQ/exec";
+const SITE_PASSWORD =
+    "bobbylikessierra";
 
+const PEOPLE = {
+    Bobby: "Sierra",
+    Sierra: "Bobby"
+};
 
-    const SITE_PASSWORD =
-        "bobbylikessierra";
+const ALL_USERS = [
+    "Bobby",
+    "Sierra"
+];
 
+let appData = {
+    question: "",
+    questionId: "",
+    history: [],
+    jarCount: 0
+};
 
-    const PEOPLE = {
-        Bobby: "Sierra",
-        Sierra: "Bobby"
-    };
-
-
-    const ALL_USERS = [
-        "Bobby",
-        "Sierra"
-    ];
-
-
-    let appData = {
-
-        question: "",
-        questionId: "",
-        history: [],
-        jarCount: 0
-
-    };
+let activeUser = "";
 
 
-    let activeUser = "";
+/* LOGIN */
+
+function checkPassword() {
+
+    const input =
+        document.getElementById(
+            "password-input"
+        ).value;
+
+    const error =
+        document.getElementById(
+            "login-error"
+        );
+
+    if (input === SITE_PASSWORD) {
+
+        document.getElementById(
+            "login-overlay"
+        ).style.display = "none";
+
+        document.getElementById(
+            "app-content"
+        ).style.display = "block";
+
+        fetchAppData();
+
+    } else {
+
+        error.style.display = "block";
+
+    }
+}
 
 
-    /* ==========================
-       LOGIN
-       ========================== */
+function checkEnter(event) {
 
-    function checkPassword() {
+    if (event.key === "Enter") {
+        checkPassword();
+    }
 
-
-        const input =
-            document.getElementById(
-                "password-input"
-            ).value;
+}
 
 
-        const error =
-            document.getElementById(
-                "login-error"
+/* NAVIGATION */
+
+function switchView(view) {
+
+    const home =
+        document.getElementById(
+            "home-view"
+        );
+
+    const archive =
+        document.getElementById(
+            "archive-view"
+        );
+
+    const homeNav =
+        document.getElementById(
+            "home-nav"
+        );
+
+    const archiveNav =
+        document.getElementById(
+            "archive-nav"
+        );
+
+
+    if (view === "home") {
+
+        home.style.display = "block";
+        archive.style.display = "none";
+
+        homeNav.classList.add("active");
+        archiveNav.classList.remove("active");
+
+    } else {
+
+        home.style.display = "none";
+        archive.style.display = "block";
+
+        homeNav.classList.remove("active");
+        archiveNav.classList.add("active");
+
+        buildJournal();
+
+    }
+}
+
+
+/* LOAD */
+
+async function fetchAppData() {
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL +
+                "?t=" +
+                new Date().getTime()
             );
 
-
-        if (input === SITE_PASSWORD) {
-
-
-            document.getElementById(
-                "login-overlay"
-            ).style.display =
-                "none";
+        appData =
+            await response.json();
 
 
-            document.getElementById(
-                "app-content"
-            ).style.display =
-                "block";
+        document.getElementById(
+            "question-display"
+        ).innerText =
+            appData.question ||
+            "No active question.";
 
 
-            fetchAppData();
+        document.getElementById(
+            "question-id-display"
+        ).innerText =
+            appData.questionId ||
+            "—";
 
 
-            updateTimer();
+        document.getElementById(
+            "question-number"
+        ).innerText =
+            appData.questionId
+                ? "Question #" +
+                  appData.questionId
+                : "Question";
 
 
-            setInterval(
-                updateTimer,
-                1000
-            );
+        updateJarCount();
+
+        updateStats();
+
+        refreshUserSelector();
+
+        buildJournal();
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById(
+            "question-display"
+        ).innerText =
+            "Failed to load the question.";
+
+    }
+}
 
 
-        } else {
+/* QUESTION JAR */
+
+function updateJarCount() {
+
+    const count =
+        Number(
+            appData.jarCount || 0
+        );
+
+    const display =
+        document.getElementById(
+            "jar-count"
+        );
+
+    display.innerText =
+        count === 1
+            ? "1 question waiting in the jar"
+            : `${count} questions waiting in the jar`;
+}
 
 
-            error.style.display =
-                "block";
+async function submitQuestion() {
 
-        }
+    const input =
+        document.getElementById(
+            "jar-question"
+        );
 
+    const button =
+        document.getElementById(
+            "jar-button"
+        );
+
+    const message =
+        document.getElementById(
+            "jar-message"
+        );
+
+    const question =
+        input.value.trim();
+
+
+    if (!question) {
+
+        alert(
+            "Type a question first."
+        );
+
+        return;
     }
 
 
-    function checkEnter(event) {
+    button.disabled = true;
+    button.innerText = "Adding...";
+
+    message.style.display = "none";
 
 
-        if (event.key === "Enter") {
+    try {
 
-            checkPassword();
+        const response =
+            await fetch(
+                API_URL,
+                {
+                    method: "POST",
 
-        }
-
-    }
-
-
-    /* ==========================
-       PAGE NAVIGATION
-       ========================== */
-
-    function switchView(view) {
-
-
-        const home =
-            document.getElementById(
-                "home-view"
+                    body: JSON.stringify({
+                        action: "add_question",
+                        question: question
+                    })
+                }
             );
 
 
-        const archive =
-            document.getElementById(
-                "archive-view"
+        const result =
+            await response.json();
+
+
+        if (result.status !== "Success") {
+
+            throw new Error(
+                result.message ||
+                "Could not add the question."
             );
-
-
-        const homeNav =
-            document.getElementById(
-                "home-nav"
-            );
-
-
-        const archiveNav =
-            document.getElementById(
-                "archive-nav"
-            );
-
-
-        if (view === "home") {
-
-
-            home.style.display =
-                "block";
-
-
-            archive.style.display =
-                "none";
-
-
-            homeNav.classList.add(
-                "active"
-            );
-
-
-            archiveNav.classList.remove(
-                "active"
-            );
-
-
-        } else {
-
-
-            home.style.display =
-                "none";
-
-
-            archive.style.display =
-                "block";
-
-
-            homeNav.classList.remove(
-                "active"
-            );
-
-
-            archiveNav.classList.add(
-                "active"
-            );
-
-
-            buildJournal();
-
-        }
-
-    }
-
-
-    /* ==========================
-       LOAD DATA
-       ========================== */
-
-    async function fetchAppData() {
-
-
-        try {
-
-
-            const response =
-                await fetch(
-
-                    API_URL +
-                    "?t=" +
-                    new Date().getTime()
-
-                );
-
-
-            appData =
-                await response.json();
-
-
-            document.getElementById(
-                "question-display"
-            ).innerText =
-                appData.question ||
-                "No active question.";
-
-
-            document.getElementById(
-                "question-id-display"
-            ).innerText =
-                appData.questionId ||
-                "—";
-
-
-            updateJarCount();
-
-
-            updateStats();
-
-
-            refreshUserSelector();
-
-
-            buildJournal();
-
-
-        } catch (error) {
-
-
-            console.error(error);
-
-
-            document.getElementById(
-                "question-display"
-            ).innerText =
-                "Failed to load today's question.";
-
-        }
-
-    }
-
-
-    /* ==========================
-       QUESTION JAR
-       ========================== */
-
-    function updateJarCount() {
-
-
-        const count =
-            Number(
-                appData.jarCount || 0
-            );
-
-
-        const display =
-            document.getElementById(
-                "jar-count"
-            );
-
-
-        if (count === 1) {
-
-
-            display.innerText =
-                "1 question waiting in the jar";
-
-
-        } else {
-
-
-            display.innerText =
-                `${count} questions waiting in the jar`;
-
-        }
-
-    }
-
-
-    async function submitQuestion() {
-
-
-        const input =
-            document.getElementById(
-                "jar-question"
-            );
-
-
-        const button =
-            document.getElementById(
-                "jar-button"
-            );
-
-
-        const message =
-            document.getElementById(
-                "jar-message"
-            );
-
-
-        const question =
-            input.value.trim();
-
-
-        if (!question) {
-
-
-            alert(
-                "Type a question first."
-            );
-
-
-            return;
-
         }
 
 
-        button.disabled =
-            true;
+        input.value = "";
 
+        button.innerText = "Added ✓";
 
-        button.innerText =
-            "Adding...";
-
+        message.innerText =
+            "Added to the jar. You'll see it again someday. ♡";
 
         message.style.display =
-            "none";
+            "block";
 
 
-        try {
+        appData.jarCount =
+            Number(
+                appData.jarCount || 0
+            ) + 1;
 
 
-            const response =
-                await fetch(
-                    API_URL,
-                    {
+        updateJarCount();
 
-                        method: "POST",
 
-                        body: JSON.stringify({
+        setTimeout(
+            function () {
 
-                            action:
-                                "add_question",
+                button.disabled = false;
 
-                            question:
-                                question
+                button.innerText =
+                    "Add to the Jar ♡";
 
-                        })
+            },
+            1300
+        );
 
-                    }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            error.message ||
+            "There was a problem adding the question."
+        );
+
+        button.disabled = false;
+
+        button.innerText =
+            "Add to the Jar ♡";
+
+    }
+}
+
+
+/* CURRENT ANSWERS */
+
+function getCurrentAnswers() {
+
+    const currentQuestionId =
+        String(
+            appData.questionId || ""
+        );
+
+    const currentQuestion =
+        String(
+            appData.question || ""
+        );
+
+
+    return (
+        appData.history || []
+    ).filter(
+        function (item) {
+
+            const itemId =
+                String(
+                    item.questionId || ""
                 );
 
-
-            const result =
-                await response.json();
+            const itemQuestion =
+                String(
+                    item.question || ""
+                );
 
 
             if (
-                result.status !== "Success"
+                currentQuestionId &&
+                itemId
             ) {
 
-
-                throw new Error(
-                    result.message ||
-                    "Could not add question."
-                );
-
-            }
-
-
-            input.value =
-                "";
-
-
-            button.innerText =
-                "Added ✓";
-
-
-            message.innerText =
-                "Added to the jar. You'll see it again someday. ♡";
-
-
-            message.style.display =
-                "block";
-
-
-            /*
-              Update displayed jar count immediately.
-            */
-
-            appData.jarCount =
-                Number(
-                    appData.jarCount || 0
-                ) + 1;
-
-
-            updateJarCount();
-
-
-            setTimeout(
-                function () {
-
-                    button.disabled =
-                        false;
-
-
-                    button.innerText =
-                        "Add to the Jar ♡";
-
-                },
-                1300
-            );
-
-
-        } catch (error) {
-
-
-            console.error(error);
-
-
-            alert(
-                "There was a problem adding the question."
-            );
-
-
-            button.disabled =
-                false;
-
-
-            button.innerText =
-                "Add to the Jar ♡";
-
-        }
-
-    }
-
-
-    /* ==========================
-       CURRENT QUESTION
-       ========================== */
-
-    function getCurrentAnswers() {
-
-
-        const currentQuestionId =
-            String(
-                appData.questionId || ""
-            );
-
-
-        const currentQuestion =
-            String(
-                appData.question || ""
-            );
-
-
-        return (
-            appData.history || []
-        ).filter(
-            function (item) {
-
-
-                const itemId =
-                    String(
-                        item.questionId || ""
-                    );
-
-
-                const itemQuestion =
-                    String(
-                        item.question || ""
-                    );
-
-
-                if (
-                    currentQuestionId &&
-                    itemId
-                ) {
-
-                    return (
-                        itemId ===
-                        currentQuestionId
-                    );
-
-                }
-
-
                 return (
-
-                    currentQuestion &&
-
-                    itemQuestion ===
-                    currentQuestion
-
+                    itemId ===
+                    currentQuestionId
                 );
-
             }
+
+
+            return (
+                currentQuestion &&
+                itemQuestion ===
+                currentQuestion
+            );
+        }
+    );
+}
+
+
+/* STATS */
+
+function updateStats() {
+
+    const currentAnswers =
+        getCurrentAnswers();
+
+    const uniqueUsers =
+        new Set(
+            currentAnswers.map(
+                item => item.user
+            )
         );
 
+
+    document.getElementById(
+        "today-count"
+    ).innerText =
+        `${uniqueUsers.size} / 2`;
+
+
+    document.getElementById(
+        "question-count"
+    ).innerText =
+        groupHistory().length;
+}
+
+
+/* USER SELECTION */
+
+function refreshUserSelector() {
+
+    const select =
+        document.getElementById(
+            "user-select"
+        );
+
+    const currentAnswers =
+        getCurrentAnswers();
+
+    const answeredUsers =
+        new Set(
+            currentAnswers.map(
+                item => item.user
+            )
+        );
+
+    const availableUsers =
+        ALL_USERS.filter(
+            user =>
+                !answeredUsers.has(user)
+        );
+
+
+    if (availableUsers.length === 2) {
+
+        activeUser = "";
+
+        select.style.display = "block";
+        select.disabled = false;
+
+        select.innerHTML = `
+            <option
+                value=""
+                disabled
+                selected
+            >
+                Who is answering?
+            </option>
+
+            <option value="Bobby">
+                Bobby
+            </option>
+
+            <option value="Sierra">
+                Sierra
+            </option>
+        `;
+
+        renderAnswerState();
+
+        return;
     }
 
 
-    function updateStats() {
+    if (availableUsers.length === 1) {
 
-
-        const currentAnswers =
-            getCurrentAnswers();
-
-
-        const uniqueTodayUsers =
-            new Set(
-
-                currentAnswers.map(
-
-                    function (item) {
-
-                        return item.user;
-
-                    }
-
-                )
-
-            );
-
-
-        document.getElementById(
-            "today-count"
-        ).innerText =
-            `${uniqueTodayUsers.size} / 2`;
-
-
-        const grouped =
-            groupHistory();
-
-
-        document.getElementById(
-            "question-count"
-        ).innerText =
-            grouped.length;
-
-    }
-
-
-    /* ==========================
-       USER SELECTOR
-       ========================== */
-
-    function refreshUserSelector() {
-
-
-        const select =
-            document.getElementById(
-                "user-select"
-            );
-
-
-        const currentAnswers =
-            getCurrentAnswers();
-
-
-        const answeredUsers =
-            new Set(
-
-                currentAnswers.map(
-
-                    function (item) {
-
-                        return item.user;
-
-                    }
-
-                )
-
-            );
-
-
-        const availableUsers =
-            ALL_USERS.filter(
-
-                function (user) {
-
-                    return !answeredUsers.has(
-                        user
-                    );
-
-                }
-
-            );
-
-
-        /*
-          Nobody has answered.
-        */
-
-        if (
-            availableUsers.length === 2
-        ) {
-
-
-            activeUser =
-                "";
-
-
-            select.style.display =
-                "block";
-
-
-            select.disabled =
-                false;
-
-
-            select.innerHTML = `
-
-                <option
-                    value=""
-                    disabled
-                    selected
-                >
-                    Who is answering?
-                </option>
-
-                <option value="Bobby">
-                    Bobby
-                </option>
-
-                <option value="Sierra">
-                    Sierra
-                </option>
-
-            `;
-
-
-            renderAnswerState();
-
-
-            return;
-
-        }
-
-
-        /*
-          One person already answered.
-
-          Only the remaining person appears.
-        */
-
-        if (
-            availableUsers.length === 1
-        ) {
-
-
-            activeUser =
-                availableUsers[0];
-
-
-            select.style.display =
-                "block";
-
-
-            select.disabled =
-                true;
-
-
-            select.innerHTML = `
-
-                <option
-                    value="${activeUser}"
-                    selected
-                >
-                    ${activeUser} — your turn
-                </option>
-
-            `;
-
-
-            renderAnswerState();
-
-
-            return;
-
-        }
-
-
-        /*
-          Both answered.
-        */
-
-        if (!activeUser) {
-
-            activeUser =
-                "Bobby";
-
-        }
-
+        activeUser =
+            availableUsers[0];
 
         select.style.display =
-            "none";
-
+            "block";
 
         select.disabled =
             true;
 
-
         select.innerHTML = `
-
             <option
                 value="${activeUser}"
                 selected
             >
-                ${activeUser}
+                ${activeUser} — your turn
             </option>
-
         `;
 
-
         renderAnswerState();
 
+        return;
     }
 
 
-    function handleUserChange() {
-
-
-        const select =
-            document.getElementById(
-                "user-select"
-            );
-
-
-        activeUser =
-            select.value;
-
-
-        renderAnswerState();
-
+    if (!activeUser) {
+        activeUser = "Bobby";
     }
 
 
-    /* ==========================
-       ANSWER DISPLAY
-       ========================== */
+    select.style.display = "none";
+    select.disabled = true;
 
-    function renderAnswerState() {
+    renderAnswerState();
+}
 
 
-        const currentAnswers =
-            getCurrentAnswers();
+function handleUserChange() {
 
+    activeUser =
+        document.getElementById(
+            "user-select"
+        ).value;
 
-        const answeredUsers =
-            new Set(
+    renderAnswerState();
+}
 
-                currentAnswers.map(
 
-                    function (item) {
+/* ANSWER DISPLAY */
 
-                        return item.user;
+function showNextQuestionButton(show) {
 
-                    }
+    const card =
+        document.getElementById(
+            "next-question-card"
+        );
 
-                )
+    card.style.display =
+        show
+            ? "flex"
+            : "none";
+}
 
-            );
 
+function renderAnswerState() {
 
-        const bothAnswered =
-            answeredUsers.size >= 2;
+    const currentAnswers =
+        getCurrentAnswers();
 
+    const answeredUsers =
+        new Set(
+            currentAnswers.map(
+                item => item.user
+            )
+        );
 
-        const yourAvatar =
-            document.getElementById(
-                "your-avatar"
-            );
+    const bothAnswered =
+        answeredUsers.has("Bobby") &&
+        answeredUsers.has("Sierra");
 
 
-        const yourTitle =
-            document.getElementById(
-                "your-title"
-            );
+    const yourAvatar =
+        document.getElementById(
+            "your-avatar"
+        );
 
+    const yourTitle =
+        document.getElementById(
+            "your-title"
+        );
 
-        const yourStatus =
-            document.getElementById(
-                "your-status"
-            );
+    const yourStatus =
+        document.getElementById(
+            "your-status"
+        );
 
+    const partnerAvatar =
+        document.getElementById(
+            "partner-avatar"
+        );
 
-        const partnerAvatar =
-            document.getElementById(
-                "partner-avatar"
-            );
+    const partnerTitle =
+        document.getElementById(
+            "partner-title"
+        );
 
+    const partnerStatus =
+        document.getElementById(
+            "partner-status"
+        );
 
-        const partnerTitle =
-            document.getElementById(
-                "partner-title"
-            );
+    const partnerBox =
+        document.getElementById(
+            "partner-answer-box"
+        );
 
+    const partnerNote =
+        document.getElementById(
+            "partner-note"
+        );
 
-        const partnerStatus =
-            document.getElementById(
-                "partner-status"
-            );
+    const textarea =
+        document.getElementById(
+            "answer-text"
+        );
 
+    const submitButton =
+        document.getElementById(
+            "submit-btn"
+        );
 
-        const partnerBox =
-            document.getElementById(
-                "partner-answer-box"
-            );
+    const successBox =
+        document.getElementById(
+            "success-msg"
+        );
 
 
-        const partnerNote =
-            document.getElementById(
-                "partner-note"
-            );
+    showNextQuestionButton(
+        bothAnswered
+    );
 
 
-        const textarea =
-            document.getElementById(
-                "answer-text"
-            );
+    if (!activeUser) {
 
-
-        const submitButton =
-            document.getElementById(
-                "submit-btn"
-            );
-
-
-        const successBox =
-            document.getElementById(
-                "success-msg"
-            );
-
-
-        /*
-          No person chosen.
-        */
-
-        if (!activeUser) {
-
-
-            yourAvatar.innerText =
-                "?";
-
-
-            yourTitle.innerText =
-                "Your Answer";
-
-
-            yourStatus.innerText =
-                "Take your time.";
-
-
-            textarea.value =
-                "";
-
-
-            textarea.disabled =
-                false;
-
-
-            submitButton.style.display =
-                "block";
-
-
-            submitButton.disabled =
-                false;
-
-
-            submitButton.innerText =
-                "Submit Answer";
-
-
-            successBox.style.display =
-                "none";
-
-
-            partnerAvatar.innerText =
-                "♡";
-
-
-            partnerTitle.innerText =
-                "Partner's Answer";
-
-
-            partnerStatus.innerText =
-                "Choose who's answering first.";
-
-
-            partnerBox.innerHTML = `
-
-                <div>
-
-                    <span class="hidden-heart">
-                        ♡
-                    </span>
-
-                    Choose who's answering
-                    to begin today's conversation.
-
-                </div>
-
-            `;
-
-
-            partnerNote.innerText =
-                "One question. Two answers.";
-
-
-            return;
-
-        }
-
-
-        const partner =
-            PEOPLE[activeUser];
-
-
-        const yourAnswer =
-            currentAnswers.find(
-
-                function (item) {
-
-                    return (
-                        item.user ===
-                        activeUser
-                    );
-
-                }
-
-            );
-
-
-        const theirAnswer =
-            currentAnswers.find(
-
-                function (item) {
-
-                    return (
-                        item.user ===
-                        partner
-                    );
-
-                }
-
-            );
-
-
-        yourAvatar.innerText =
-            activeUser.charAt(0);
-
-
-        partnerAvatar.innerText =
-            partner.charAt(0);
-
-
-        partnerTitle.innerText =
-            partner + "'s Answer";
-
-
-        /*
-          BOTH ANSWERED
-        */
-
-        if (bothAnswered) {
-
-
-            yourTitle.innerText =
-                activeUser +
-                "'s Answer";
-
-
-            yourStatus.innerText =
-                "Today's conversation is complete.";
-
-
-            textarea.value =
-                yourAnswer
-                    ? yourAnswer.answer
-                    : "";
-
-
-            textarea.disabled =
-                true;
-
-
-            submitButton.style.display =
-                "none";
-
-
-            successBox.style.display =
-                "block";
-
-
-            successBox.innerText =
-                "Both of you answered today's question. ♡";
-
-
-            partnerStatus.innerText =
-                "Answered today's question.";
-
-
-            partnerBox.innerHTML = `
-
-                <div class="partner-answer-text">
-
-                    ${
-                        theirAnswer
-                            ? escapeHtml(
-                                theirAnswer.answer
-                              )
-                            : ""
-                    }
-
-                </div>
-
-            `;
-
-
-            partnerNote.innerText =
-                "Two perspectives, one conversation. ♡";
-
-
-            return;
-
-        }
-
-
-        /*
-          CURRENT PERSON HAS NOT ANSWERED
-        */
+        yourAvatar.innerText = "?";
 
         yourTitle.innerText =
             "Your Answer";
 
-
         yourStatus.innerText =
-            activeUser +
-            ", it's your turn.";
+            "Take your time.";
 
-
-        textarea.value =
-            "";
-
-
-        textarea.disabled =
-            false;
-
+        textarea.value = "";
+        textarea.disabled = false;
 
         submitButton.style.display =
             "block";
 
-
         submitButton.disabled =
             false;
 
-
         submitButton.innerText =
-            theirAnswer
-                ? "Submit & Reveal"
-                : "Submit Answer";
-
+            "Submit Answer";
 
         successBox.style.display =
             "none";
 
 
-        /*
-          Partner answered,
-          but hide their response.
-        */
+        partnerAvatar.innerText =
+            "♡";
 
-        if (theirAnswer) {
+        partnerTitle.innerText =
+            "Partner's Answer";
 
+        partnerStatus.innerText =
+            "Choose who's answering first.";
 
-            partnerStatus.innerText =
-                partner +
-                " has already answered.";
+        partnerBox.innerHTML = `
+            <div>
+                <span class="hidden-heart">
+                    ♡
+                </span>
 
+                Choose who's answering
+                to begin the conversation.
+            </div>
+        `;
 
-            partnerBox.innerHTML = `
+        partnerNote.innerText =
+            "One question. Two answers.";
 
-                <div>
-
-                    <span class="hidden-heart">
-                        ♡
-                    </span>
-
-                    ${partner}
-                    has answered today's question.
-
-                    <br><br>
-
-                    Answer first to reveal it.
-
-                </div>
-
-            `;
-
-
-            partnerNote.innerText =
-                "No peeking. Your answer comes first. 😏";
-
-
-        } else {
-
-
-            partnerStatus.innerText =
-                "Waiting for " +
-                partner +
-                ".";
-
-
-            partnerBox.innerHTML = `
-
-                <div>
-
-                    <span class="hidden-heart">
-                        ♡
-                    </span>
-
-                    ${partner}
-                    hasn't answered today's question yet.
-
-                </div>
-
-            `;
-
-
-            partnerNote.innerText =
-                "Their answer will appear here when it's ready.";
-
-        }
-
+        return;
     }
 
 
-    /* ==========================
-       SUBMIT ANSWER
-       ========================== */
-
-    async function submitAnswer() {
+    const partner =
+        PEOPLE[activeUser];
 
 
-        const user =
-            activeUser ||
-
-            document.getElementById(
-                "user-select"
-            ).value;
-
-
-        const answer =
-            document.getElementById(
-                "answer-text"
-            ).value.trim();
+    const yourAnswer =
+        currentAnswers.find(
+            item =>
+                item.user === activeUser
+        );
 
 
-        const button =
-            document.getElementById(
-                "submit-btn"
-            );
+    const theirAnswer =
+        currentAnswers.find(
+            item =>
+                item.user === partner
+        );
 
 
-        if (!user) {
+    yourAvatar.innerText =
+        activeUser.charAt(0);
+
+    partnerAvatar.innerText =
+        partner.charAt(0);
+
+    partnerTitle.innerText =
+        partner + "'s Answer";
 
 
-            alert(
-                "Choose who's answering first."
-            );
+    if (bothAnswered) {
 
+        yourTitle.innerText =
+            activeUser +
+            "'s Answer";
 
-            return;
+        yourStatus.innerText =
+            "Conversation complete.";
 
-        }
+        textarea.value =
+            yourAnswer
+                ? yourAnswer.answer
+                : "";
 
-
-        if (!answer) {
-
-
-            alert(
-                "Write an answer before submitting."
-            );
-
-
-            return;
-
-        }
-
-
-        const currentAnswers =
-            getCurrentAnswers();
-
-
-        const alreadyAnswered =
-            currentAnswers.some(
-
-                function (item) {
-
-                    return (
-                        item.user === user
-                    );
-
-                }
-
-            );
-
-
-        if (alreadyAnswered) {
-
-
-            alert(
-                user +
-                " has already answered today's question."
-            );
-
-
-            fetchAppData();
-
-
-            return;
-
-        }
-
-
-        button.innerText =
-            "Saving...";
-
-
-        button.disabled =
+        textarea.disabled =
             true;
 
+        submitButton.style.display =
+            "none";
 
-        try {
+        successBox.style.display =
+            "block";
+
+        successBox.innerText =
+            "Both of you answered this question. ♡";
 
 
+        partnerStatus.innerText =
+            "Answered this question.";
+
+        partnerBox.innerHTML = `
+            <div class="partner-answer-text">
+                ${
+                    theirAnswer
+                        ? escapeHtml(
+                            theirAnswer.answer
+                          )
+                        : ""
+                }
+            </div>
+        `;
+
+        partnerNote.innerText =
+            "Two perspectives, one conversation. ♡";
+
+        return;
+    }
+
+
+    yourTitle.innerText =
+        "Your Answer";
+
+    yourStatus.innerText =
+        activeUser +
+        ", it's your turn.";
+
+    textarea.value = "";
+    textarea.disabled = false;
+
+    submitButton.style.display =
+        "block";
+
+    submitButton.disabled =
+        false;
+
+    submitButton.innerText =
+        theirAnswer
+            ? "Submit & Reveal"
+            : "Submit Answer";
+
+    successBox.style.display =
+        "none";
+
+
+    if (theirAnswer) {
+
+        partnerStatus.innerText =
+            partner +
+            " has already answered.";
+
+        partnerBox.innerHTML = `
+            <div>
+
+                <span class="hidden-heart">
+                    ♡
+                </span>
+
+                ${partner}
+                has answered this question.
+
+                <br><br>
+
+                Answer first to reveal it.
+
+            </div>
+        `;
+
+        partnerNote.innerText =
+            "No peeking. Your answer comes first. 😏";
+
+    } else {
+
+        partnerStatus.innerText =
+            "Waiting for " +
+            partner +
+            ".";
+
+        partnerBox.innerHTML = `
+            <div>
+
+                <span class="hidden-heart">
+                    ♡
+                </span>
+
+                ${partner}
+                hasn't answered this question yet.
+
+            </div>
+        `;
+
+        partnerNote.innerText =
+            "Their answer will appear here when it's ready.";
+    }
+}
+
+
+/* SUBMIT ANSWER */
+
+async function submitAnswer() {
+
+    const user =
+        activeUser ||
+        document.getElementById(
+            "user-select"
+        ).value;
+
+    const answer =
+        document.getElementById(
+            "answer-text"
+        ).value.trim();
+
+    const button =
+        document.getElementById(
+            "submit-btn"
+        );
+
+
+    if (!user) {
+
+        alert(
+            "Choose who's answering first."
+        );
+
+        return;
+    }
+
+
+    if (!answer) {
+
+        alert(
+            "Write an answer before submitting."
+        );
+
+        return;
+    }
+
+
+    button.innerText =
+        "Saving...";
+
+    button.disabled =
+        true;
+
+
+    try {
+
+        const response =
             await fetch(
                 API_URL,
                 {
-
                     method: "POST",
 
                     body: JSON.stringify({
-
-                        action:
-                            "answer",
-
-                        user:
-                            user,
-
-                        answer:
-                            answer
-
+                        action: "answer",
+                        user: user,
+                        answer: answer,
+                        questionId:
+                            appData.questionId
                     })
-
                 }
             );
 
 
-            button.innerText =
-                "Saved ✓";
+        const result =
+            await response.json();
 
 
-            activeUser =
-                user;
+        if (result.status !== "Success") {
 
-
-            setTimeout(
-                fetchAppData,
-                700
+            throw new Error(
+                result.message ||
+                "Could not save the answer."
             );
-
-
-        } catch (error) {
-
-
-            console.error(error);
-
-
-            alert(
-                "There was a problem saving the answer."
-            );
-
-
-            button.innerText =
-                "Submit Answer";
-
-
-            button.disabled =
-                false;
-
         }
 
+
+        activeUser = user;
+
+        button.innerText =
+            "Saved ✓";
+
+
+        setTimeout(
+            fetchAppData,
+            600
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            error.message ||
+            "There was a problem saving the answer."
+        );
+
+        button.innerText =
+            "Submit Answer";
+
+        button.disabled =
+            false;
+
     }
+}
 
 
-    /* ==========================
-       JOURNAL
-       ========================== */
+/* ANOTHER QUESTION */
 
-    function groupHistory() {
+async function requestNextQuestion() {
 
-
-        const history =
-            appData.history || [];
-
-
-        const groups =
-            {};
+    const button =
+        document.getElementById(
+            "next-question-button"
+        );
 
 
-        history.forEach(
+    button.disabled = true;
 
+    button.innerText =
+        "Finding One...";
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+                    method: "POST",
+
+                    body: JSON.stringify({
+                        action:
+                            "next_question"
+                    })
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (result.status !== "Success") {
+
+            throw new Error(
+                result.message ||
+                "Could not load another question."
+            );
+        }
+
+
+        activeUser = "";
+
+
+        await fetchAppData();
+
+
+        document.getElementById(
+            "question-hero"
+        ).scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            error.message ||
+            "There was a problem loading another question."
+        );
+
+    } finally {
+
+        button.disabled =
+            false;
+
+        button.innerText =
+            "Give Us Another ♡";
+
+    }
+}
+
+
+/* JOURNAL */
+
+function groupHistory() {
+
+    const groups = {};
+
+
+    (appData.history || [])
+        .forEach(
             function (item) {
-
 
                 const key =
                     item.questionId
                         ? "id-" +
                           item.questionId
-
                         : "question-" +
                           item.question;
 
 
                 if (!groups[key]) {
-
 
                     groups[key] = {
 
@@ -3205,262 +2531,130 @@
                             {}
 
                     };
-
                 }
 
 
                 groups[key]
                     .answers[item.user] =
                     item.answer;
-
             }
-
         );
 
 
-        return Object
-            .values(groups)
-            .reverse();
+    return Object
+        .values(groups)
+        .reverse();
+}
 
-    }
 
+function buildJournal() {
 
-    function buildJournal() {
-
-
-        const container =
-            document.getElementById(
-                "archive-container"
-            );
-
-
-        if (!container) {
-            return;
-        }
-
-
-        const conversations =
-            groupHistory();
-
-
-        if (!conversations.length) {
-
-
-            container.innerHTML = `
-
-                <div class="loading">
-                    No conversations yet.
-                </div>
-
-            `;
-
-
-            return;
-
-        }
-
-
-        container.innerHTML =
-            conversations
-            .map(
-
-                function (item) {
-
-
-                    const bobbyAnswer =
-                        item.answers.Bobby;
-
-
-                    const sierraAnswer =
-                        item.answers.Sierra;
-
-
-                    return `
-
-                        <article
-                            class="conversation-card"
-                        >
-
-
-                            <div
-                                class="conversation-date"
-                            >
-                                ${
-                                    escapeHtml(
-                                        item.date
-                                    )
-                                }
-                            </div>
-
-
-                            <div
-                                class="conversation-question"
-                            >
-                                ${
-                                    escapeHtml(
-                                        item.question
-                                    )
-                                }
-                            </div>
-
-
-                            <div
-                                class="conversation-answers"
-                            >
-
-
-                                <div
-                                    class="conversation-answer"
-                                >
-
-
-                                    <strong>
-                                        Bobby
-                                    </strong>
-
-
-                                    ${
-                                        bobbyAnswer
-
-                                            ? escapeHtml(
-                                                bobbyAnswer
-                                              )
-
-                                            : '<span class="empty-answer">No answer yet.</span>'
-                                    }
-
-
-                                </div>
-
-
-                                <div
-                                    class="conversation-answer sierra"
-                                >
-
-
-                                    <strong>
-                                        Sierra
-                                    </strong>
-
-
-                                    ${
-                                        sierraAnswer
-
-                                            ? escapeHtml(
-                                                sierraAnswer
-                                              )
-
-                                            : '<span class="empty-answer">No answer yet.</span>'
-                                    }
-
-
-                                </div>
-
-
-                            </div>
-
-
-                        </article>
-
-                    `;
-
-                }
-
-            )
-            .join("");
-
-    }
-
-
-    /* ==========================
-       COUNTDOWN
-       ========================== */
-
-    function updateTimer() {
-
-
-        const now =
-            new Date();
-
-
-        const midnight =
-            new Date(now);
-
-
-        midnight.setHours(
-            24,
-            0,
-            0,
-            0
-        );
-
-
-        const diff =
-            midnight - now;
-
-
-        const hours =
-            Math.floor(
-                diff /
-                1000 /
-                60 /
-                60
-            );
-
-
-        const minutes =
-            Math.floor(
-                diff /
-                1000 /
-                60
-            ) % 60;
-
-
+    const container =
         document.getElementById(
-            "timer"
-        ).innerText =
-            `New question in ${hours}h ${minutes}m`;
-
-    }
-
-
-    /* ==========================
-       SAFE TEXT DISPLAY
-       ========================== */
-
-    function escapeHtml(value) {
-
-
-        return String(
-            value || ""
-        )
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-        .replaceAll(
-            "'",
-            "&#039;"
+            "archive-container"
         );
 
+
+    const conversations =
+        groupHistory();
+
+
+    if (!conversations.length) {
+
+        container.innerHTML = `
+            <div class="loading">
+                No conversations yet.
+            </div>
+        `;
+
+        return;
     }
 
+
+    container.innerHTML =
+        conversations
+        .map(
+            function (item) {
+
+                const bobbyAnswer =
+                    item.answers.Bobby;
+
+                const sierraAnswer =
+                    item.answers.Sierra;
+
+
+                return `
+
+                    <article class="conversation-card">
+
+                        <div class="conversation-date">
+                            ${escapeHtml(item.date)}
+                        </div>
+
+                        <div class="conversation-question">
+                            ${escapeHtml(item.question)}
+                        </div>
+
+                        <div class="conversation-answers">
+
+                            <div class="conversation-answer">
+
+                                <strong>
+                                    Bobby
+                                </strong>
+
+                                ${
+                                    bobbyAnswer
+                                        ? escapeHtml(
+                                            bobbyAnswer
+                                          )
+                                        : '<span class="empty-answer">No answer yet.</span>'
+                                }
+
+                            </div>
+
+
+                            <div class="conversation-answer sierra">
+
+                                <strong>
+                                    Sierra
+                                </strong>
+
+                                ${
+                                    sierraAnswer
+                                        ? escapeHtml(
+                                            sierraAnswer
+                                          )
+                                        : '<span class="empty-answer">No answer yet.</span>'
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </article>
+                `;
+            }
+        )
+        .join("");
+}
+
+
+/* SAFE DISPLAY */
+
+function escapeHtml(value) {
+
+    return String(
+        value || ""
+    )
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 
 </script>
 
-
 </body>
-
 </html>

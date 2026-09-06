@@ -2856,13 +2856,59 @@ function renderGlobalMailNotification() {
     }
 
 
-    text.innerText =
+    const recipients =
+        [...new Set(
 
-        unread.length === 1
+            unread.map(
 
-            ? "You have a note waiting ♡"
+                function (note) {
 
-            : "You have notes waiting ♡";
+                    return note.to;
+
+                }
+
+            )
+
+        )];
+
+
+    if (recipients.length === 1) {
+
+        const recipient =
+            recipients[0];
+
+
+        const theirUnread =
+            unread.filter(
+
+                function (note) {
+
+                    return note.to === recipient;
+
+                }
+
+            );
+
+
+        text.innerText =
+
+            theirUnread.length === 1
+
+                ? recipient +
+                  ", you have a note waiting ♡"
+
+                : recipient +
+                  ", you have " +
+                  theirUnread.length +
+                  " notes waiting ♡";
+
+
+    } else {
+
+        text.innerText =
+            "You both have notes waiting ♡";
+
+    }
 
 
     banner.classList.add(

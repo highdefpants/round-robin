@@ -1885,7 +1885,7 @@ footer {
     <div class="question-topline">
 
         <div class="current-label">
-            ♡ Your Current Question
+            ♡ Our Current Question
         </div>
 
         <div
@@ -1902,12 +1902,12 @@ footer {
         class="question"
         id="question-display"
     >
-        Loading your question...
+        Loading our question...
     </div>
 
 
     <div class="question-subtitle">
-        Your perspective. Their perspective. One conversation.
+        Two perspectives. One conversation.
     </div>
 
 </section>
@@ -1976,7 +1976,7 @@ footer {
         class="success-box"
         id="success-msg"
     >
-        Your answer has been saved. ♡
+        We both answered this question. ♡
     </div>
 
 </section>
@@ -2055,7 +2055,7 @@ footer {
     <div>
 
         <div class="next-question-eyebrow">
-            You both answered
+            We both answered
         </div>
 
         <h3>
@@ -2063,7 +2063,7 @@ footer {
         </h3>
 
         <p>
-            Keep going if you want. Your next question will be picked randomly from the jar.
+            Keep going if we're in the mood. Our next question will be picked randomly from the jar.
         </p>
 
     </div>
@@ -2094,7 +2094,7 @@ footer {
 <section class="feature-card">
 
     <h3>
-        Your Journey Together
+        Our Journey Together
     </h3>
 
 
@@ -2163,7 +2163,7 @@ footer {
 
     <p class="feature-description">
 
-        Have something you want the two of you to talk about later?
+        Have something for us to talk about later?
 
         Add it here and let it show up someday.
 
@@ -2173,7 +2173,7 @@ footer {
     <textarea
         id="jar-question"
         class="jar-input"
-        placeholder="What do you want to ask?"
+        placeholder="What should we talk about?"
         maxlength="500"
     ></textarea>
 
@@ -2183,7 +2183,7 @@ footer {
         class="jar-button"
         onclick="submitQuestion()"
     >
-        Add to the Jar ♡
+        Add to Our Jar ♡
     </button>
 
 
@@ -2191,7 +2191,7 @@ footer {
         id="jar-message"
         class="jar-message"
     >
-        Your question is in the jar. ♡
+        Added to our jar. ♡
     </div>
 
 
@@ -2199,7 +2199,7 @@ footer {
         id="jar-count"
         class="jar-count"
     >
-        Loading question jar...
+        Loading our question jar...
     </div>
 
 </section>
@@ -2400,11 +2400,11 @@ footer {
     <div class="journal-heading">
 
         <h2>
-            Your Shared Journal
+            Our Journal
         </h2>
 
         <p>
-            The questions, answers and notes you've shared.
+            The questions, answers and notes we've shared.
         </p>
 
     </div>
@@ -2439,7 +2439,7 @@ footer {
         <div id="archive-container">
 
             <div class="loading">
-                Loading your conversations...
+                Loading our conversations...
             </div>
 
         </div>
@@ -2458,7 +2458,7 @@ footer {
         >
 
             <div class="loading">
-                Loading your notes...
+                Loading our notes...
             </div>
 
         </div>
@@ -2799,7 +2799,7 @@ async function fetchAppData() {
         document.getElementById(
             "question-display"
         ).innerText =
-            "Your question could not be loaded.";
+            "Our question could not be loaded.";
 
     }
 
@@ -3005,10 +3005,10 @@ function updateJarCount() {
 
         count === 1
 
-            ? "1 question waiting in your jar"
+            ? "1 question waiting in our jar"
 
             : count +
-              " questions waiting in your jar";
+              " questions waiting in our jar";
 
 }
 
@@ -3098,7 +3098,7 @@ async function submitQuestion() {
 
             throw new Error(
                 result.message ||
-                "Your question could not be added."
+                "The question could not be added to our jar."
             );
 
         }
@@ -3113,7 +3113,7 @@ async function submitQuestion() {
 
 
         message.innerText =
-            "Your question is in the jar. ♡";
+            "Added to our jar. ♡";
 
 
         message.style.display =
@@ -3138,7 +3138,7 @@ async function submitQuestion() {
 
 
                 button.innerText =
-                    "Add to the Jar ♡";
+                    "Add to Our Jar ♡";
 
             },
 
@@ -3154,7 +3154,7 @@ async function submitQuestion() {
 
         alert(
             error.message ||
-            "Your question could not be added."
+            "The question could not be added to our jar."
         );
 
 
@@ -3163,7 +3163,7 @@ async function submitQuestion() {
 
 
         button.innerText =
-            "Add to the Jar ♡";
+            "Add to Our Jar ♡";
 
     }
 
@@ -4343,7 +4343,7 @@ function renderAnswerState() {
 
 
         yourStatus.innerText =
-            "You both answered.";
+            "We both answered.";
 
 
         textarea.value =
@@ -4368,7 +4368,7 @@ function renderAnswerState() {
 
 
         successBox.innerText =
-            "You both answered this question. ♡";
+            "We both answered this question. ♡";
 
 
         partnerStatus.innerText =
@@ -4395,7 +4395,7 @@ function renderAnswerState() {
 
 
         partnerNote.innerText =
-            "Now you can compare perspectives. ♡";
+            "Now we can compare perspectives. ♡";
 
 
         animatePartnerAnswer();
@@ -4695,7 +4695,7 @@ async function requestNextQuestion() {
 
             throw new Error(
                 result.message ||
-                "Your next question could not be loaded."
+                "Our next question could not be loaded."
             );
 
         }
@@ -4728,7 +4728,7 @@ async function requestNextQuestion() {
 
         alert(
             error.message ||
-            "Your next question could not be loaded."
+            "Our next question could not be loaded."
         );
 
 
@@ -4836,7 +4836,7 @@ function buildJournal() {
                     ♡
                 </span>
 
-                You haven't answered any questions together yet.
+                We haven't answered any questions together yet.
 
             </div>
 
@@ -4991,7 +4991,7 @@ function buildNotesHistory() {
                     ♡
                 </span>
 
-                You haven't left any notes for each other yet.
+                We haven't left any notes for each other yet.
 
             </div>
 

@@ -408,6 +408,12 @@
             outline: none;
         }
 
+        .person-select:disabled {
+            background: #f7f3ef;
+            color: var(--text);
+            opacity: 1;
+        }
+
         textarea {
             width: 100%;
             min-height: 145px;
@@ -425,6 +431,12 @@
             line-height: 1.6;
 
             outline: none;
+        }
+
+        textarea:disabled {
+            background: #fbf9f7;
+            color: var(--text);
+            opacity: 1;
         }
 
         textarea:focus,
@@ -611,15 +623,12 @@
 
         .journal-heading {
             text-align: center;
-
             padding: 30px 0 36px;
         }
 
         .journal-heading h2 {
             font-family: Georgia, "Times New Roman", serif;
-
             font-size: 38px;
-
             margin-bottom: 8px;
         }
 
@@ -913,8 +922,13 @@
                                 </div>
 
                                 <div>
-                                    <h3>Your Answer</h3>
-                                    <span>Take your time.</span>
+                                    <h3 id="your-title">
+                                        Your Answer
+                                    </h3>
+
+                                    <span id="your-status">
+                                        Take your time.
+                                    </span>
                                 </div>
 
                             </div>
@@ -927,23 +941,6 @@
                             class="person-select"
                             onchange="handleUserChange()"
                         >
-
-                            <option
-                                value=""
-                                disabled
-                                selected
-                            >
-                                Who is answering?
-                            </option>
-
-                            <option value="Bobby">
-                                Bobby
-                            </option>
-
-                            <option value="Sierra">
-                                Sierra
-                            </option>
-
                         </select>
 
 
@@ -988,6 +985,7 @@
                                 </div>
 
                                 <div>
+
                                     <h3 id="partner-title">
                                         Partner's Answer
                                     </h3>
@@ -995,6 +993,7 @@
                                     <span id="partner-status">
                                         Choose who's answering first.
                                     </span>
+
                                 </div>
 
                             </div>
@@ -1159,11 +1158,20 @@
     };
 
 
+    const ALL_USERS = [
+        "Bobby",
+        "Sierra"
+    ];
+
+
     let appData = {
         question: "",
         questionId: "",
         history: []
     };
+
+
+    let activeUser = "";
 
 
     /* ==========================
@@ -1283,7 +1291,7 @@
 
             updateStats();
 
-            handleUserChange();
+            refreshUserSelector();
 
             buildJournal();
 
@@ -1369,20 +1377,184 @@
 
 
     /* ==========================
-       USER / PARTNER DISPLAY
+       USER SELECTOR
        ========================== */
+
+    function refreshUserSelector() {
+
+        const select =
+            document.getElementById(
+                "user-select"
+            );
+
+
+        const currentAnswers =
+            getCurrentAnswers();
+
+
+        const answeredUsers =
+            new Set(
+                currentAnswers.map(
+                    item => item.user
+                )
+            );
+
+
+        const availableUsers =
+            ALL_USERS.filter(
+                user => !answeredUsers.has(user)
+            );
+
+
+        /*
+          Nobody has answered yet.
+          Show both names normally.
+        */
+
+        if (availableUsers.length === 2) {
+
+            activeUser = "";
+
+            select.style.display =
+                "block";
+
+            select.disabled =
+                false;
+
+            select.innerHTML = `
+                <option value="" disabled selected>
+                    Who is answering?
+                </option>
+
+                <option value="Bobby">
+                    Bobby
+                </option>
+
+                <option value="Sierra">
+                    Sierra
+                </option>
+            `;
+
+            renderAnswerState();
+
+            return;
+        }
+
+
+        /*
+          One person already answered.
+          Remove their name completely.
+
+          Only the person who has NOT answered
+          appears, and they are selected automatically.
+        */
+
+        if (availableUsers.length === 1) {
+
+            activeUser =
+                availableUsers[0];
+
+
+            select.style.display =
+                "block";
+
+            select.disabled =
+                true;
+
+            select.innerHTML = `
+                <option value="${activeUser}" selected>
+                    ${activeUser} — your turn
+                </option>
+            `;
+
+            renderAnswerState();
+
+            return;
+        }
+
+
+        /*
+          Both answered.
+
+          No selector is needed anymore.
+
+          Keep the most recent active user if possible
+          so the reveal after submitting feels natural.
+
+          On a fresh reload, default to Bobby on the
+          left and Sierra on the right.
+        */
+
+        if (!activeUser) {
+            activeUser = "Bobby";
+        }
+
+
+        select.style.display =
+            "none";
+
+        select.disabled =
+            true;
+
+        select.innerHTML =
+            `<option value="${activeUser}" selected>${activeUser}</option>`;
+
+
+        renderAnswerState();
+    }
+
 
     function handleUserChange() {
 
-        const user =
+        const select =
             document.getElementById(
                 "user-select"
-            ).value;
+            );
+
+
+        activeUser =
+            select.value;
+
+
+        renderAnswerState();
+    }
+
+
+    /* ==========================
+       ANSWER DISPLAY
+       ========================== */
+
+    function renderAnswerState() {
+
+        const currentAnswers =
+            getCurrentAnswers();
+
+
+        const answeredUsers =
+            new Set(
+                currentAnswers.map(
+                    item => item.user
+                )
+            );
+
+
+        const bothAnswered =
+            answeredUsers.size >= 2;
 
 
         const yourAvatar =
             document.getElementById(
                 "your-avatar"
+            );
+
+        const yourTitle =
+            document.getElementById(
+                "your-title"
+            );
+
+        const yourStatus =
+            document.getElementById(
+                "your-status"
             );
 
         const partnerAvatar =
@@ -1410,11 +1582,58 @@
                 "partner-note"
             );
 
+        const textarea =
+            document.getElementById(
+                "answer-text"
+            );
 
-        if (!user) {
+        const submitButton =
+            document.getElementById(
+                "submit-btn"
+            );
 
-            yourAvatar.innerText = "?";
-            partnerAvatar.innerText = "♡";
+        const successBox =
+            document.getElementById(
+                "success-msg"
+            );
+
+
+        /*
+          No person chosen yet.
+        */
+
+        if (!activeUser) {
+
+            yourAvatar.innerText =
+                "?";
+
+            yourTitle.innerText =
+                "Your Answer";
+
+            yourStatus.innerText =
+                "Take your time.";
+
+            textarea.value =
+                "";
+
+            textarea.disabled =
+                false;
+
+            submitButton.style.display =
+                "block";
+
+            submitButton.disabled =
+                false;
+
+            submitButton.innerText =
+                "Submit Answer";
+
+            successBox.style.display =
+                "none";
+
+
+            partnerAvatar.innerText =
+                "♡";
 
             partnerTitle.innerText =
                 "Partner's Answer";
@@ -1425,7 +1644,7 @@
             partnerBox.innerHTML = `
                 <div>
                     <span class="hidden-heart">♡</span>
-                    Choose who's answering to see where today's conversation stands.
+                    Choose who's answering to begin today's conversation.
                 </div>
             `;
 
@@ -1437,27 +1656,14 @@
 
 
         const partner =
-            PEOPLE[user];
-
-
-        yourAvatar.innerText =
-            user.charAt(0);
-
-        partnerAvatar.innerText =
-            partner.charAt(0);
-
-        partnerTitle.innerText =
-            partner + "'s Answer";
-
-
-        const currentAnswers =
-            getCurrentAnswers();
+            PEOPLE[activeUser];
 
 
         const yourAnswer =
             currentAnswers.find(
-                item => item.user === user
+                item => item.user === activeUser
             );
+
 
         const theirAnswer =
             currentAnswers.find(
@@ -1465,110 +1671,154 @@
             );
 
 
+        yourAvatar.innerText =
+            activeUser.charAt(0);
+
+
+        partnerAvatar.innerText =
+            partner.charAt(0);
+
+
+        partnerTitle.innerText =
+            partner + "'s Answer";
+
+
         /*
-          If current user already answered:
-          lock their answer box so they don't accidentally submit twice.
+          BOTH HAVE ANSWERED
         */
 
-        const textarea =
-            document.getElementById(
-                "answer-text"
-            );
+        if (bothAnswered) {
 
-        const submitButton =
-            document.getElementById(
-                "submit-btn"
-            );
+            yourTitle.innerText =
+                activeUser + "'s Answer";
 
+            yourStatus.innerText =
+                "Today's conversation is complete.";
 
-        if (yourAnswer) {
 
             textarea.value =
-                yourAnswer.answer;
+                yourAnswer
+                    ? yourAnswer.answer
+                    : "";
 
-            textarea.disabled = true;
+            textarea.disabled =
+                true;
+
 
             submitButton.style.display =
                 "none";
 
-            document.getElementById(
-                "success-msg"
-            ).style.display =
+
+            successBox.style.display =
                 "block";
 
-        } else {
+            successBox.innerText =
+                "Both of you answered today's question. ♡";
 
-            textarea.value = "";
-
-            textarea.disabled = false;
-
-            submitButton.style.display =
-                "block";
-
-            submitButton.disabled = false;
-
-            submitButton.innerText =
-                "Submit Answer";
-
-            document.getElementById(
-                "success-msg"
-            ).style.display =
-                "none";
-        }
-
-
-        /*
-          Partner reveal logic
-        */
-
-        if (
-            theirAnswer &&
-            yourAnswer
-        ) {
 
             partnerStatus.innerText =
                 "Answered today's question.";
 
+
             partnerBox.innerHTML = `
                 <div class="partner-answer-text">
-                    ${escapeHtml(theirAnswer.answer)}
+                    ${
+                        theirAnswer
+                            ? escapeHtml(theirAnswer.answer)
+                            : ""
+                    }
                 </div>
             `;
+
 
             partnerNote.innerText =
                 "Two perspectives, one conversation. ♡";
 
-        } else if (
-            theirAnswer &&
-            !yourAnswer
-        ) {
+            return;
+        }
+
+
+        /*
+          CURRENT PERSON HAS NOT ANSWERED YET
+        */
+
+        yourTitle.innerText =
+            "Your Answer";
+
+        yourStatus.innerText =
+            activeUser + ", it's your turn.";
+
+
+        textarea.value =
+            "";
+
+        textarea.disabled =
+            false;
+
+
+        submitButton.style.display =
+            "block";
+
+        submitButton.disabled =
+            false;
+
+        submitButton.innerText =
+            theirAnswer
+                ? "Submit & Reveal"
+                : "Submit Answer";
+
+
+        successBox.style.display =
+            "none";
+
+
+        /*
+          Partner already answered,
+          but we hide it.
+        */
+
+        if (theirAnswer) {
 
             partnerStatus.innerText =
                 partner + " has already answered.";
 
+
             partnerBox.innerHTML = `
                 <div>
                     <span class="hidden-heart">♡</span>
+
                     ${partner} has answered today's question.
+
                     <br><br>
+
                     Answer first to reveal it.
                 </div>
             `;
 
+
             partnerNote.innerText =
                 "No peeking. Your answer comes first. 😏";
 
-        } else {
+        }
+
+        /*
+          Partner hasn't answered either.
+        */
+
+        else {
 
             partnerStatus.innerText =
                 "Waiting for " + partner + ".";
 
+
             partnerBox.innerHTML = `
                 <div>
                     <span class="hidden-heart">♡</span>
+
                     ${partner} hasn't answered today's question yet.
                 </div>
             `;
+
 
             partnerNote.innerText =
                 "Their answer will appear here when it's ready.";
@@ -1583,14 +1833,17 @@
     async function submitAnswer() {
 
         const user =
+            activeUser ||
             document.getElementById(
                 "user-select"
             ).value;
+
 
         const answer =
             document.getElementById(
                 "answer-text"
             ).value.trim();
+
 
         const button =
             document.getElementById(
@@ -1613,6 +1866,35 @@
             alert(
                 "Write an answer before submitting."
             );
+
+            return;
+        }
+
+
+        /*
+          Extra browser-side safety:
+          don't allow a name that already answered
+          to submit again.
+        */
+
+        const currentAnswers =
+            getCurrentAnswers();
+
+
+        const alreadyAnswered =
+            currentAnswers.some(
+                item => item.user === user
+            );
+
+
+        if (alreadyAnswered) {
+
+            alert(
+                user +
+                " has already answered today's question."
+            );
+
+            fetchAppData();
 
             return;
         }
@@ -1644,9 +1926,17 @@
 
 
             /*
-              Give Google Sheets a moment,
-              then reload current data.
+              Keep track of who just submitted.
+
+              When both answers now exist,
+              this lets us show that person's answer
+              on the left and reveal the partner's
+              answer on the right.
             */
+
+            activeUser =
+                user;
+
 
             setTimeout(
                 fetchAppData,
@@ -1657,9 +1947,11 @@
 
             console.error(error);
 
+
             alert(
                 "There was a problem saving the answer."
             );
+
 
             button.innerText =
                 "Submit Answer";
@@ -1679,17 +1971,11 @@
         const history =
             appData.history || [];
 
+
         const groups = {};
 
 
         history.forEach(item => {
-
-            /*
-              New answers use question ID.
-
-              Older answers can still be grouped
-              by the actual question text.
-            */
 
             const key =
                 item.questionId
@@ -1772,6 +2058,7 @@
                             ${escapeHtml(item.date)}
                         </div>
 
+
                         <div class="conversation-question">
                             ${escapeHtml(item.question)}
                         </div>
@@ -1828,8 +2115,10 @@
         const now =
             new Date();
 
+
         const midnight =
             new Date(now);
+
 
         midnight.setHours(
             24,
@@ -1847,6 +2136,7 @@
             Math.floor(
                 diff / 1000 / 60 / 60
             );
+
 
         const minutes =
             Math.floor(

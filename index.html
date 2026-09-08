@@ -1611,6 +1611,377 @@ select:focus {
 }
 
 
+/* BUCKET LIST */
+
+#bucket-view {
+    display: none;
+}
+
+.bucket-heading {
+    text-align: center;
+
+    padding:
+        30px 0 25px;
+}
+
+.bucket-heading h2 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 38px;
+
+    margin-bottom: 8px;
+}
+
+.bucket-heading p {
+    color: var(--muted);
+
+    line-height: 1.6;
+}
+
+.bucket-layout {
+    max-width: 1050px;
+
+    margin: auto;
+}
+
+.bucket-top-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+}
+
+.bucket-card {
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    box-shadow: var(--shadow);
+}
+
+.bucket-card.random-card {
+    background:
+        linear-gradient(
+            145deg,
+            #fffdfb,
+            #edf5f4
+        );
+}
+
+.bucket-card h3 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 22px;
+
+    margin-bottom: 8px;
+}
+
+.bucket-card p {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 16px;
+}
+
+.bucket-input {
+    min-height: 115px;
+}
+
+.bucket-add-button,
+.bucket-pick-button,
+.bucket-done-button {
+    border: none;
+
+    border-radius: 12px;
+
+    font-weight: 700;
+}
+
+.bucket-add-button,
+.bucket-pick-button {
+    width: 100%;
+
+    margin-top: 11px;
+
+    padding: 13px 15px;
+
+    color: white;
+}
+
+.bucket-add-button {
+    background: var(--rose);
+}
+
+.bucket-add-button:hover {
+    background: var(--rose-dark);
+}
+
+.bucket-pick-button {
+    background: var(--teal);
+}
+
+.bucket-pick-button:hover {
+    background: var(--teal-dark);
+}
+
+.bucket-add-button:disabled,
+.bucket-pick-button:disabled,
+.bucket-done-button:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+}
+
+.bucket-message {
+    display: none;
+
+    margin-top: 12px;
+
+    padding: 11px;
+
+    border-radius: 10px;
+
+    background: #e8f2ed;
+
+    color: #35644e;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+.bucket-pick-result {
+    display: none;
+
+    margin-top: 16px;
+
+    padding: 22px;
+
+    border:
+        1px solid #cddfdf;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,.82);
+
+    text-align: center;
+
+    animation:
+        bucketReveal .4s ease both;
+}
+
+.bucket-pick-result.visible {
+    display: block;
+}
+
+.bucket-pick-label {
+    color: var(--rose-dark);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 8px;
+}
+
+.bucket-pick-text {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 24px;
+
+    line-height: 1.45;
+}
+
+@keyframes bucketReveal {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(8px)
+            scale(.985);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+.bucket-section {
+    margin-top: 26px;
+}
+
+.bucket-section-header {
+    display: flex;
+
+    align-items: end;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 14px;
+}
+
+.bucket-section-header h3 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 26px;
+}
+
+.bucket-section-count {
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.bucket-list {
+    display: grid;
+
+    gap: 12px;
+}
+
+.bucket-item {
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 19px 20px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(50, 42, 38, 0.05);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.bucket-item-main {
+    min-width: 0;
+}
+
+.bucket-item-text {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 19px;
+
+    line-height: 1.45;
+
+    color: var(--text);
+}
+
+.bucket-item-date {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-top: 6px;
+}
+
+.bucket-done-button {
+    flex-shrink: 0;
+
+    padding: 10px 15px;
+
+    background: var(--teal-light);
+
+    color: var(--teal-dark);
+}
+
+.bucket-done-button:hover {
+    background: #cce2e4;
+}
+
+.bucket-completed .bucket-item {
+    background:
+        linear-gradient(
+            145deg,
+            #fffdfb,
+            #faf5f1
+        );
+}
+
+.bucket-completed .bucket-item-text {
+    color: #536065;
+}
+
+.bucket-done-mark {
+    flex-shrink: 0;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: var(--rose-light);
+
+    color: var(--rose-dark);
+
+    font-weight: 800;
+}
+
+.bucket-empty {
+    background: var(--card);
+
+    border:
+        1px dashed #d8cbc4;
+
+    border-radius: 18px;
+
+    padding: 34px 22px;
+
+    text-align: center;
+
+    color: var(--muted);
+}
+
+
 /* FOOTER */
 
 footer {
@@ -1647,6 +2018,11 @@ footer {
         grid-template-columns:
             1fr;
     }
+
+    .bucket-top-grid {
+        grid-template-columns:
+            1fr;
+    }
 }
 
 @media (max-width: 700px) {
@@ -1676,7 +2052,11 @@ footer {
 
         justify-content: center;
 
-        gap: 18px;
+        gap: 14px;
+    }
+
+    nav a {
+        font-size: 14px;
     }
 
     nav a {
@@ -1740,6 +2120,24 @@ footer {
 
     .history-note-date {
         text-align: left;
+    }
+
+    .bucket-item {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .bucket-done-button {
+        width: 100%;
+    }
+
+    .bucket-section-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 4px;
     }
 }
 
@@ -1824,6 +2222,13 @@ footer {
                 onclick="switchView('archive')"
             >
                 Journal
+            </a>
+
+            <a
+                id="bucket-nav"
+                onclick="switchView('bucket')"
+            >
+                Bucket List
             </a>
 
         </nav>
@@ -2459,6 +2864,204 @@ footer {
 </div>
 
 
+<!-- BUCKET LIST -->
+
+<div
+    id="bucket-view"
+    class="page"
+>
+
+    <div class="bucket-heading">
+
+        <h2>
+            Our Bucket List
+        </h2>
+
+        <p>
+            Things we want to do, places we want to go, and ideas worth remembering.
+        </p>
+
+    </div>
+
+
+    <div class="bucket-layout">
+
+
+        <div class="bucket-top-grid">
+
+
+            <section class="bucket-card">
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        +
+                    </div>
+
+                    <h3>
+                        Add Something
+                    </h3>
+
+                </div>
+
+
+                <p>
+                    Big trip, tiny adventure, weird restaurant, random idea. If we want to do it someday, it belongs here.
+                </p>
+
+
+                <textarea
+                    id="bucket-item-input"
+                    class="bucket-input"
+                    maxlength="500"
+                    placeholder="What should we do?"
+                ></textarea>
+
+
+                <button
+                    id="bucket-add-button"
+                    class="bucket-add-button"
+                    onclick="addBucketItem()"
+                >
+                    Add to Our List ♡
+                </button>
+
+
+                <div
+                    id="bucket-message"
+                    class="bucket-message"
+                >
+                    Added to our bucket list. ♡
+                </div>
+
+            </section>
+
+
+
+            <section class="bucket-card random-card">
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        ✦
+                    </div>
+
+                    <h3>
+                        Can't Decide?
+                    </h3>
+
+                </div>
+
+
+                <p>
+                    Let the list make the decision for us. One tap, one random adventure.
+                </p>
+
+
+                <button
+                    id="bucket-pick-button"
+                    class="bucket-pick-button"
+                    onclick="pickBucketItem()"
+                >
+                    Pick One for Us ♡
+                </button>
+
+
+                <div
+                    id="bucket-pick-result"
+                    class="bucket-pick-result"
+                >
+
+                    <div class="bucket-pick-label">
+                        We're doing...
+                    </div>
+
+                    <div
+                        id="bucket-pick-text"
+                        class="bucket-pick-text"
+                    >
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+
+
+        <section class="bucket-section">
+
+            <div class="bucket-section-header">
+
+                <h3>
+                    Want to Do
+                </h3>
+
+                <div
+                    id="bucket-active-count"
+                    class="bucket-section-count"
+                >
+                    0 ideas waiting
+                </div>
+
+            </div>
+
+
+            <div
+                id="bucket-active-list"
+                class="bucket-list"
+            >
+
+                <div class="loading">
+                    Loading our bucket list...
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="bucket-section bucket-completed">
+
+            <div class="bucket-section-header">
+
+                <h3>
+                    We Did It ♡
+                </h3>
+
+                <div
+                    id="bucket-completed-count"
+                    class="bucket-section-count"
+                >
+                    0 completed
+                </div>
+
+            </div>
+
+
+            <div
+                id="bucket-completed-list"
+                class="bucket-list"
+            >
+
+                <div class="loading">
+                    Loading the things we've done...
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+</div>
+
+
 <footer>
     © 2026 B+S
 </footer>
@@ -2498,7 +3101,8 @@ let appData = {
     questionId: "",
     history: [],
     jarCount: 0,
-    notes: []
+    notes: [],
+    bucketList: []
 };
 
 
@@ -2579,6 +3183,12 @@ function switchView(view) {
         );
 
 
+    const bucket =
+        document.getElementById(
+            "bucket-view"
+        );
+
+
     const homeNav =
         document.getElementById(
             "home-nav"
@@ -2591,38 +3201,43 @@ function switchView(view) {
         );
 
 
-    if (view === "home") {
+    const bucketNav =
+        document.getElementById(
+            "bucket-nav"
+        );
 
-        home.style.display =
-            "block";
 
+    home.style.display =
+        "none";
+
+
+    archive.style.display =
+        "none";
+
+
+    bucket.style.display =
+        "none";
+
+
+    homeNav.classList.remove(
+        "active"
+    );
+
+
+    archiveNav.classList.remove(
+        "active"
+    );
+
+
+    bucketNav.classList.remove(
+        "active"
+    );
+
+
+    if (view === "archive") {
 
         archive.style.display =
-            "none";
-
-
-        homeNav.classList.add(
-            "active"
-        );
-
-
-        archiveNav.classList.remove(
-            "active"
-        );
-
-    } else {
-
-        home.style.display =
-            "none";
-
-
-        archive.style.display =
             "block";
-
-
-        homeNav.classList.remove(
-            "active"
-        );
 
 
         archiveNav.classList.add(
@@ -2634,9 +3249,39 @@ function switchView(view) {
 
         buildNotesHistory();
 
+        return;
+
     }
 
+
+    if (view === "bucket") {
+
+        bucket.style.display =
+            "block";
+
+
+        bucketNav.classList.add(
+            "active"
+        );
+
+
+        buildBucketList();
+
+        return;
+
+    }
+
+
+    home.style.display =
+        "block";
+
+
+    homeNav.classList.add(
+        "active"
+    );
+
 }
+
 
 
 
@@ -2775,6 +3420,8 @@ async function fetchAppData() {
         buildJournal();
 
         buildNotesHistory();
+
+        buildBucketList();
 
         restoreMailboxUser();
 
@@ -5072,6 +5719,631 @@ function buildNotesHistory() {
         .join("");
 
 }
+
+
+
+/* BUCKET LIST */
+
+function getBucketItems() {
+
+    return (
+        appData.bucketList || []
+    );
+
+}
+
+
+
+function getActiveBucketItems() {
+
+    return getBucketItems()
+        .filter(
+
+            function (item) {
+
+                return (
+                    String(
+                        item.status || ""
+                    ).toLowerCase() !==
+                    "done"
+                );
+
+            }
+
+        );
+
+}
+
+
+
+function getCompletedBucketItems() {
+
+    return getBucketItems()
+        .filter(
+
+            function (item) {
+
+                return (
+                    String(
+                        item.status || ""
+                    ).toLowerCase() ===
+                    "done"
+                );
+
+            }
+
+        );
+
+}
+
+
+
+function buildBucketList() {
+
+    const activeContainer =
+        document.getElementById(
+            "bucket-active-list"
+        );
+
+
+    const completedContainer =
+        document.getElementById(
+            "bucket-completed-list"
+        );
+
+
+    if (
+        !activeContainer ||
+        !completedContainer
+    ) {
+
+        return;
+
+    }
+
+
+    const active =
+        getActiveBucketItems();
+
+
+    const completed =
+        getCompletedBucketItems()
+        .slice()
+        .reverse();
+
+
+    document.getElementById(
+        "bucket-active-count"
+    ).innerText =
+
+        active.length === 1
+
+            ? "1 idea waiting"
+
+            : active.length +
+              " ideas waiting";
+
+
+    document.getElementById(
+        "bucket-completed-count"
+    ).innerText =
+
+        completed.length === 1
+
+            ? "1 completed"
+
+            : completed.length +
+              " completed";
+
+
+    if (!active.length) {
+
+        activeContainer.innerHTML = `
+
+            <div class="bucket-empty">
+
+                Nothing waiting right now.
+
+                <br><br>
+
+                Add something we should do. ♡
+
+            </div>
+
+        `;
+
+    } else {
+
+        activeContainer.innerHTML =
+
+            active
+
+            .map(
+
+                function (item) {
+
+                    return `
+
+                        <article class="bucket-item">
+
+                            <div class="bucket-item-main">
+
+                                <div class="bucket-item-text">
+
+                                    ${
+                                        escapeHtml(
+                                            item.item
+                                        )
+                                    }
+
+                                </div>
+
+
+                                <div class="bucket-item-date">
+
+                                    ${
+                                        item.dateAdded
+
+                                            ? "Added " +
+                                              escapeHtml(
+                                                item.dateAdded
+                                              )
+
+                                            : ""
+                                    }
+
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                class="bucket-done-button"
+                                onclick="completeBucketItem('${escapeAttribute(item.id)}', this)"
+                            >
+                                We Did It ♡
+                            </button>
+
+                        </article>
+
+                    `;
+
+                }
+
+            )
+
+            .join("");
+
+    }
+
+
+    if (!completed.length) {
+
+        completedContainer.innerHTML = `
+
+            <div class="bucket-empty">
+
+                We haven't checked anything off yet.
+
+                <br><br>
+
+                That just means we have work to do. 😏
+
+            </div>
+
+        `;
+
+    } else {
+
+        completedContainer.innerHTML =
+
+            completed
+
+            .map(
+
+                function (item) {
+
+                    return `
+
+                        <article class="bucket-item">
+
+                            <div class="bucket-item-main">
+
+                                <div class="bucket-item-text">
+
+                                    ${
+                                        escapeHtml(
+                                            item.item
+                                        )
+                                    }
+
+                                </div>
+
+
+                                <div class="bucket-item-date">
+
+                                    ${
+                                        item.dateCompleted
+
+                                            ? "Completed " +
+                                              escapeHtml(
+                                                item.dateCompleted
+                                              )
+
+                                            : "Completed"
+                                    }
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="bucket-done-mark">
+                                ✓
+                            </div>
+
+                        </article>
+
+                    `;
+
+                }
+
+            )
+
+            .join("");
+
+    }
+
+}
+
+
+
+async function addBucketItem() {
+
+    const input =
+        document.getElementById(
+            "bucket-item-input"
+        );
+
+
+    const button =
+        document.getElementById(
+            "bucket-add-button"
+        );
+
+
+    const message =
+        document.getElementById(
+            "bucket-message"
+        );
+
+
+    const item =
+        input.value.trim();
+
+
+    if (!item) {
+
+        alert(
+            "Add something we want to do first."
+        );
+
+        return;
+
+    }
+
+
+    button.disabled =
+        true;
+
+
+    button.innerText =
+        "Adding...";
+
+
+    message.style.display =
+        "none";
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                API_URL,
+
+                {
+                    method:
+                        "POST",
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "add_bucket_item",
+
+                            item:
+                                item
+
+                        })
+                }
+
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            result.status !==
+            "Success"
+        ) {
+
+            throw new Error(
+                result.message ||
+                "That couldn't be added to our bucket list."
+            );
+
+        }
+
+
+        input.value =
+            "";
+
+
+        message.innerText =
+            "Added to our bucket list. ♡";
+
+
+        message.style.display =
+            "block";
+
+
+        button.innerText =
+            "Added ✓";
+
+
+        await fetchAppData();
+
+
+        setTimeout(
+
+            function () {
+
+                button.disabled =
+                    false;
+
+
+                button.innerText =
+                    "Add to Our List ♡";
+
+            },
+
+            1100
+
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+            error.message ||
+            "That couldn't be added to our bucket list."
+        );
+
+
+        button.disabled =
+            false;
+
+
+        button.innerText =
+            "Add to Our List ♡";
+
+    }
+
+}
+
+
+
+function pickBucketItem() {
+
+    const active =
+        getActiveBucketItems();
+
+
+    const result =
+        document.getElementById(
+            "bucket-pick-result"
+        );
+
+
+    const text =
+        document.getElementById(
+            "bucket-pick-text"
+        );
+
+
+    if (!active.length) {
+
+        alert(
+            "Our bucket list is empty. Add something first."
+        );
+
+        return;
+
+    }
+
+
+    const choice =
+        active[
+            Math.floor(
+                Math.random() *
+                active.length
+            )
+        ];
+
+
+    text.innerText =
+        choice.item;
+
+
+    result.classList.remove(
+        "visible"
+    );
+
+
+    void result.offsetWidth;
+
+
+    result.classList.add(
+        "visible"
+    );
+
+}
+
+
+
+async function completeBucketItem(
+    id,
+    button
+) {
+
+    const confirmed =
+        confirm(
+            "Mark this one as done?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    if (button) {
+
+        button.disabled =
+            true;
+
+
+        button.innerText =
+            "Saving...";
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                API_URL,
+
+                {
+                    method:
+                        "POST",
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "complete_bucket_item",
+
+                            id:
+                                id
+
+                        })
+                }
+
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            result.status !==
+            "Success"
+        ) {
+
+            throw new Error(
+                result.message ||
+                "That item couldn't be marked complete."
+            );
+
+        }
+
+
+        await fetchAppData();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+            error.message ||
+            "That item couldn't be marked complete."
+        );
+
+
+        if (button) {
+
+            button.disabled =
+                false;
+
+
+            button.innerText =
+                "We Did It ♡";
+
+        }
+
+    }
+
+}
+
+
+
+function escapeAttribute(value) {
+
+    return String(
+        value || ""
+    )
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    );
+
+}
+
 
 
 

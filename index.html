@@ -1292,6 +1292,115 @@ select:focus {
 }
 
 
+/* MOST RECENT CONVERSATION */
+
+.recent-conversation-card {
+    display: none;
+
+    margin-top: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffdfb,
+            #f4f0ec
+        );
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 22px;
+
+    padding: 26px;
+
+    box-shadow: var(--shadow);
+}
+
+.recent-conversation-card.visible {
+    display: block;
+
+    animation:
+        slideUp .4s ease both;
+}
+
+.recent-conversation-top {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    margin-bottom: 20px;
+}
+
+.recent-conversation-eyebrow {
+    color: var(--rose-dark);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 7px;
+}
+
+.recent-conversation-question {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 24px;
+
+    line-height: 1.35;
+}
+
+.recent-conversation-date {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+    padding-top: 3px;
+}
+
+.recent-conversation-answers {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 14px;
+}
+
+.recent-answer {
+    padding: 18px;
+
+    border-radius: 15px;
+
+    background: var(--card-soft);
+
+    line-height: 1.65;
+}
+
+.recent-answer strong {
+    display: block;
+
+    color: var(--rose-dark);
+
+    margin-bottom: 7px;
+}
+
+.recent-answer.sierra strong {
+    color: var(--teal);
+}
+
+
 /* JOURNAL */
 
 #archive-view {
@@ -2133,7 +2242,8 @@ footer {
     }
 
     .answer-grid,
-    .conversation-answers {
+    .conversation-answers,
+    .recent-conversation-answers {
         grid-template-columns:
             1fr;
     }
@@ -2155,6 +2265,16 @@ footer {
 
     .mail-notification {
         text-align: center;
+    }
+
+    .recent-conversation-top {
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+    .recent-conversation-date {
+        white-space: normal;
     }
 
     .history-note-top {
@@ -2518,6 +2638,70 @@ footer {
     >
         Give Us Another ♡
     </button>
+
+</section>
+
+
+
+<!-- MOST RECENT CONVERSATION -->
+
+<section
+    class="recent-conversation-card"
+    id="recent-conversation-card"
+>
+
+    <div class="recent-conversation-top">
+
+        <div>
+
+            <div class="recent-conversation-eyebrow">
+                ♡ Our Last Conversation
+            </div>
+
+            <div
+                class="recent-conversation-question"
+                id="recent-conversation-question"
+            >
+            </div>
+
+        </div>
+
+
+        <div
+            class="recent-conversation-date"
+            id="recent-conversation-date"
+        >
+        </div>
+
+    </div>
+
+
+    <div class="recent-conversation-answers">
+
+        <div class="recent-answer">
+
+            <strong>
+                Bobby
+            </strong>
+
+            <div id="recent-bobby-answer">
+            </div>
+
+        </div>
+
+
+        <div class="recent-answer sierra">
+
+            <strong>
+                Sierra
+            </strong>
+
+            <div id="recent-sierra-answer">
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
@@ -3465,6 +3649,8 @@ async function fetchAppData() {
         refreshUserSelector();
 
         buildJournal();
+
+        buildRecentConversation();
 
         buildNotesHistory();
 
@@ -5426,6 +5612,172 @@ async function requestNextQuestion() {
             "Give Us Another ♡";
 
     }
+
+}
+
+
+
+/* MOST RECENT CONVERSATION */
+
+function buildRecentConversation() {
+
+    const card =
+        document.getElementById(
+            "recent-conversation-card"
+        );
+
+
+    if (!card) {
+        return;
+    }
+
+
+    const currentAnswers =
+        getCurrentAnswers();
+
+
+    const currentAnsweredUsers =
+        new Set(
+
+            currentAnswers.map(
+
+                function (item) {
+
+                    return item.user;
+
+                }
+
+            )
+
+        );
+
+
+    const currentIsComplete =
+
+        currentAnsweredUsers.has(
+            "Bobby"
+        )
+
+        &&
+
+        currentAnsweredUsers.has(
+            "Sierra"
+        );
+
+
+    if (currentIsComplete) {
+
+        card.classList.remove(
+            "visible"
+        );
+
+        return;
+
+    }
+
+
+    const currentQuestionId =
+        String(
+            appData.questionId || ""
+        );
+
+
+    const currentQuestion =
+        String(
+            appData.question || ""
+        );
+
+
+    const previousConversation =
+        groupHistory().find(
+
+            function (item) {
+
+                const bobbyAnswer =
+                    item.answers.Bobby;
+
+
+                const sierraAnswer =
+                    item.answers.Sierra;
+
+
+                if (
+                    !bobbyAnswer ||
+                    !sierraAnswer
+                ) {
+                    return false;
+                }
+
+
+                const itemQuestionId =
+                    String(
+                        item.questionId || ""
+                    );
+
+
+                const isCurrentQuestion =
+
+                    currentQuestionId &&
+                    itemQuestionId
+
+                        ? itemQuestionId ===
+                          currentQuestionId
+
+                        : String(
+                            item.question || ""
+                          ) ===
+                          currentQuestion;
+
+
+                return !isCurrentQuestion;
+
+            }
+
+        );
+
+
+    if (!previousConversation) {
+
+        card.classList.remove(
+            "visible"
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "recent-conversation-question"
+    ).innerText =
+        previousConversation.question ||
+        "Our last question";
+
+
+    document.getElementById(
+        "recent-conversation-date"
+    ).innerText =
+        previousConversation.date ||
+        "";
+
+
+    document.getElementById(
+        "recent-bobby-answer"
+    ).innerText =
+        previousConversation.answers.Bobby ||
+        "";
+
+
+    document.getElementById(
+        "recent-sierra-answer"
+    ).innerText =
+        previousConversation.answers.Sierra ||
+        "";
+
+
+    card.classList.add(
+        "visible"
+    );
 
 }
 

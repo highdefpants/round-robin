@@ -1635,6 +1635,279 @@ select:focus {
 }
 
 
+/* DISCUSSIONS */
+
+.discussion-section {
+    margin-top: 22px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid var(--border);
+}
+
+.discussion-heading {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    margin-bottom: 14px;
+}
+
+.discussion-heading h4 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 19px;
+
+    color: var(--text);
+}
+
+.discussion-heading span {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.discussion-thread {
+    display: grid;
+
+    gap: 10px;
+
+    margin-bottom: 14px;
+}
+
+.discussion-reply {
+    padding: 14px 16px;
+
+    border:
+        1px solid #eaded8;
+
+    border-radius: 14px;
+
+    background: #fbf6f2;
+}
+
+.discussion-reply.sierra {
+    border-color: #d8e7e8;
+
+    background: #f0f7f7;
+}
+
+.discussion-reply-meta {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 14px;
+
+    margin-bottom: 6px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.discussion-reply-meta strong {
+    color: var(--rose-dark);
+
+    font-size: 13px;
+}
+
+.discussion-reply.sierra
+.discussion-reply-meta strong {
+    color: var(--teal);
+}
+
+.discussion-reply-text {
+    color: var(--text);
+
+    line-height: 1.6;
+
+    white-space: pre-wrap;
+}
+
+.discussion-empty {
+    padding: 15px;
+
+    border-radius: 13px;
+
+    background: var(--card-soft);
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+.discussion-composer {
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffaf7,
+            #f1f7f6
+        );
+
+    border:
+        1px solid var(--border);
+}
+
+.discussion-from {
+    width: 100%;
+
+    margin-bottom: 10px;
+
+    padding: 11px 13px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 11px;
+
+    background: white;
+
+    color: var(--text);
+
+    outline: none;
+}
+
+.discussion-input {
+    min-height: 88px;
+}
+
+.discussion-submit {
+    width: 100%;
+
+    margin-top: 10px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 12px 15px;
+
+    background: var(--teal);
+
+    color: white;
+
+    font-weight: 700;
+}
+
+.discussion-submit:hover {
+    background: var(--teal-dark);
+}
+
+.discussion-submit:disabled {
+    opacity: .6;
+
+    cursor: not-allowed;
+}
+
+.discussion-message {
+    display: none;
+
+    margin-top: 10px;
+
+    padding: 10px 12px;
+
+    border-radius: 10px;
+
+    background: #e8f2ed;
+
+    color: #35644e;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+.recent-discussion-preview {
+    display: none;
+
+    margin-top: 16px;
+
+    padding-top: 16px;
+
+    border-top:
+        1px solid var(--border);
+}
+
+.recent-discussion-preview.visible {
+    display: block;
+}
+
+.recent-discussion-label {
+    margin-bottom: 10px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: .8px;
+}
+
+.recent-discussion-item {
+    margin-bottom: 8px;
+
+    padding: 11px 13px;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.72);
+
+    border:
+        1px solid var(--border);
+
+    line-height: 1.5;
+}
+
+.recent-discussion-item:last-child {
+    margin-bottom: 0;
+}
+
+.recent-discussion-item strong {
+    color: var(--rose-dark);
+}
+
+.recent-journal-button {
+    width: 100%;
+
+    margin-top: 14px;
+
+    border:
+        1px solid var(--teal);
+
+    border-radius: 12px;
+
+    padding: 12px 15px;
+
+    background: transparent;
+
+    color: var(--teal);
+
+    font-weight: 700;
+}
+
+.recent-journal-button:hover {
+    background: var(--teal-light);
+}
+
+
 /* NOTE HISTORY */
 
 .notes-history {
@@ -2277,6 +2550,15 @@ footer {
         white-space: normal;
     }
 
+    .discussion-heading,
+    .discussion-reply-meta {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 4px;
+    }
+
     .history-note-top {
         flex-direction: column;
 
@@ -2702,6 +2984,29 @@ footer {
         </div>
 
     </div>
+
+
+    <div
+        id="recent-discussion-preview"
+        class="recent-discussion-preview"
+    >
+
+        <div class="recent-discussion-label">
+            Conversation continued
+        </div>
+
+        <div id="recent-discussion-list">
+        </div>
+
+    </div>
+
+
+    <button
+        class="recent-journal-button"
+        onclick="openRecentConversationInJournal()"
+    >
+        Continue this Conversation ♡
+    </button>
 
 </section>
 
@@ -3333,6 +3638,7 @@ let appData = {
     history: [],
     jarCount: 0,
     notes: [],
+    discussions: [],
     bucketList: []
 };
 
@@ -3342,6 +3648,8 @@ let activeUser = "";
 let mailboxUser = "";
 
 let openedNotes = [];
+
+let recentConversationQuestionId = "";
 
 
 
@@ -5775,8 +6083,148 @@ function buildRecentConversation() {
         "";
 
 
+    recentConversationQuestionId =
+        String(
+            previousConversation.questionId ||
+            ""
+        );
+
+
+    const recentDiscussionPreview =
+        document.getElementById(
+            "recent-discussion-preview"
+        );
+
+
+    const recentDiscussionList =
+        document.getElementById(
+            "recent-discussion-list"
+        );
+
+
+    const recentReplies =
+        getDiscussionsForQuestion(
+            previousConversation.questionId
+        ).slice(-2);
+
+
+    if (recentReplies.length) {
+
+        recentDiscussionList.innerHTML =
+            recentReplies
+            .map(
+
+                function (reply) {
+
+                    return `
+
+                        <div class="recent-discussion-item">
+
+                            <strong>
+                                ${escapeHtml(reply.from)}
+                            </strong>
+
+                            ${escapeHtml(reply.reply)}
+
+                        </div>
+
+                    `;
+
+                }
+
+            )
+            .join("");
+
+
+        recentDiscussionPreview.classList.add(
+            "visible"
+        );
+
+    } else {
+
+        recentDiscussionList.innerHTML =
+            "";
+
+
+        recentDiscussionPreview.classList.remove(
+            "visible"
+        );
+
+    }
+
+
     card.classList.add(
         "visible"
+    );
+
+}
+
+
+
+function openRecentConversationInJournal() {
+
+    if (!recentConversationQuestionId) {
+        return;
+    }
+
+
+    switchView(
+        "archive"
+    );
+
+
+    switchJournalTab(
+        "conversations"
+    );
+
+
+    setTimeout(
+
+        function () {
+
+            const sections =
+                document.querySelectorAll(
+                    ".discussion-section"
+                );
+
+
+            const target =
+                Array.from(sections)
+                .find(
+
+                    function (section) {
+
+                        return (
+                            String(
+                                section.dataset.questionId ||
+                                ""
+                            ) ===
+                            recentConversationQuestionId
+                        );
+
+                    }
+
+                );
+
+
+            if (target) {
+
+                target.scrollIntoView({
+
+                    behavior:
+                        "smooth",
+
+                    block:
+                        "center"
+
+                });
+
+            }
+
+        },
+
+        80
+
     );
 
 }
@@ -5845,6 +6293,324 @@ function groupHistory() {
     return Object
         .values(groups)
         .reverse();
+
+}
+
+
+
+function getDiscussionsForQuestion(questionId) {
+
+    const id =
+        String(
+            questionId ||
+            ""
+        );
+
+
+    if (!id) {
+        return [];
+    }
+
+
+    return (
+        appData.discussions || []
+    ).filter(
+
+        function (reply) {
+
+            return (
+                String(
+                    reply.questionId ||
+                    ""
+                ) === id
+            );
+
+        }
+
+    );
+
+}
+
+
+
+function buildDiscussionThread(questionId) {
+
+    const replies =
+        getDiscussionsForQuestion(
+            questionId
+        );
+
+
+    if (!replies.length) {
+
+        return `
+
+            <div class="discussion-empty">
+                No replies yet. Keep the conversation going. ♡
+            </div>
+
+        `;
+
+    }
+
+
+    return replies
+        .map(
+
+            function (reply) {
+
+                const personClass =
+                    reply.from === "Sierra"
+
+                        ? " sierra"
+
+                        : "";
+
+
+                return `
+
+                    <div
+                        class="discussion-reply${personClass}"
+                    >
+
+                        <div class="discussion-reply-meta">
+
+                            <strong>
+                                ${escapeHtml(reply.from)}
+                            </strong>
+
+                            <span>
+                                ${escapeHtml(reply.date || "")}
+                            </span>
+
+                        </div>
+
+                        <div class="discussion-reply-text">${escapeHtml(reply.reply)}</div>
+
+                    </div>
+
+                `;
+
+            }
+
+        )
+        .join("");
+
+}
+
+
+
+async function submitDiscussionReply(button) {
+
+    const section =
+        button.closest(
+            ".discussion-section"
+        );
+
+
+    if (!section) {
+        return;
+    }
+
+
+    const questionId =
+        String(
+            section.dataset.questionId ||
+            ""
+        );
+
+
+    const fromSelect =
+        section.querySelector(
+            ".discussion-from"
+        );
+
+
+    const replyInput =
+        section.querySelector(
+            ".discussion-input"
+        );
+
+
+    const message =
+        section.querySelector(
+            ".discussion-message"
+        );
+
+
+    const from =
+        fromSelect.value;
+
+
+    const reply =
+        replyInput.value.trim();
+
+
+    if (!from) {
+
+        alert(
+            "Choose who you are first."
+        );
+
+        return;
+
+    }
+
+
+    if (!reply) {
+
+        alert(
+            "Write a reply first."
+        );
+
+        return;
+
+    }
+
+
+    button.disabled =
+        true;
+
+
+    button.innerText =
+        "Posting...";
+
+
+    if (message) {
+        message.style.display =
+            "none";
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                API_URL,
+
+                {
+                    method:
+                        "POST",
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "add_discussion_reply",
+
+                            questionId:
+                                questionId,
+
+                            from:
+                                from,
+
+                            reply:
+                                reply
+
+                        })
+                }
+
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            result.status !==
+            "Success"
+        ) {
+
+            throw new Error(
+                result.message ||
+                "That reply could not be saved."
+            );
+
+        }
+
+
+        await fetchAppData();
+
+
+        const sections =
+            document.querySelectorAll(
+                ".discussion-section"
+            );
+
+
+        const refreshed =
+            Array.from(sections)
+            .find(
+
+                function (item) {
+
+                    return (
+                        String(
+                            item.dataset.questionId ||
+                            ""
+                        ) ===
+                        questionId
+                    );
+
+                }
+
+            );
+
+
+        if (refreshed) {
+
+            const refreshedMessage =
+                refreshed.querySelector(
+                    ".discussion-message"
+                );
+
+
+            if (refreshedMessage) {
+
+                refreshedMessage.innerText =
+                    "Reply added. ♡";
+
+
+                refreshedMessage.style.display =
+                    "block";
+
+            }
+
+
+            refreshed.scrollIntoView({
+
+                behavior:
+                    "smooth",
+
+                block:
+                    "center"
+
+            });
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+            error.message ||
+            "That reply could not be saved."
+        );
+
+
+        button.disabled =
+            false;
+
+
+        button.innerText =
+            "Reply ♡";
+
+    }
 
 }
 
@@ -6073,6 +6839,95 @@ function buildJournal() {
 
                             </div>
 
+
+                        </div>
+
+
+                        <div
+                            class="discussion-section"
+                            data-question-id="${escapeHtml(item.questionId)}"
+                        >
+
+                            <div class="discussion-heading">
+
+                                <h4>
+                                    Continue the Conversation ♡
+                                </h4>
+
+                                <span>
+                                    ${
+                                        getDiscussionsForQuestion(
+                                            item.questionId
+                                        ).length
+                                    }
+                                    ${
+                                        getDiscussionsForQuestion(
+                                            item.questionId
+                                        ).length === 1
+
+                                            ? "reply"
+
+                                            : "replies"
+                                    }
+                                </span>
+
+                            </div>
+
+
+                            <div class="discussion-thread">
+
+                                ${
+                                    buildDiscussionThread(
+                                        item.questionId
+                                    )
+                                }
+
+                            </div>
+
+
+                            <div class="discussion-composer">
+
+                                <select class="discussion-from">
+
+                                    <option
+                                        value=""
+                                        disabled
+                                        selected
+                                    >
+                                        Who are you?
+                                    </option>
+
+                                    <option value="Bobby">
+                                        Bobby
+                                    </option>
+
+                                    <option value="Sierra">
+                                        Sierra
+                                    </option>
+
+                                </select>
+
+
+                                <textarea
+                                    class="discussion-input"
+                                    maxlength="1500"
+                                    placeholder="Reply to this conversation..."
+                                ></textarea>
+
+
+                                <button
+                                    class="discussion-submit"
+                                    onclick="submitDiscussionReply(this)"
+                                >
+                                    Reply ♡
+                                </button>
+
+
+                                <div class="discussion-message">
+                                    Reply added. ♡
+                                </div>
+
+                            </div>
 
                         </div>
 

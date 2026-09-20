@@ -1635,6 +1635,51 @@ select:focus {
 }
 
 
+/* JOURNAL READ MORE */
+
+.journal-collapsible {
+    display: -webkit-box;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+
+    overflow: hidden;
+}
+
+.journal-collapsible.expanded {
+    display: block;
+
+    -webkit-line-clamp: unset;
+
+    overflow: visible;
+}
+
+.journal-read-more {
+    display: none;
+
+    margin-top: 9px;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--teal);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.journal-read-more.visible {
+    display: inline-block;
+}
+
+.journal-read-more:hover {
+    text-decoration: underline;
+}
+
+
 /* DISCUSSIONS */
 
 .discussion-section {
@@ -6385,7 +6430,19 @@ function buildDiscussionThread(questionId) {
 
                         </div>
 
-                        <div class="discussion-reply-text">${escapeHtml(reply.reply)}</div>
+                        <div class="discussion-reply-text">
+
+                            <div class="journal-collapsible">${escapeHtml(reply.reply)}</div>
+
+                            <button
+                                type="button"
+                                class="journal-read-more"
+                                onclick="toggleJournalReadMore(this)"
+                            >
+                                Read more
+                            </button>
+
+                        </div>
 
                     </div>
 
@@ -6806,15 +6863,27 @@ function buildJournal() {
                                     Bobby
                                 </strong>
 
-                                ${
-                                    bobbyAnswer
+                                <div class="journal-collapsible">
 
-                                        ? escapeHtml(
-                                            bobbyAnswer
-                                          )
+                                    ${
+                                        bobbyAnswer
 
-                                        : '<span class="empty-answer">No answer yet.</span>'
-                                }
+                                            ? escapeHtml(
+                                                bobbyAnswer
+                                              )
+
+                                            : '<span class="empty-answer">No answer yet.</span>'
+                                    }
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="journal-read-more"
+                                    onclick="toggleJournalReadMore(this)"
+                                >
+                                    Read more
+                                </button>
 
                             </div>
 
@@ -6827,15 +6896,27 @@ function buildJournal() {
                                     Sierra
                                 </strong>
 
-                                ${
-                                    sierraAnswer
+                                <div class="journal-collapsible">
 
-                                        ? escapeHtml(
-                                            sierraAnswer
-                                          )
+                                    ${
+                                        sierraAnswer
 
-                                        : '<span class="empty-answer">No answer yet.</span>'
-                                }
+                                            ? escapeHtml(
+                                                sierraAnswer
+                                              )
+
+                                            : '<span class="empty-answer">No answer yet.</span>'
+                                    }
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="journal-read-more"
+                                    onclick="toggleJournalReadMore(this)"
+                                >
+                                    Read more
+                                </button>
 
                             </div>
 
@@ -6942,6 +7023,11 @@ function buildJournal() {
 
         .join("");
 
+
+    requestAnimationFrame(
+        initializeJournalReadMore
+    );
+
 }
 
 
@@ -7034,11 +7120,23 @@ function buildNotesHistory() {
 
                         <div class="history-note-text">
 
-                            ${
-                                escapeHtml(
-                                    note.note
-                                )
-                            }
+                            <div class="journal-collapsible">
+
+                                ${
+                                    escapeHtml(
+                                        note.note
+                                    )
+                                }
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="journal-read-more"
+                                onclick="toggleJournalReadMore(this)"
+                            >
+                                Read more
+                            </button>
 
                         </div>
 
@@ -7065,6 +7163,11 @@ function buildNotesHistory() {
         )
 
         .join("");
+
+
+    requestAnimationFrame(
+        initializeJournalReadMore
+    );
 
 }
 
@@ -7692,6 +7795,95 @@ function escapeAttribute(value) {
 
 }
 
+
+
+
+/* JOURNAL READ MORE */
+
+function initializeJournalReadMore() {
+
+    const items =
+        document.querySelectorAll(
+            "#archive-view .journal-collapsible"
+        );
+
+
+    items.forEach(
+
+        function (item) {
+
+            const button =
+                item.nextElementSibling;
+
+
+            if (
+                !button ||
+                !button.classList.contains(
+                    "journal-read-more"
+                )
+            ) {
+                return;
+            }
+
+
+            item.classList.remove(
+                "expanded"
+            );
+
+
+            button.innerText =
+                "Read more";
+
+
+            button.classList.remove(
+                "visible"
+            );
+
+
+            if (
+                item.scrollHeight >
+                item.clientHeight + 2
+            ) {
+
+                button.classList.add(
+                    "visible"
+                );
+
+            }
+
+        }
+
+    );
+
+}
+
+
+
+function toggleJournalReadMore(button) {
+
+    const content =
+        button.previousElementSibling;
+
+
+    if (!content) {
+        return;
+    }
+
+
+    const expanded =
+        content.classList.toggle(
+            "expanded"
+        );
+
+
+    button.innerText =
+        expanded
+
+            ? "Show less"
+
+            : "Read more";
+
+}
 
 
 

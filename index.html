@@ -772,6 +772,152 @@ select:focus {
 }
 
 
+/* READ RECEIPTS */
+
+.read-receipt-card {
+    display: none;
+
+    margin-top: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f7fbfa,
+            #edf5f4
+        );
+
+    border:
+        1px solid #d1e1df;
+
+    border-radius: 22px;
+
+    padding: 24px 26px;
+
+    box-shadow: var(--shadow);
+}
+
+.read-receipt-card.visible {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(260px, 360px);
+
+    gap: 24px;
+
+    align-items: center;
+
+    animation:
+        slideUp .4s ease both;
+}
+
+.read-receipt-eyebrow {
+    color: var(--teal);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 6px;
+}
+
+.read-receipt-card h3 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 24px;
+
+    margin-bottom: 7px;
+}
+
+.read-receipt-card p {
+    color: var(--muted);
+
+    line-height: 1.55;
+}
+
+.read-receipt-controls {
+    display: grid;
+
+    gap: 10px;
+}
+
+.read-receipt-select {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: var(--text);
+
+    outline: none;
+}
+
+.read-receipt-button {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 13px 15px;
+
+    background: var(--teal);
+
+    color: white;
+
+    font-weight: 700;
+}
+
+.read-receipt-button:hover:not(:disabled) {
+    background: var(--teal-dark);
+}
+
+.read-receipt-button:disabled {
+    opacity: .58;
+
+    cursor: not-allowed;
+}
+
+.read-receipt-status {
+    grid-column: 1 / -1;
+
+    padding: 13px 15px;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.72);
+
+    color: var(--teal-dark);
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+.read-receipt-status.complete {
+    background: #e8f2ed;
+
+    color: #35644e;
+
+    font-weight: 700;
+}
+
+
 /* NEXT QUESTION */
 
 .next-question-card {
@@ -2499,6 +2645,19 @@ footer {
     }
 }
 
+@media (max-width: 850px) {
+
+    .read-receipt-card.visible {
+        grid-template-columns:
+            1fr;
+    }
+
+    .read-receipt-status {
+        grid-column: 1;
+    }
+}
+
+
 @media (max-width: 700px) {
 
     header {
@@ -2934,6 +3093,80 @@ footer {
 
 
 
+<!-- READ RECEIPTS -->
+
+<section
+    class="read-receipt-card"
+    id="read-receipt-card"
+>
+
+    <div>
+
+        <div class="read-receipt-eyebrow">
+            ♡ Before we move on
+        </div>
+
+        <h3>
+            Did you read their answer?
+        </h3>
+
+        <p>
+            Mark it after you've actually read what they wrote. Our next question unlocks after we both do.
+        </p>
+
+    </div>
+
+
+    <div class="read-receipt-controls">
+
+        <select
+            id="read-receipt-user"
+            class="read-receipt-select"
+            onchange="changeReadReceiptUser()"
+        >
+
+            <option
+                value=""
+                disabled
+                selected
+            >
+                Who are you?
+            </option>
+
+            <option value="Bobby">
+                Bobby
+            </option>
+
+            <option value="Sierra">
+                Sierra
+            </option>
+
+        </select>
+
+
+        <button
+            id="read-receipt-button"
+            class="read-receipt-button"
+            onclick="markCurrentAnswerRead()"
+            disabled
+        >
+            I Read Their Answer ♡
+        </button>
+
+    </div>
+
+
+    <div
+        id="read-receipt-status"
+        class="read-receipt-status"
+    >
+        Waiting for both of us to read each other's answers.
+    </div>
+
+</section>
+
+
+
 <!-- ANOTHER QUESTION -->
 
 <section
@@ -2951,8 +3184,8 @@ footer {
             Want another question?
         </h3>
 
-        <p>
-            Keep going if we're in the mood. Our next question will be picked randomly from the jar.
+        <p id="next-question-copy">
+            We both need to read each other's answers before moving on.
         </p>
 
     </div>
@@ -3684,6 +3917,7 @@ let appData = {
     jarCount: 0,
     notes: [],
     discussions: [],
+    readReceipts: [],
     bucketList: []
 };
 
@@ -3695,6 +3929,8 @@ let mailboxUser = "";
 let openedNotes = [];
 
 let recentConversationQuestionId = "";
+
+let readReceiptUser = "";
 
 
 
@@ -3967,6 +4203,10 @@ async function fetchAppData() {
 
         appData =
             await response.json();
+
+
+        appData.readReceipts =
+            appData.readReceipts || [];
 
 
         document.getElementById(
@@ -5308,6 +5548,397 @@ function showNextQuestionButton(show) {
 
 
 
+function getReadReceiptsForQuestion(questionId) {
+
+    const targetId =
+        String(
+            questionId || ""
+        );
+
+
+    return (
+        appData.readReceipts || []
+    ).filter(
+
+        function (receipt) {
+
+            return (
+                String(
+                    receipt.questionId || ""
+                ) === targetId
+            );
+
+        }
+
+    );
+
+}
+
+
+
+function hasReadPartnerAnswer(user, questionId) {
+
+    return getReadReceiptsForQuestion(
+        questionId
+    ).some(
+
+        function (receipt) {
+
+            return (
+                receipt.user === user
+            );
+
+        }
+
+    );
+
+}
+
+
+
+function changeReadReceiptUser() {
+
+    readReceiptUser =
+        document.getElementById(
+            "read-receipt-user"
+        ).value;
+
+
+    renderReadReceiptState();
+
+}
+
+
+
+function renderReadReceiptState() {
+
+    const card =
+        document.getElementById(
+            "read-receipt-card"
+        );
+
+
+    const select =
+        document.getElementById(
+            "read-receipt-user"
+        );
+
+
+    const button =
+        document.getElementById(
+            "read-receipt-button"
+        );
+
+
+    const status =
+        document.getElementById(
+            "read-receipt-status"
+        );
+
+
+    const nextButton =
+        document.getElementById(
+            "next-question-button"
+        );
+
+
+    const nextCopy =
+        document.getElementById(
+            "next-question-copy"
+        );
+
+
+    if (
+        !card ||
+        !select ||
+        !button ||
+        !status ||
+        !nextButton ||
+        !nextCopy
+    ) {
+        return;
+    }
+
+
+    const currentAnswers =
+        getCurrentAnswers();
+
+
+    const answeredUsers =
+        new Set(
+
+            currentAnswers.map(
+
+                function (item) {
+
+                    return item.user;
+
+                }
+
+            )
+
+        );
+
+
+    const bothAnswered =
+
+        answeredUsers.has(
+            "Bobby"
+        )
+
+        &&
+
+        answeredUsers.has(
+            "Sierra"
+        );
+
+
+    if (!bothAnswered) {
+
+        card.classList.remove(
+            "visible"
+        );
+
+
+        nextButton.disabled =
+            true;
+
+
+        return;
+
+    }
+
+
+    card.classList.add(
+        "visible"
+    );
+
+
+    if (
+        readReceiptUser === "Bobby" ||
+        readReceiptUser === "Sierra"
+    ) {
+
+        select.value =
+            readReceiptUser;
+
+    } else {
+
+        select.value =
+            "";
+
+    }
+
+
+    const bobbyRead =
+        hasReadPartnerAnswer(
+            "Bobby",
+            appData.questionId
+        );
+
+
+    const sierraRead =
+        hasReadPartnerAnswer(
+            "Sierra",
+            appData.questionId
+        );
+
+
+    const bothRead =
+        bobbyRead &&
+        sierraRead;
+
+
+    status.classList.toggle(
+        "complete",
+        bothRead
+    );
+
+
+    if (bothRead) {
+
+        status.innerText =
+            "✓ We both read each other's answers. Our next question is unlocked. ♡";
+
+
+        nextButton.disabled =
+            false;
+
+
+        nextCopy.innerText =
+            "We're both caught up. Our next question will be picked randomly from the jar.";
+
+    } else {
+
+        nextButton.disabled =
+            true;
+
+
+        nextCopy.innerText =
+            "We both need to read each other's answers before moving on.";
+
+
+        if (bobbyRead) {
+
+            status.innerText =
+                "✓ Bobby read Sierra's answer. Waiting for Sierra to read Bobby's.";
+
+        } else if (sierraRead) {
+
+            status.innerText =
+                "✓ Sierra read Bobby's answer. Waiting for Bobby to read Sierra's.";
+
+        } else {
+
+            status.innerText =
+                "Waiting for both of us to read each other's answers.";
+
+        }
+
+    }
+
+
+    if (!readReceiptUser) {
+
+        button.disabled =
+            true;
+
+
+        button.innerText =
+            "I Read Their Answer ♡";
+
+
+        return;
+
+    }
+
+
+    const selectedAlreadyRead =
+        hasReadPartnerAnswer(
+            readReceiptUser,
+            appData.questionId
+        );
+
+
+    if (selectedAlreadyRead) {
+
+        button.disabled =
+            true;
+
+
+        button.innerText =
+            "Already Marked Read ✓";
+
+    } else {
+
+        button.disabled =
+            false;
+
+
+        button.innerText =
+            "I Read Their Answer ♡";
+
+    }
+
+}
+
+
+
+async function markCurrentAnswerRead() {
+
+    if (!readReceiptUser) {
+
+        alert(
+            "Choose who you are first."
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "read-receipt-button"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    button.innerText =
+        "Marking Read...";
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                API_URL,
+
+                {
+                    method:
+                        "POST",
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "mark_answer_read",
+
+                            questionId:
+                                appData.questionId,
+
+                            user:
+                                readReceiptUser
+
+                        })
+                }
+
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            result.status !==
+            "Success"
+        ) {
+
+            throw new Error(
+                result.message ||
+                "That answer could not be marked as read."
+            );
+
+        }
+
+
+        await fetchAppData();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+            error.message ||
+            "That answer could not be marked as read."
+        );
+
+
+        renderReadReceiptState();
+
+    }
+
+}
+
+
+
 function animatePartnerAnswer() {
 
     const box =
@@ -5436,6 +6067,9 @@ function renderAnswerState() {
     showNextQuestionButton(
         bothAnswered
     );
+
+
+    renderReadReceiptState();
 
 
     if (!activeUser) {
@@ -5618,7 +6252,7 @@ function renderAnswerState() {
 
 
         partnerNote.innerText =
-            "Now we can compare perspectives. ♡";
+            "Read their answer, then mark it below before we move on. ♡";
 
 
         animatePartnerAnswer();
@@ -5925,6 +6559,10 @@ async function requestNextQuestion() {
 
 
         activeUser =
+            "";
+
+
+        readReceiptUser =
             "";
 
 

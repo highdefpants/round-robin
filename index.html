@@ -480,6 +480,268 @@ nav a.active {
 }
 
 
+.question-actions {
+    margin-top: 22px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.skip-question-button {
+    display: none;
+
+    border:
+        1px solid rgba(109, 91, 83, 0.28);
+
+    border-radius: 999px;
+
+    padding: 10px 16px;
+
+    background:
+        rgba(255, 255, 255, 0.72);
+
+    color: #675b56;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    backdrop-filter: blur(7px);
+}
+
+.skip-question-button.visible {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+}
+
+.skip-question-button:hover {
+    background: white;
+
+    border-color:
+        rgba(185, 111, 101, 0.5);
+
+    color: var(--rose-dark);
+}
+
+.skip-question-button:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+}
+
+.skip-modal-overlay {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    z-index: 3000;
+
+    padding: 22px;
+
+    background:
+        rgba(31, 41, 45, 0.48);
+
+    align-items: center;
+    justify-content: center;
+}
+
+.skip-modal-overlay.visible {
+    display: flex;
+}
+
+.skip-modal {
+    width: min(520px, 100%);
+
+    max-height: calc(100vh - 44px);
+
+    overflow-y: auto;
+
+    background: #fffdfb;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 22px;
+
+    padding: 26px;
+
+    box-shadow:
+        0 24px 70px
+        rgba(28, 37, 40, 0.24);
+}
+
+.skip-modal-eyebrow {
+    color: var(--rose-dark);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 7px;
+}
+
+.skip-modal h3 {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 27px;
+
+    margin-bottom: 8px;
+}
+
+.skip-modal-intro {
+    color: var(--muted);
+
+    line-height: 1.55;
+
+    margin-bottom: 20px;
+}
+
+.skip-field-label {
+    display: block;
+
+    margin: 17px 0 8px;
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+.skip-user-select {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: var(--text);
+}
+
+.skip-reasons {
+    display: grid;
+
+    gap: 9px;
+}
+
+.skip-reason-option {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 13px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    background: white;
+
+    cursor: pointer;
+}
+
+.skip-reason-option input {
+    accent-color: var(--rose-dark);
+}
+
+.skip-explanation {
+    min-height: 100px;
+}
+
+.skip-character-count {
+    margin-top: 6px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    text-align: right;
+}
+
+.skip-character-count.valid {
+    color: var(--teal-dark);
+}
+
+.skip-modal-note {
+    margin-top: 14px;
+
+    padding: 11px 12px;
+
+    border-radius: 11px;
+
+    background: #f7f3ef;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+.skip-modal-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.skip-cancel-button,
+.skip-confirm-button {
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 12px 16px;
+
+    font-weight: 800;
+}
+
+.skip-cancel-button {
+    background: #f0ece8;
+
+    color: #675b56;
+}
+
+.skip-confirm-button {
+    background: var(--rose-dark);
+
+    color: white;
+}
+
+.skip-confirm-button:hover {
+    filter: brightness(0.96);
+}
+
+.skip-confirm-button:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+}
+
+
 /* ANSWERS */
 
 .answer-grid {
@@ -2958,8 +3220,168 @@ footer {
         Our two perspectives in one conversation.
     </div>
 
+
+    <div class="question-actions">
+
+        <button
+            class="skip-question-button"
+            id="skip-question-button"
+            onclick="openSkipQuestionModal()"
+        >
+            Skip This Question
+        </button>
+
+    </div>
+
 </section>
 
+
+
+<!-- SKIP QUESTION MODAL -->
+
+<div
+    class="skip-modal-overlay"
+    id="skip-modal-overlay"
+    onclick="handleSkipOverlayClick(event)"
+>
+
+    <div
+        class="skip-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="skip-modal-title"
+    >
+
+        <div class="skip-modal-eyebrow">
+            ♡ Skip this one
+        </div>
+
+        <h3 id="skip-modal-title">
+            Why are we skipping it?
+        </h3>
+
+        <p class="skip-modal-intro">
+            Skipping removes this question from rotation, so leave a quick note about why.
+        </p>
+
+
+        <label
+            class="skip-field-label"
+            for="skip-user-select"
+        >
+            Who are you?
+        </label>
+
+        <select
+            id="skip-user-select"
+            class="skip-user-select"
+        >
+
+            <option
+                value=""
+                disabled
+                selected
+            >
+                Choose one
+            </option>
+
+            <option value="Bobby">
+                Bobby
+            </option>
+
+            <option value="Sierra">
+                Sierra
+            </option>
+
+        </select>
+
+
+        <div class="skip-field-label">
+            Reason
+        </div>
+
+        <div class="skip-reasons">
+
+            <label class="skip-reason-option">
+                <input
+                    type="radio"
+                    name="skip-reason"
+                    value="Repetitive"
+                >
+
+                <span>
+                    Repetitive / already asked in another form
+                </span>
+            </label>
+
+            <label class="skip-reason-option">
+                <input
+                    type="radio"
+                    name="skip-reason"
+                    value="Other"
+                >
+
+                <span>
+                    Other
+                </span>
+            </label>
+
+        </div>
+
+
+        <label
+            class="skip-field-label"
+            for="skip-explanation"
+        >
+            Explain why
+        </label>
+
+        <textarea
+            id="skip-explanation"
+            class="skip-explanation"
+            minlength="15"
+            maxlength="500"
+            placeholder="For example: We already answered basically this same trust question last week."
+            oninput="updateSkipCharacterCount()"
+        ></textarea>
+
+        <div
+            class="skip-character-count"
+            id="skip-character-count"
+        >
+            0 / 15 minimum
+        </div>
+
+
+        <div class="skip-modal-note">
+            A question can only be skipped before either of us answers it. The reason will be saved in the Skipped_Questions sheet.
+        </div>
+
+
+        <div class="skip-modal-actions">
+
+            <button
+                class="skip-cancel-button"
+                type="button"
+                onclick="closeSkipQuestionModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="skip-confirm-button"
+                id="skip-confirm-button"
+                type="button"
+                onclick="submitSkipQuestion()"
+            >
+                Skip Question
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 
 <!-- ANSWERS -->
@@ -4241,6 +4663,8 @@ async function fetchAppData() {
 
         refreshUserSelector();
 
+        renderSkipQuestionState();
+
         buildJournal();
 
         buildRecentConversation();
@@ -5520,6 +5944,395 @@ function handleUserChange() {
 
 
 
+/* SKIP QUESTION */
+
+function renderSkipQuestionState() {
+
+    const button =
+        document.getElementById(
+            "skip-question-button"
+        );
+
+
+    if (!button) {
+        return;
+    }
+
+
+    const currentAnswers =
+        getCurrentAnswers();
+
+
+    const canSkip =
+        Boolean(
+            appData.question &&
+            appData.questionId
+        ) &&
+        currentAnswers.length === 0;
+
+
+    button.classList.toggle(
+        "visible",
+        canSkip
+    );
+
+
+    button.disabled =
+        !canSkip;
+
+
+    if (!canSkip) {
+        closeSkipQuestionModal();
+    }
+
+}
+
+
+function openSkipQuestionModal() {
+
+    if (
+        getCurrentAnswers().length > 0
+    ) {
+
+        alert(
+            "This question can't be skipped after someone has answered it."
+        );
+
+        renderSkipQuestionState();
+
+        return;
+    }
+
+
+    const overlay =
+        document.getElementById(
+            "skip-modal-overlay"
+        );
+
+
+    const userSelect =
+        document.getElementById(
+            "skip-user-select"
+        );
+
+
+    const explanation =
+        document.getElementById(
+            "skip-explanation"
+        );
+
+
+    if (
+        activeUser === "Bobby" ||
+        activeUser === "Sierra"
+    ) {
+        userSelect.value =
+            activeUser;
+    } else {
+        userSelect.value =
+            "";
+    }
+
+
+    document
+        .querySelectorAll(
+            'input[name="skip-reason"]'
+        )
+        .forEach(
+            function (radio) {
+                radio.checked =
+                    false;
+            }
+        );
+
+
+    explanation.value =
+        "";
+
+
+    updateSkipCharacterCount();
+
+
+    overlay.classList.add(
+        "visible"
+    );
+
+
+    setTimeout(
+        function () {
+            userSelect.focus();
+        },
+        50
+    );
+
+}
+
+
+function closeSkipQuestionModal() {
+
+    const overlay =
+        document.getElementById(
+            "skip-modal-overlay"
+        );
+
+
+    if (overlay) {
+        overlay.classList.remove(
+            "visible"
+        );
+    }
+
+}
+
+
+function handleSkipOverlayClick(event) {
+
+    if (
+        event.target &&
+        event.target.id ===
+            "skip-modal-overlay"
+    ) {
+        closeSkipQuestionModal();
+    }
+
+}
+
+
+function updateSkipCharacterCount() {
+
+    const explanation =
+        document.getElementById(
+            "skip-explanation"
+        );
+
+
+    const count =
+        document.getElementById(
+            "skip-character-count"
+        );
+
+
+    if (!explanation || !count) {
+        return;
+    }
+
+
+    const length =
+        explanation.value.trim().length;
+
+
+    count.innerText =
+        length +
+        " / 15 minimum";
+
+
+    count.classList.toggle(
+        "valid",
+        length >= 15
+    );
+
+}
+
+
+async function submitSkipQuestion() {
+
+    const user =
+        document.getElementById(
+            "skip-user-select"
+        ).value;
+
+
+    const reasonInput =
+        document.querySelector(
+            'input[name="skip-reason"]:checked'
+        );
+
+
+    const reason =
+        reasonInput
+            ? reasonInput.value
+            : "";
+
+
+    const explanation =
+        document.getElementById(
+            "skip-explanation"
+        ).value.trim();
+
+
+    const button =
+        document.getElementById(
+            "skip-confirm-button"
+        );
+
+
+    if (!user) {
+        alert(
+            "Choose who is skipping this question."
+        );
+
+        return;
+    }
+
+
+    if (!reason) {
+        alert(
+            "Choose a reason for skipping."
+        );
+
+        return;
+    }
+
+
+    if (explanation.length < 15) {
+        alert(
+            "Please explain why you're skipping it in at least 15 characters."
+        );
+
+        return;
+    }
+
+
+    if (
+        getCurrentAnswers().length > 0
+    ) {
+        alert(
+            "This question can't be skipped after someone has answered it."
+        );
+
+        closeSkipQuestionModal();
+        renderSkipQuestionState();
+
+        return;
+    }
+
+
+    button.disabled =
+        true;
+
+
+    button.innerText =
+        "Skipping...";
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                API_URL,
+
+                {
+                    method:
+                        "POST",
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "skip_question",
+
+                            user:
+                                user,
+
+                            reason:
+                                reason,
+
+                            explanation:
+                                explanation,
+
+                            questionId:
+                                appData.questionId
+
+                        })
+                }
+
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            result.status !==
+            "Success"
+        ) {
+
+            throw new Error(
+                result.message ||
+                "That question could not be skipped."
+            );
+
+        }
+
+
+        activeUser =
+            "";
+
+
+        readReceiptUser =
+            "";
+
+
+        closeSkipQuestionModal();
+
+
+        await fetchAppData();
+
+
+        document.getElementById(
+            "question-hero"
+        ).scrollIntoView({
+
+            behavior:
+                "smooth",
+
+            block:
+                "start"
+
+        });
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+            error.message ||
+            "That question could not be skipped."
+        );
+
+
+    } finally {
+
+        button.disabled =
+            false;
+
+
+        button.innerText =
+            "Skip Question";
+
+    }
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+            closeSkipQuestionModal();
+        }
+
+    }
+);
+
+
 /* ANSWER DISPLAY */
 
 function showNextQuestionButton(show) {
@@ -5964,6 +6777,9 @@ function animatePartnerAnswer() {
 
 
 function renderAnswerState() {
+
+    renderSkipQuestionState();
+
 
     const currentAnswers =
         getCurrentAnswers();
